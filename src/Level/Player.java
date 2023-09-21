@@ -5,6 +5,7 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Players.PlayerFireball;
 import Utils.AirGroundState;
 import Utils.Direction;
 
@@ -43,9 +44,13 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    // Peter Zegarek adding the fireball key F
+    protected Key FIREBALL_KEY = Key.F;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
+    protected int cooldownCounter; // Time for the fireball to be on cooldown
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -60,6 +65,14 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+
+        // cooldown counter decreases everytime by 1
+        if (cooldownCounter > 0){
+            cooldownCounter--;
+            if (cooldownCounter == 0){
+                fireballOnCooldown = false;
+            }
+        }
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
@@ -274,6 +287,35 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
         }
+        // if the fireball key is being pressed spit one out as long as the cooldown is good
+        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false)){
+            fireballSpit(getX(), getY(), getFacingDirection());
+        }
+    }
+
+    // Peter Zegarek code for the fireball to be spit out.
+    // x and y are the player's positions, directions is the direction they are facing
+    public void fireballSpit(float x, float y, Direction direction){
+        // Debugging print statement
+        //System.out.println("Fireball is being spit at x:" + x + " and y:" + y);
+        float movementSpeed;
+        float spawnX =x;
+        float spawnY = y + 10;
+        if (direction == Direction.RIGHT){
+            spawnX+= 30;
+            movementSpeed = 2;
+        }
+        else {
+            spawnX += 10;
+            movementSpeed = -2;
+        }
+        // Create a fireball and add it to the map
+        PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, 80);
+        map.addEnemy(fireball);
+
+        // Set the cooldown here
+        cooldownCounter = 200;
+        fireballOnCooldown = true;
     }
 
     @Override

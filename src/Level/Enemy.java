@@ -44,4 +44,15 @@ public class Enemy extends MapEntity {
     public void touchedPlayer(Player player) {
         player.hurtPlayer(this);
     }
+
+    // -Peter 9/21
+    // I'm thinking that we should treat all the elemental abilities as "enemies"
+    // When the ability attacks an enemy this function will be called
+    // Override as necessary
+    // The enemy parameter is the enemy being hit
+    public void enemyAttacked(Enemy enemy){
+        System.out.println("Enemy attacked");
+        // This should make the enemy dissapear
+        enemy.mapEntityStatus = MapEntityStatus.REMOVED;
+    }
 }
