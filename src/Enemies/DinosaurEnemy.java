@@ -5,6 +5,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.Player;
@@ -49,6 +50,8 @@ public class DinosaurEnemy extends Enemy {
 
     @Override
     public void initialize() {
+        // Add the dinosaur as an enemy to listen for elemental abilities
+        ElementalAbilityListenerManager.addListener(this);
         super.initialize();
         dinosaurState = DinosaurState.WALK;
         previousDinosaurState = dinosaurState;
@@ -148,6 +151,12 @@ public class DinosaurEnemy extends Enemy {
         super.update(player);
 
         previousDinosaurState = dinosaurState;
+
+        if (activeFireball != null){
+            if (intersects(activeFireball)){
+                enemyAttacked(this);
+            }
+        }
     }
 
     @Override

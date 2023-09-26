@@ -5,6 +5,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.Player;
@@ -31,8 +32,12 @@ public class BugEnemy extends Enemy {
         this.initialize();
     }
 
+
+
     @Override
     public void initialize() {
+        // Add the bug as an enemy to listen for elemental abilities
+        ElementalAbilityListenerManager.addListener(this);
         super.initialize();
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
@@ -65,6 +70,12 @@ public class BugEnemy extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
+
+        if (activeFireball != null){
+            if (intersects(activeFireball)){
+                enemyAttacked(this);
+            }
+        }
     }
 
     @Override
