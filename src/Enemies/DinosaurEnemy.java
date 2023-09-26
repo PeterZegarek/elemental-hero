@@ -51,7 +51,7 @@ public class DinosaurEnemy extends Enemy {
     @Override
     public void initialize() {
         // Add the dinosaur as an enemy to listen for elemental abilities
-        ElementalAbilityListenerManager.addListener(this);
+        ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
         dinosaurState = DinosaurState.WALK;
         previousDinosaurState = dinosaurState;
@@ -152,9 +152,12 @@ public class DinosaurEnemy extends Enemy {
 
         previousDinosaurState = dinosaurState;
 
+        // if there is a fireball and it got hit
         if (activeFireball != null){
             if (intersects(activeFireball)){
                 enemyAttacked(this);
+                // broadcast so the fireball disappears
+                ElementalAbilityListenerManager.fireballKilledEnemy();
             }
         }
     }

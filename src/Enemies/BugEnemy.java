@@ -37,7 +37,7 @@ public class BugEnemy extends Enemy {
     @Override
     public void initialize() {
         // Add the bug as an enemy to listen for elemental abilities
-        ElementalAbilityListenerManager.addListener(this);
+        ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
@@ -71,9 +71,14 @@ public class BugEnemy extends Enemy {
 
         super.update(player);
 
+        // Peter Zegarek - 9/26. This should probably be implemented in the Enemy class and then overriden for individual enemies. 
+        // fine for now
+        // this applies for all enemies this exists in!
         if (activeFireball != null){
             if (intersects(activeFireball)){
                 enemyAttacked(this);
+                // broadcast to the fireball that it killed something so it should disappear
+                ElementalAbilityListenerManager.fireballKilledEnemy();
             }
         }
     }

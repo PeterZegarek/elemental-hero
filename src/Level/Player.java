@@ -308,6 +308,9 @@ public abstract class Player extends GameObject{
             spawnX += 10;
             movementSpeed = -4;
         }
+        if (playerState == PlayerState.CROUCHING){
+            spawnY += 5;
+        }
         // Create a fireball and add it to the map
         PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, existenceFrames);
         map.addEnemy(fireball);

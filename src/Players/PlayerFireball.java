@@ -39,6 +39,8 @@ public class PlayerFireball extends Enemy {
     public void initialize() {
         // This lets other classes know that a fireball has been spawned
         ElementalAbilityListenerManager.fireballSpawned(this);
+        // This is so that it can react when killing something (by disappearing)
+        ElementalAbilityListenerManager.addElementListener(this);
         super.initialize();
         
     }
@@ -76,6 +78,13 @@ public class PlayerFireball extends Enemy {
     // As it stands, enemyAttacked is not necessary as the enemies themselves will die if they get hit
     @Override
     public void enemyAttacked(Enemy enemy) {}
+
+    // If the fireball has killed an enemy, it will disappear
+    @Override
+    public void fireballKilledEnemy(){
+        ElementalAbilityListenerManager.fireballDespawned();
+        this.mapEntityStatus = MapEntityStatus.REMOVED;
+    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

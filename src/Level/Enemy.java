@@ -22,6 +22,10 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     public void fireballDespawned(){
         activeFireball = null;
     }
+
+    // This is irrelevant for enemies, only relevant for the player fireball
+    @Override
+    public void fireballKilledEnemy(){}
     
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
