@@ -296,25 +296,24 @@ public abstract class Player extends GameObject{
     // Peter Zegarek code for the fireball to be spit out.
     // x and y are the player's positions, directions is the direction they are facing
     public void fireballSpit(float x, float y, Direction direction){
-        // Debugging print statement
-        //System.out.println("Fireball is being spit at x:" + x + " and y:" + y);
         float movementSpeed;
         float spawnX =x;
         float spawnY = y + 10;
+        int existenceFrames = 50;
         if (direction == Direction.RIGHT){
             spawnX+= 30;
-            movementSpeed = 2;
+            movementSpeed = 4;
         }
         else {
             spawnX += 10;
-            movementSpeed = -2;
+            movementSpeed = -4;
         }
         // Create a fireball and add it to the map
-        PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, 80);
+        PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, existenceFrames);
         map.addEnemy(fireball);
         // Peter
 
-        // Set the cooldown here
+        // Set the cooldown here (cooldown is in frames, remember 60 fps so 60 = 1 second)
         cooldownCounter = 200;
         fireballOnCooldown = true;
     }

@@ -50,9 +50,8 @@ public class DinosaurEnemy extends Enemy {
 
     @Override
     public void initialize() {
+        // Add the dinosaur as an enemy to listen for elemental abilities
         ElementalAbilityListenerManager.addListener(this);
-        // Peter Zegarek added this next line
-        super.addListener(this);
         super.initialize();
         dinosaurState = DinosaurState.WALK;
         previousDinosaurState = dinosaurState;

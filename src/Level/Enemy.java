@@ -4,7 +4,6 @@ import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Players.PlayerFireball;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -14,21 +13,11 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     //Variable to figure out if there currently is a fireball on the map or not
     protected PlayerFireball activeFireball = null;
 
-    // classes that listen to elemental events can be added to this list
-    protected ArrayList<ElementalAbilityListener> listeners = new ArrayList<>();
-
-    int counter = 0;
-    public void addListener(ElementalAbilityListener listener) {
-        listeners.add(listener);
-        counter++;
-        System.out.println(counter);
-    }
-
+    // These come from the listener and let the enemy know whether or not there is a fireball active
     @Override
     public void fireballSpawned(PlayerFireball fireball){
         activeFireball = fireball;
     }
-
     @Override
     public void fireballDespawned(){
         activeFireball = null;
@@ -60,12 +49,13 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
         super.initialize();
     }
 
-    
+    // This is called every frame
     public void update(Player player) {
         super.update();
         if (intersects(player)) {
             touchedPlayer(player);
         }
+        // If there is a fireball active on the screen it checks if the enemy is touching it
         if (activeFireball != null){
             if (intersects(activeFireball)){
                 enemyAttacked(this);
@@ -73,15 +63,6 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
         }
     }
 
-    // add params for each elemental ability to interact with enemies (however this needs to happen)
-    public void updateForElementalAbility(PlayerFireball fireball){
-        if (intersects(fireball)){
-            // Add whatever code the elemental ability needs to do to the enemy for it to be attacked.
-            // Fireball just makes it dissapear.
-            // Maybe the earth ability will knock it up in the air then die.
-            enemyAttacked(this);
-        }
-    }
 
     // A subclass can override this method to specify what it does when it touches the player
     public void touchedPlayer(Player player) {
@@ -91,10 +72,11 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     // -Peter 9/21
     // I'm thinking that we should treat all the elemental abilities as "enemies"
     // When the ability attacks an enemy this function will be called
-    // Override as necessary
-    // The enemy parameter is the enemy being hit
+    // Override as necessary; The enemy parameter is the enemy being hit
     public void enemyAttacked(Enemy enemy){
-        System.out.println("Enemy attacked");
+        // Next line should be used for debugging purposes. Keep it commented for now.
+        //System.out.println("Enemy attacked");
+
         // This should make the enemy dissapear
         enemy.mapEntityStatus = MapEntityStatus.REMOVED;
     }

@@ -6,27 +6,26 @@ import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
-import Level.ElementalAbilityListener;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
-import Level.PlayerListener;
 import Utils.Direction;
 
 
 // This is the class for the fireball that the player can shoot out
 // Future updates may require this ability to be hidden and then later on unlockable.
-// Right now I am trying to determine how to make the game realize an enemy has been collided with
+// This might be possible with the locked key mechanic but it's more likely that we just add a global enum / variable 
+// This global variable can be used for determining whether or not the ability button press does anything.
 public class PlayerFireball extends Enemy {
     private float movementSpeed;
     private int existenceFrames;
 
-
     public PlayerFireball(float xPos, float yPos, float movementSpeed, int existenceFrames) {
         // This fireball is going to be larger than the enemy fireball
         super(xPos, yPos, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+       
         // How fast it moves
         this.movementSpeed = movementSpeed;
 
@@ -34,13 +33,11 @@ public class PlayerFireball extends Enemy {
         this.existenceFrames = existenceFrames;
 
         initialize();
-        //listener.fireballSpawned(this);
-        // Need to figure out how to implement the listener because "fireball spawned" is not working properly. super.fireballspawned does not work either
     }
 
     @Override
     public void initialize() {
-        System.out.println("Hello");
+        // This lets other classes know that a fireball has been spawned
         ElementalAbilityListenerManager.fireballSpawned(this);
         super.initialize();
         
@@ -51,7 +48,7 @@ public class PlayerFireball extends Enemy {
         // if timer is up, set map entity status to REMOVED
         // the camera class will see this next frame and remove it permanently from the map
         if (existenceFrames == 0) {
-            //listener.fireballDespawned();
+            ElementalAbilityListenerManager.fireballDespawned();
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
             // move fireball forward
@@ -66,7 +63,7 @@ public class PlayerFireball extends Enemy {
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
-            //listener.fireballDespawned();
+            ElementalAbilityListenerManager.fireballDespawned();
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
     }
@@ -76,14 +73,9 @@ public class PlayerFireball extends Enemy {
     public void touchedPlayer(Player player){}
 
 
+    // As it stands, enemyAttacked is not necessary as the enemies themselves will die if they get hit
     @Override
-    public void enemyAttacked(Enemy enemy) {
-        // Peter - as of right now (9/26) i have not determined how to make the fireball register other enemies but not itself
-        // // if fireball touches enemy, it disappears and kills enemy
-        // super.enemyAttacked(enemy);
-        // listener.fireballDespawned(this);
-        // this.mapEntityStatus = MapEntityStatus.REMOVED;
-    }
+    public void enemyAttacked(Enemy enemy) {}
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

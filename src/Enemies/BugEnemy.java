@@ -9,7 +9,6 @@ import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.Player;
-import Players.PlayerFireball;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -37,9 +36,8 @@ public class BugEnemy extends Enemy {
 
     @Override
     public void initialize() {
+        // Add the bug as an enemy to listen for elemental abilities
         ElementalAbilityListenerManager.addListener(this);
-        // Peter Zegarek added this
-        //super.addListener(this);
         super.initialize();
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
