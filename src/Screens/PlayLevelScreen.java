@@ -8,7 +8,7 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.EarthMap; // add other maps to this?
-import Players.Cat;
+import Players.Hero;
 import Utils.Point;
 
 // This class is for when the platformer game is actually being played
@@ -31,7 +31,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.map = new EarthMap();
 
         // setup player
-        this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
         this.player.addListener(this);
         Point playerStartPosition = map.getPlayerStartPosition();
