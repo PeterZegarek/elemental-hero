@@ -101,7 +101,7 @@ public class DinosaurEnemy extends Enemy {
             }
         }
 
-        // if dinosaur is waiting to shoot, it first turns read for a set number of frames
+        // if dinosaur is waiting to shoot, it first turns red for a set number of frames
         // after this waiting period is over, the fireball is actually shot out
         if (dinosaurState == DinosaurState.SHOOT_WAIT) {
             if (previousDinosaurState == DinosaurState.WALK) {

@@ -12,9 +12,9 @@ import Utils.SlopeTileLayoutUtils;
 import java.util.ArrayList;
 
 // This class represents a "common" tileset of standard tiles defined in the CommonTileset.png file
-public class CommonTileset extends Tileset {
+public class EarthTileset extends Tileset {
 
-    public CommonTileset() {
+    public EarthTileset() {
         super(ImageLoader.load("CommonTileset.png"), 16, 16, 3);
     }
 
@@ -214,7 +214,7 @@ public class CommonTileset extends Tileset {
                 .build();
 
         MapTileBuilder greyRockTile = new MapTileBuilder(greyRockFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.PASSABLE);
 
         mapTiles.add(greyRockTile);
 

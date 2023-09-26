@@ -8,7 +8,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
-import Tilesets.CommonTileset;
+import Tilesets.EarthTileset;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -17,19 +17,37 @@ import java.util.ArrayList;
 public class EarthMap extends Map {
 
     public EarthMap() {
-        super("EarthMap.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 11).getLocation();
+        super("EarthMap.txt", new EarthTileset());
+        this.playerStartPosition = getMapTile(4, 18).getLocation();
     }
 
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
-        enemies.add(bugEnemy);
+        BugEnemy bugEnemy1 = new BugEnemy(getMapTile(19, 26).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy1);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
-        enemies.add(dinosaurEnemy);
+        BugEnemy bugEnemy2 = new BugEnemy(getMapTile(28, 27).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy2);
+
+        BugEnemy bugEnemy3 = new BugEnemy(getMapTile(16, 17).getLocation().subtractY(25), Direction.LEFT);
+        enemies.add(bugEnemy3);
+
+        BugEnemy bugEnemy4 = new BugEnemy(getMapTile(16, 17).getLocation().subtractY(25), Direction.RIGHT);
+        enemies.add(bugEnemy4);
+
+        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(10, 25).getLocation().addY(2), getMapTile(13, 25).getLocation().addY(2), Direction.LEFT);
+        enemies.add(dinosaurEnemy1);
+
+        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(31, 26).getLocation().addY(2), getMapTile(36, 26).getLocation().addY(2), Direction.LEFT);
+        enemies.add(dinosaurEnemy2);
+
+        DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(32, 17).getLocation().addY(2), getMapTile(40, 13).getLocation().addY(2), Direction.LEFT);
+        enemies.add(dinosaurEnemy3);
+
+        DinosaurEnemy dinosaurEnemy4 = new DinosaurEnemy(getMapTile(48, 13).getLocation().addY(2), getMapTile(55, 13).getLocation().addY(2), Direction.LEFT);
+        enemies.add(dinosaurEnemy4);
 
         return enemies;
     }
@@ -49,7 +67,29 @@ public class EarthMap extends Map {
         );
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(32, 7).getLocation());
+        HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(47, 6).getLocation(),
+                getMapTile(50, 6).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        );
+        enhancedMapTiles.add(hmp2);
+
+        HorizontalMovingPlatform hmp3 = new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(49, 10).getLocation(),
+                getMapTile(53, 10).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        );
+        enhancedMapTiles.add(hmp3);
+
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(64, 9).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
@@ -59,7 +99,7 @@ public class EarthMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(30, 10).getLocation().subtractY(13));
+        Walrus walrus = new Walrus(getMapTile(48, 26).getLocation().subtractY(13));
         npcs.add(walrus);
 
         return npcs;
