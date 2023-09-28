@@ -44,7 +44,7 @@ public abstract class Player extends GameObject{
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
-    // Peter Zegarek adding the fireball key F
+    // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
 
     // flags
@@ -287,13 +287,13 @@ public abstract class Player extends GameObject{
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
         }
-        // if the fireball key is being pressed spit one out as long as the cooldown is good
+        // if the fireball key is being pressed spit one out as long as the cooldown is good.
+        // If we plan to make the ability unlockable, all we need is another condition in this statement
         if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false)){
             fireballSpit(getX(), getY(), getFacingDirection());
         }
     }
 
-    // Peter Zegarek code for the fireball to be spit out.
     // x and y are the player's positions, directions is the direction they are facing
     public void fireballSpit(float x, float y, Direction direction){
         float movementSpeed;
