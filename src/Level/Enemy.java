@@ -28,6 +28,7 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     public void fireballKilledEnemy(){}
     
 
+    // Enemy constructors
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
     }
@@ -73,15 +74,12 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
         player.hurtPlayer(this);
     }
 
-    // -Peter 9/21
-    // I'm thinking that we should treat all the elemental abilities as "enemies"
+    // All the elemental abilities are being treated as "enemies"
     // When the ability attacks an enemy this function will be called
     // Override as necessary; The enemy parameter is the enemy being hit
     public void enemyAttacked(Enemy enemy){
-        // Next line should be used for debugging purposes. Keep it commented for now.
-        //System.out.println("Enemy attacked");
-
-        // This should make the enemy dissapear
+    
+        // This makes the enemy dissapear
         enemy.mapEntityStatus = MapEntityStatus.REMOVED;
     }
 }
