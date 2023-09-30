@@ -28,7 +28,7 @@ public class FireTileset extends Tileset {
                 .build();
 
         MapTileBuilder Fire1Tile = new MapTileBuilder(Fire1Frame)
-                .withTileType(TileType.PASSABLE);
+                .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(Fire1Tile);
  

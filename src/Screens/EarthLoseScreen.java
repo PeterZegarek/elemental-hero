@@ -5,15 +5,16 @@ import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-// This is the class for the level lose screen
-public class LevelLoseScreen extends Screen {
+// This is the class for the Earth level lose screen
+public class EarthLoseScreen extends Screen {
     protected SpriteFont loseMessage;
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
-    protected PlayLevelScreen playLevelScreen;
+    protected PlayEarthLevelScreen playEarthLevelScreen;
+    protected PlayFireLevelScreen playFireLevelScreen;
 
-    public LevelLoseScreen(PlayLevelScreen playLevelScreen) {
-        this.playLevelScreen = playLevelScreen;
+    public EarthLoseScreen(PlayEarthLevelScreen playEarthLevelScreen) {
+        this.playEarthLevelScreen = playEarthLevelScreen;
         initialize();
     }
 
@@ -36,9 +37,9 @@ public class LevelLoseScreen extends Screen {
 
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
-            playLevelScreen.resetLevel();
-        } else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
-            playLevelScreen.goBackToMenu();
+            playEarthLevelScreen.resetLevel();
+        }else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
+            playEarthLevelScreen.goBackToMenu();
         }
     }
 
