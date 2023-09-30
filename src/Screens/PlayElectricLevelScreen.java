@@ -7,28 +7,28 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.EarthMap; 
+import Maps.ElectricMap; 
 import Players.Hero;
 import Utils.Point;
 
 // This class is for when the platformer game is actually being played
-public class PlayEarthLevelScreen extends Screen implements PlayerListener {
+public class PlayElectricLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
     protected LevelClearedScreen levelClearedScreen;
-    protected EarthLoseScreen EarthLoseScreen;
+    protected ElectricLoseScreen ElectricLoseScreen;
     protected boolean levelCompletedStateChangeStart;
 
-    public PlayEarthLevelScreen(ScreenCoordinator screenCoordinator) {
+    public PlayElectricLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
         // define/setup map
-        map = new EarthMap();
+        map = new ElectricMap();
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
@@ -38,7 +38,7 @@ public class PlayEarthLevelScreen extends Screen implements PlayerListener {
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
         levelClearedScreen = new LevelClearedScreen();
-        EarthLoseScreen = new EarthLoseScreen(this);
+        ElectricLoseScreen = new ElectricLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
@@ -60,13 +60,13 @@ public class PlayEarthLevelScreen extends Screen implements PlayerListener {
                     levelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        screenCoordinator.setGameState(GameState.LEVEL2); //Transitions to Fire Map (level 2)
+                        screenCoordinator.setGameState(GameState.LEVEL5); //Transitions to Air Map (level 5)
                     }
                 }
                 break;
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
-                EarthLoseScreen.update();
+                ElectricLoseScreen.update();
                 break;
         }
     }
@@ -82,7 +82,7 @@ public class PlayEarthLevelScreen extends Screen implements PlayerListener {
                 levelClearedScreen.draw(graphicsHandler);
                 break;
             case LEVEL_LOSE:
-                EarthLoseScreen.draw(graphicsHandler);
+                ElectricLoseScreen.draw(graphicsHandler);
                 break;
         }
     }

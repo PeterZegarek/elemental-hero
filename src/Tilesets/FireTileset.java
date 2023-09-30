@@ -11,7 +11,6 @@ import Utils.SlopeTileLayoutUtils;
 
 import java.util.ArrayList;
 
-//This still needs to be completed in full - Hunter
 public class FireTileset extends Tileset {
 
     public FireTileset() {
@@ -22,7 +21,7 @@ public class FireTileset extends Tileset {
     public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
 
-        // Lava Platform
+        // Add tile name here
         Frame Fire1Frame = new FrameBuilder(getSubImage(0, 0))
                 .withScale(tileScale)
                 .build();
@@ -32,7 +31,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire1Tile);
  
-        // Lava1
+        // Add tile name here
         Frame Fire2Frame = new FrameBuilder(getSubImage(0, 3))
                 .withScale(tileScale)
                 .build();
@@ -41,7 +40,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire2Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire3Frame = new FrameBuilder(getSubImage(1, 0))
                 .withScale(tileScale)
                 .build();
@@ -50,7 +49,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire3Tile);
 
-        // Lava Platform
+        // Add tile name here
         Frame Fire4Frame = new FrameBuilder(getSubImage(1, 4))
                 .withScale(tileScale)
                 .build();
@@ -60,7 +59,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire4Tile);
  
-        // Lava1
+        // Add tile name here
         Frame Fire5Frame = new FrameBuilder(getSubImage(3, 0))
                 .withScale(tileScale)
                 .build();
@@ -69,7 +68,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire5Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire6Frame = new FrameBuilder(getSubImage(3, 3))
                 .withScale(tileScale)
                 .build();
@@ -78,7 +77,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire6Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire7Frame = new FrameBuilder(getSubImage(3, 4))
                 .withScale(tileScale)
                 .build();
@@ -87,7 +86,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire7Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire8Frame = new FrameBuilder(getSubImage(4, 0))
                 .withScale(tileScale)
                 .build();
@@ -96,7 +95,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire8Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire9Frame = new FrameBuilder(getSubImage(4, 1))
                 .withScale(tileScale)
                 .build();
@@ -105,7 +104,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire9Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire10Frame = new FrameBuilder(getSubImage(4, 2))
                 .withScale(tileScale)
                 .build();
@@ -114,7 +113,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire10Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire11Frame = new FrameBuilder(getSubImage(4, 3))
                 .withScale(tileScale)
                 .build();
@@ -123,7 +122,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire11Tile);
 
-        // Lava1
+        // Add tile name here
         Frame Fire12Frame = new FrameBuilder(getSubImage(4, 4))
                 .withScale(tileScale)
                 .build();

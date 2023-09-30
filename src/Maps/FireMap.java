@@ -3,6 +3,10 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.DinosaurEnemy;
+import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HorizontalMovingPlatform;
+import GameObject.Rectangle;
 import Level.*;
 import Tilesets.FireTileset; // change to FireTileset
 import Utils.Direction;
@@ -27,6 +31,16 @@ public class FireMap extends Map{
         enemies.add(dinosaurEnemy2);
 
         return enemies;
+    }
+
+    @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(22, 11).getLocation());
+        enhancedMapTiles.add(endLevelBox);
+
+        return enhancedMapTiles;
     }
     
 }

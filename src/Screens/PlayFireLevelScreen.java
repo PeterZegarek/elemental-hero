@@ -60,7 +60,7 @@ public class PlayFireLevelScreen extends Screen implements PlayerListener {
                     levelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goBackToMenu();
+                        screenCoordinator.setGameState(GameState.LEVEL3); //Transitions to Water Map (level 3)
                     }
                 }
                 break;
