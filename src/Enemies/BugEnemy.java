@@ -79,8 +79,17 @@ public class BugEnemy extends Enemy {
                 enemyAttacked(this);
                 // broadcast to the fireball that it killed something so it should disappear
                 ElementalAbilityListenerManager.fireballKilledEnemy();
-            }
+            } 
         }
+
+        //Lukas - added wave to this
+        if (activeWave != null){
+            if (intersects(activeWave)){
+                enemyAttacked(this);
+                ElementalAbilityListenerManager.waveKilledEnemy();
+            } 
+        }
+
     }
 
     @Override

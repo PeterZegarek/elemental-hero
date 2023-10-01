@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Players.PlayerFireball;
+import Players.Wave;
 
 public class ElementalAbilityListenerManager {
     // List of (probably) enemies that need to have a reaction to getting hit by an elemental ability.
@@ -53,6 +54,28 @@ public class ElementalAbilityListenerManager {
     public static void fireballKilledEnemy(){
         for (ElementalAbilityListener listener : elementalListeners){
             listener.fireballKilledEnemy();
+        }
+    }
+
+
+    // broadcasts the fireball spawning to all listeners
+    public static void waveSpawned(Wave wave) {
+        for (ElementalAbilityListener listener : enemyListeners) {
+            listener.waveSpawned(wave);
+        }
+    }
+
+    // broadcasts the fireball despawning to all listeners
+    public static void waveDespawned() {
+        for (ElementalAbilityListener listener : enemyListeners) {
+            listener.waveDespawned();
+        }
+    }
+
+    // broadcasts the fact that the fireball killed an enemy to the fireball so that it disappears 
+    public static void waveKilledEnemy(){
+        for (ElementalAbilityListener listener : elementalListeners){
+            listener.waveKilledEnemy();
         }
     }
 }
