@@ -6,6 +6,7 @@ import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Players.PlayerFireball;
+import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
 
@@ -46,11 +47,14 @@ public abstract class Player extends GameObject{
     protected Key CROUCH_KEY = Key.DOWN;
     // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
+    // adding wave key
+    protected Key WAVE_KEY = Key.W;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
     protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
-    protected int cooldownCounter; // Time for the fireball to be on cooldown
+    protected boolean waveOnCooldown = false; // Whether wave is on cooldown
+    protected int cooldownCounter; // Time for the fireball/wave to be on cooldown
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -71,6 +75,7 @@ public abstract class Player extends GameObject{
             cooldownCounter--;
             if (cooldownCounter == 0){
                 fireballOnCooldown = false;
+                waveOnCooldown = false;
             }
         }
 
@@ -292,6 +297,10 @@ public abstract class Player extends GameObject{
         if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false)){
             fireballSpit(getX(), getY(), getFacingDirection());
         }
+        
+        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false)){
+            waveAttack(getX(), getY(), getFacingDirection());
+        }
     }
 
     // x and y are the player's positions, directions is the direction they are facing
@@ -319,6 +328,27 @@ public abstract class Player extends GameObject{
         // Set the cooldown here (cooldown is in frames, remember 60 fps so 60 = 1 second)
         cooldownCounter = 200;
         fireballOnCooldown = true;
+    }
+
+    public void waveAttack(float x, float y, Direction direction){
+        float spawnX = x;
+        float spawnY = y-20; //can make it y-25 if you want to make it so you have to crouch to kill bug
+
+        if(direction==Direction.RIGHT){
+            spawnX+=50;
+        }
+        else {
+            spawnX-=30;
+        }
+        if (playerState == PlayerState.CROUCHING){
+            spawnY+=5;
+        }
+
+        Wave wave = new Wave(spawnX, spawnY, direction);
+        map.addEnemy(wave);
+
+        cooldownCounter=150;
+        waveOnCooldown = true;
     }
 
     @Override

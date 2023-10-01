@@ -3,6 +3,7 @@ package Level;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Players.PlayerFireball;
+import Players.Wave;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
 
     //Variable to figure out if there currently is a fireball on the map or not
     protected PlayerFireball activeFireball = null;
+    protected Wave activeWave = null;
 
     // These come from the listener and let the enemy know whether or not there is a fireball active
     @Override
@@ -26,7 +28,19 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     // This is irrelevant for enemies, only relevant for the player fireball
     @Override
     public void fireballKilledEnemy(){}
+
+    @Override
+    public void waveSpawned(Wave wave){
+        activeWave = wave;
+    }
     
+    @Override
+    public void waveDespawned(){
+        activeWave = null;
+    }
+
+    @Override
+    public void waveKilledEnemy(){}
 
     // Enemy constructors
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -63,6 +77,11 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
         // If there is a fireball active on the screen it checks if the enemy is touching it
         if (activeFireball != null){
             if (intersects(activeFireball)){
+                enemyAttacked(this);
+            }
+        }
+        if(activeWave!=null){
+            if(intersects(activeWave)){
                 enemyAttacked(this);
             }
         }
