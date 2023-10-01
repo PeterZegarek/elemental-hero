@@ -154,18 +154,90 @@ public class Hero extends Player {
                             .build()
             });
 
-            put("HURT_RIGHT", new Frame[] {
+            put("HURT_STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2,1))
                             .withScale(3)
                             .withBounds(8, 12, 8, 6)
                             .build()
             });
 
-            put("HURT_LEFT", new Frame[] {
+            put("HURT_STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 1))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 12, 8, 6)
+                            .build()
+            }); 
+
+            put("HURT_WALK_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 14)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 14)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 4), 14)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 5), 14)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+            });
+
+            put("HURT_WALK_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 14)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 14)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 4), 14)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 5), 14)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+            });
+
+            put("HURT_JUMP_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2,3))
+                            .withScale(3)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("HURT_JUMP_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 3))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("HURT_FALL_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 4))
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("HURT_FALL_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 4))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
                             .build()
             });
 

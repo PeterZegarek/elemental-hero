@@ -281,7 +281,7 @@ public abstract class Player extends GameObject{
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
             //Makes Hurt Animation stay while standing
             if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";    
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 }
 
             // handles putting goggles on when standing in water
@@ -294,19 +294,22 @@ public abstract class Player extends GameObject{
             }
         }
         else if (playerState == PlayerState.HURT) { 
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";                                                
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";                                                
             }         
         else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
             //Makes Hurt Animation stay while walking
             if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";    
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_WALK_RIGHT" : "HURT_WALK_LEFT";    
                 }                
         }
         else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
+            if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
+                } 
         }
         else if (playerState == PlayerState.JUMPING) {
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
@@ -314,14 +317,14 @@ public abstract class Player extends GameObject{
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
                 //Makes Hurt Animation stay while jumping
                 if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";    
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
                 }
             } 
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while jumping
                 if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";                         
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
                 }
             }           
         }
