@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class EarthTileset extends Tileset {
 
     public EarthTileset() {
-        super(ImageLoader.load("CommonTileset.png"), 16, 16, 3);
+        super(ImageLoader.load("EarthTileset.png"), 16, 16, 3);
     }
 
     @Override

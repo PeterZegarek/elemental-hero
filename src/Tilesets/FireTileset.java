@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class FireTileset extends Tileset {
 
     public FireTileset() {
-        super(ImageLoader.load("FireSetGrid2.png"), 16, 16, 3);
+        super(ImageLoader.load("FireTileset.png"), 16, 16, 3);
     }
 
     @Override

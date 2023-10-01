@@ -16,7 +16,7 @@ public class TitleScreenMap extends Map {
     public TitleScreenMap() {
         super("title_screen_map.txt", new EarthTileset());
         Point heroLocation = getMapTile(6, 8).getLocation().subtractX(24).subtractY(20);
-        hero = new Sprite(ImageLoader.loadSubImage("Hero.png", Colors.MAGENTA, 0, 54, 26, 26));
+        hero = new Sprite(ImageLoader.loadSubImage("HeroSheet.png", Colors.MAGENTA, 0, 54, 26, 26));
         hero.setScale(3);
         hero.setLocation(heroLocation.x, heroLocation.y);
     }

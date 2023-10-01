@@ -13,7 +13,7 @@ import java.util.HashMap;
 //This is essentially the same as the Cat class but for our own hero character
 public class Hero extends Player {
     public Hero(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("Hero.png"), 26, 26), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("HeroSheet.png"), 26, 26), x, y, "STAND_RIGHT");
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 14.5f;
@@ -148,6 +148,21 @@ public class Hero extends Player {
 
             put("CROUCH_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 4))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("HURT_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2,1))
+                            .withScale(3)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+
+            put("HURT_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 1))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 12, 8, 6)

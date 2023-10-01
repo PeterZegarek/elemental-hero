@@ -50,7 +50,7 @@ public class ScreenCoordinator extends Screen {
 						currentScreen = new MenuScreen(this);
 						break;
 					case LEVEL1:
-						currentScreen = new PlayEarthLevelScreen(this); //Phil, you can switch Earth with Fire in order to test easier!
+						currentScreen = new PlayEarthLevelScreen(this); //MAP TESTING - CHANGE TEST MAP TO LEVEL1 or Replace "EARTH" with whichever ELEMENT NAME
 						break;
 					case LEVEL2:
 						currentScreen = new PlayFireLevelScreen(this);
