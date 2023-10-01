@@ -1,19 +1,21 @@
 package Screens;
 
 import Engine.*;
+import Game.ScreenCoordinator;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
 
-// This is the class for the level lose screen
-public class LevelLoseScreen extends Screen {
+// This is the class for the Air level lose screen
+public class AirLoseScreen extends Screen {
     protected SpriteFont loseMessage;
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
-    protected PlayLevelScreen playLevelScreen;
+    protected PlayAirLevelScreen playAirLevelScreen;
+    protected ScreenCoordinator level = new ScreenCoordinator();
 
-    public LevelLoseScreen(PlayLevelScreen playLevelScreen) {
-        this.playLevelScreen = playLevelScreen;
+    public AirLoseScreen(PlayAirLevelScreen playAirLevelScreen) {
+        this.playAirLevelScreen = playAirLevelScreen;
         initialize();
     }
 
@@ -36,9 +38,9 @@ public class LevelLoseScreen extends Screen {
 
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
-            playLevelScreen.resetLevel();
-        } else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
-            playLevelScreen.goBackToMenu();
+            playAirLevelScreen.resetLevel();
+        }else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
+            playAirLevelScreen.goBackToMenu();
         }
     }
 

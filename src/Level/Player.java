@@ -35,6 +35,7 @@ public abstract class Player extends GameObject{
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
+    protected int lives = 3;
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -55,6 +56,7 @@ public abstract class Player extends GameObject{
     protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
     protected boolean waveOnCooldown = false; // Whether wave is on cooldown
     protected int cooldownCounter; // Time for the fireball/wave to be on cooldown
+    protected int isInvincibleCounter;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -71,11 +73,18 @@ public abstract class Player extends GameObject{
         moveAmountY = 0;
 
         // cooldown counter decreases everytime by 1
-        if (cooldownCounter > 0){
+       if (cooldownCounter > 0){
             cooldownCounter--;
             if (cooldownCounter == 0){
                 fireballOnCooldown = false;
-                waveOnCooldown = false;
+                waveOnCooldown = false;                         
+            }
+        }
+        //cooldown counter for invincibility
+        if (isInvincibleCounter > 0){           
+            isInvincibleCounter--;
+            if (isInvincibleCounter == 0){                                             
+                isInvincible = false;             
             }
         }
 
@@ -107,7 +116,6 @@ public abstract class Player extends GameObject{
         else if (levelState == LevelState.LEVEL_COMPLETED) {
             updateLevelCompleted();
         }
-
         // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
@@ -122,6 +130,9 @@ public abstract class Player extends GameObject{
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
         switch (playerState) {
+            case HURT:                
+                playerHurt();               
+                break;
             case STANDING:
                 playerStanding();
                 break;
@@ -247,6 +258,13 @@ public abstract class Player extends GameObject{
         }
     }
 
+    protected void playerHurt() {
+        isInvincible = true; 
+        playerState = PlayerState.STANDING; //Allows player to move after going into Hurt animation
+        isInvincibleCounter = 120; // Keeps Player in a state of Hurt (ADJUST AS SEE FIT) 
+        handlePlayerAnimation();
+        }
+
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
@@ -266,6 +284,10 @@ public abstract class Player extends GameObject{
         if (playerState == PlayerState.STANDING) {
             // sets animation to a STAND animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+            //Makes Hurt Animation stay while standing
+            if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";    
+                }
 
             // handles putting goggles on when standing in water
             // checks if the center of the player is currently touching a water tile
@@ -276,9 +298,16 @@ public abstract class Player extends GameObject{
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
             }
         }
+        else if (playerState == PlayerState.HURT) { 
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";                                                
+            }         
         else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+            //Makes Hurt Animation stay while walking
+            if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";    
+                }                
         }
         else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
@@ -288,17 +317,26 @@ public abstract class Player extends GameObject{
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
             if (lastAmountMovedY <= 0) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-            } else {
+                //Makes Hurt Animation stay while jumping
+                if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";    
+                }
+            } 
+            else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
-            }
+                //Makes Hurt Animation stay while jumping
+                if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_RIGHT" : "HURT_LEFT";                         
+                }
+            }           
         }
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
-        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false)){
+        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false)){
             fireballSpit(getX(), getY(), getFacingDirection());
         }
         
-        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false)){
+        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false)){
             waveAttack(getX(), getY(), getFacingDirection());
         }
     }
@@ -379,10 +417,16 @@ public abstract class Player extends GameObject{
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
-            // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
-            }
+            // if map entity is an enemy, Check lives, Hurt player if lives > 1, Kill player if collision with 1 life
+            if (mapEntity instanceof Enemy){
+                if(lives != 1){                    
+                    playerState = PlayerState.HURT; 
+                    lives--;                                                  
+                }
+                else{
+                    levelState = LevelState.PLAYER_DEAD;
+                }
+            }    
         }
     }
 

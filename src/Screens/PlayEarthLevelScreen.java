@@ -7,28 +7,28 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
-import Maps.EarthMap; // add other maps to this?
+import Maps.EarthMap; 
 import Players.Hero;
 import Utils.Point;
 
 // This class is for when the platformer game is actually being played
-public class PlayLevelScreen extends Screen implements PlayerListener {
+public class PlayEarthLevelScreen extends Screen implements PlayerListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
     protected LevelClearedScreen levelClearedScreen;
-    protected LevelLoseScreen levelLoseScreen;
+    protected EarthLoseScreen EarthLoseScreen;
     protected boolean levelCompletedStateChangeStart;
 
-    public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
+    public PlayEarthLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
         // define/setup map
-        this.map = new EarthMap();
+        map = new EarthMap();
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
@@ -38,7 +38,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
         levelClearedScreen = new LevelClearedScreen();
-        levelLoseScreen = new LevelLoseScreen(this);
+        EarthLoseScreen = new EarthLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
     }
@@ -60,13 +60,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     levelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
-                        goBackToMenu();
+                        screenCoordinator.setGameState(GameState.LEVEL2); //Transitions to Fire Map (level 2)
                     }
                 }
                 break;
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
-                levelLoseScreen.update();
+                EarthLoseScreen.update();
                 break;
         }
     }
@@ -82,7 +82,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelClearedScreen.draw(graphicsHandler);
                 break;
             case LEVEL_LOSE:
-                levelLoseScreen.draw(graphicsHandler);
+                EarthLoseScreen.draw(graphicsHandler);
                 break;
         }
     }
