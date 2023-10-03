@@ -31,7 +31,8 @@ public class FireMap extends Map{
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(10, 14).getLocation().addY(2), getMapTile(10, 14).getLocation().addY(2), Direction.LEFT);
         enemies.add(dinosaurEnemy2);
 
-        Firewisp firewisp1 = new Firewisp(getMapTile(10, 12).getLocation().addY(2), getMapTile(10,8).getLocation().addY(2), Direction.LEFT);
+
+        Firewisp firewisp1 = new Firewisp(getMapTile(5, 6).getLocation().addY(2), getMapTile(13,8).getLocation().addY(2), Direction.LEFT);
         enemies.add(firewisp1);
 
         return enemies;
