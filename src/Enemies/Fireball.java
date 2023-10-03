@@ -4,10 +4,12 @@ import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
+import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
@@ -31,6 +33,13 @@ public class Fireball extends Enemy {
     }
 
     @Override
+    public void initialize() {
+        // Add the firewisp as an enemy to listen for elemental abilities
+        ElementalAbilityListenerManager.addEnemyListener(this);
+        super.initialize();
+    }
+
+    @Override
     public void update(Player player) {
         // if timer is up, set map entity status to REMOVED
         // the camera class will see this next frame and remove it permanently from the map
@@ -40,6 +49,14 @@ public class Fireball extends Enemy {
             // move fireball forward
             moveXHandleCollision(movementSpeed);
             super.update(player);
+        }
+        // if it gets hit by a wave it gets killed
+        if (activeWave != null) {
+            if (intersects(activeWave)) {
+                enemyAttacked(this);
+                ElementalAbilityListenerManager.waveKilledEnemy();
+                Player.setCooldownCounter(20);
+            }
         }
         existenceFrames--;
     }
