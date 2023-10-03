@@ -350,7 +350,7 @@ public abstract class Player extends GameObject{
     public void fireballSpit(float x, float y, Direction direction){
         float movementSpeed;
         float spawnX =x;
-        float spawnY = y + 10;
+        float spawnY = y;
         int existenceFrames = 50;
         if (direction == Direction.RIGHT){
             spawnX+= 30;
@@ -361,7 +361,7 @@ public abstract class Player extends GameObject{
             movementSpeed = -4;
         }
         if (playerState == PlayerState.CROUCHING){
-            spawnY += 7;
+            spawnY += 17;
         }
         // Create a fireball and add it to the map
         PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, existenceFrames);
