@@ -361,7 +361,7 @@ public abstract class Player extends GameObject{
             movementSpeed = -4;
         }
         if (playerState == PlayerState.CROUCHING){
-            spawnY += 5;
+            spawnY += 7;
         }
         // Create a fireball and add it to the map
         PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, existenceFrames);
