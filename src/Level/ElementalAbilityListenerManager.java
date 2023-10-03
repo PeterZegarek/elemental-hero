@@ -12,8 +12,7 @@ public class ElementalAbilityListenerManager {
     // If you're confused, check BugEnemy's initialize block. It's the second line (first after the comment)
     private static List<ElementalAbilityListener> enemyListeners = new ArrayList<>();
 
-    // List of elemental abilities that need to react to something from an enemy
-    // As of right now (9/26) this is just so the fireball despawns after killing something
+    // List of elemental abilities that need to react to something from an enemy; currently water and fire ability
     private static List<ElementalAbilityListener> elementalListeners = new ArrayList<>();
 
     // Add a listener to the arraylist of enemies 
@@ -58,21 +57,22 @@ public class ElementalAbilityListenerManager {
     }
 
 
-    // broadcasts the fireball spawning to all listeners
+    // broadcasts the wave spawning to all listeners
     public static void waveSpawned(Wave wave) {
         for (ElementalAbilityListener listener : enemyListeners) {
             listener.waveSpawned(wave);
         }
     }
 
-    // broadcasts the fireball despawning to all listeners
+    // broadcasts the wave despawning to all listeners
     public static void waveDespawned() {
         for (ElementalAbilityListener listener : enemyListeners) {
             listener.waveDespawned();
         }
     }
 
-    // broadcasts the fact that the fireball killed an enemy to the fireball so that it disappears 
+    // broadcasts the fact that the wave killed an enemy to the wave so that it disappears 
+    // This is currently not in use.
     public static void waveKilledEnemy(){
         for (ElementalAbilityListener listener : elementalListeners){
             listener.waveKilledEnemy();

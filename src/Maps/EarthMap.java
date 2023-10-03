@@ -2,6 +2,7 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.Firewisp;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -48,6 +49,10 @@ public class EarthMap extends Map {
 
         DinosaurEnemy dinosaurEnemy4 = new DinosaurEnemy(getMapTile(48, 13).getLocation().addY(2), getMapTile(55, 13).getLocation().addY(2), Direction.LEFT);
         enemies.add(dinosaurEnemy4);
+
+        // temporary for troubleshooting
+        Firewisp firewisp1 = new Firewisp(getMapTile(11, 24).getLocation().addY(2), getMapTile(17,24).getLocation().addY(2), Direction.LEFT);
+        enemies.add(firewisp1);
 
         return enemies;
     }
