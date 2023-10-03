@@ -3,6 +3,8 @@ package Level;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Game.GameState;
+import Game.ScreenCoordinator;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Players.PlayerFireball;
@@ -335,11 +337,11 @@ public abstract class Player extends GameObject{
         }
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
-        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false)){
+        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL1)){
             fireballSpit(getX(), getY(), getFacingDirection());
         }
         
-        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false)){
+        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL2)){
             waveAttack(getX(), getY(), getFacingDirection());
         }
     }
