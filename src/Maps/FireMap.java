@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.DinosaurEnemy;
+import Enemies.FireDinosaurEnemy;
 import Enemies.Firewisp;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
@@ -25,11 +26,11 @@ public class FireMap extends Map{
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(10, 8).getLocation().addY(2), getMapTile(10,8).getLocation().addY(2), Direction.LEFT);
-        enemies.add(dinosaurEnemy1);
+        FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(10, 8).getLocation().addY(2), getMapTile(10,8).getLocation().addY(2), Direction.LEFT);
+        enemies.add(fireDinosaurEnemy1);
 
-        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(10, 14).getLocation().addY(2), getMapTile(10, 14).getLocation().addY(2), Direction.LEFT);
-        enemies.add(dinosaurEnemy2);
+        FireDinosaurEnemy fireDinosaurEnemy2 = new FireDinosaurEnemy(getMapTile(10, 14).getLocation().addY(2), getMapTile(10, 14).getLocation().addY(2), Direction.LEFT);
+        enemies.add(fireDinosaurEnemy2);
 
 
         Firewisp firewisp1 = new Firewisp(getMapTile(5, 6).getLocation().addY(2), getMapTile(13,8).getLocation().addY(2), Direction.LEFT);
