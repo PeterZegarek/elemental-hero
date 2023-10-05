@@ -91,19 +91,19 @@ public class Wave extends Enemy {
                 put("RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2) 
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2) 
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
                             .withScale(2) 
-                            .withBounds(1, 1,30, 30)
+                            .withBounds(1, 10,30, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
                             .withScale(2) 
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build()
                 }); 
             
@@ -111,22 +111,22 @@ public class Wave extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL) 
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2) 
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
                             .withScale(2) 
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
                             .withScale(2) 
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(1, 1, 30, 30)
+                            .withBounds(1, 10, 30, 30)
                             .build()
                 });
            
