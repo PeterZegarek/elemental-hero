@@ -18,47 +18,42 @@ import java.util.HashMap;
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
 // it will travel in a straight line (x axis) for a set time before disappearing
 // it will disappear early if it collides with a solid map tile
-public class Fireball extends Enemy {
+public class Stick extends Enemy {
     private float movementSpeed;
-    private int existenceFrames;
 
-    public Fireball(Point location, float movementSpeed, int existenceFrames) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+    public Stick(Point location, float movementSpeed) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("TreeStick.png"), 40, 40), "DEFAULT");
         this.movementSpeed = movementSpeed;
-
-        // how long the fireball will exist for before disappearing
-        this.existenceFrames = existenceFrames;
 
         initialize();
     }
 
     @Override
     public void initialize() {
-        // Add the fireball as an enemy to listen for elemental abilities
+        // Add the stick as an enemy to listen for elemental abilities
         ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
     }
 
+    //this.mapEntityStatus = MapEntityStatus.REMOVED;
+
     @Override
     public void update(Player player) {
-        // if timer is up, set map entity status to REMOVED
-        // the camera class will see this next frame and remove it permanently from the map
-        if (existenceFrames == 0) {
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
-        } else {
-            // move fireball forward
-            moveXHandleCollision(movementSpeed);
-            super.update(player);
-        }
-        // if it gets hit by a wave it gets killed
-        if (activeWave != null) {
-            if (intersects(activeWave)) {
+        // move stick forward
+        moveXHandleCollision(movementSpeed);
+        super.update(player);
+        // if it gets hit by a fireball it gets killed
+        if (activeFireball != null) {
+            if (intersects(activeFireball)) {
                 enemyAttacked(this);
-                ElementalAbilityListenerManager.waveKilledEnemy();
-                Player.setCooldownCounter(20);
+
+                // For now I don't want the fireball to despawn when killing a stick
+                //ElementalAbilityListenerManager.fireballKilledEnemy();
+
+                // For now I don't want it to reset the cooldown of fireball
+                 // Player.setCooldownCounter(20);
             }
         }
-        existenceFrames--;
     }
 
     @Override
@@ -81,8 +76,8 @@ public class Fireball extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(1, 1, 5, 5)
+                            .withScale(2)
+                            .withBounds(13, 13, 14, 15)
                             .build()
             });
         }};

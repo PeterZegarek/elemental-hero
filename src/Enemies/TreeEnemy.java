@@ -41,7 +41,7 @@ public class TreeEnemy extends Enemy {
     protected TreeState previoustreeState;
 
     public TreeEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("TreeEnemy.png"), 42, 45), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("TreeEnemy.png"), 44, 45), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -104,11 +104,11 @@ public class TreeEnemy extends Enemy {
             }
         }
 
-        // if tree is waiting to shoot, it first turns red for a set number of frames
-        // after this waiting period is over, the fireball is actually shot out
+        // if tree is waiting to shoot, it does its animations then throws the stick
+        // after this waiting period is over, the stick is thrown
         if (treeState == TreeState.SHOOT_WAIT) {
             if (previoustreeState == TreeState.WALK) {
-                shootTimer = 65;
+                shootTimer = 40;
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
             } else if (shootTimer == 0) {
                 treeState = TreeState.SHOOT;
@@ -118,28 +118,28 @@ public class TreeEnemy extends Enemy {
             }
         }
 
-        // this is for actually having the dinosaur spit out the fireball
+        // this is for actually having the tree throw the stick
         if (treeState == TreeState.SHOOT) {
-            // define where fireball will spawn on map (x location) relative to dinosaur enemy's location
+            // define where stick will spawn on map (x location) relative to tree's location            
             // and define its movement speed
-            int fireballX;
+            int stickX;
             float movementSpeed;
             if (facingDirection == Direction.RIGHT) {
-                fireballX = Math.round(getX()) + getWidth();
+                stickX = Math.round(getX()) + getWidth() - 30;
                 movementSpeed = 1.5f;
             } else {
-                fireballX = Math.round(getX() - 21);
+                stickX = Math.round(getX() - 35);
                 movementSpeed = -1.5f;
             }
 
-            // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
-            int fireballY = Math.round(getY()) + 4;
+            // define where fireball will spawn on the map (y location) relative to tree's location
+            int stickY = Math.round(getY()) - 16;
 
-            // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+            // create stick enemy
+            Stick stick = new Stick(new Point(stickX, stickY), movementSpeed);
 
             // add fireball enemy to the map for it to spawn in the level
-            map.addEnemy(fireball);
+            map.addEnemy(stick);
 
             // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
             treeState = TreeState.WALK;
@@ -188,41 +188,123 @@ public class TreeEnemy extends Enemy {
         float scale = 1.8f;
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                    new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
                             .withScale(scale)
-                            .withBounds(3, 4, 35, 41)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(scale)
-                            .withBounds(3, 4, 35, 41)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 4), 14)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 5), 14)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
                             .build()
+                    
             });
 
             put("WALK_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                    new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
                             .withScale(scale)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 4, 35, 41)
+                            .withBounds(1, 3, 35, 30)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                    new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(scale)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 4, 35, 41)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 4), 14)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 5), 14)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
                             .withScale(scale)
-                            .withBounds(3, 4, 35, 41)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
                             .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 15)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 15)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 15)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 4), 15)
+                            .withScale(scale)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(1, 3, 35, 30)
+                            .build()
             });
 
             put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
                             .withScale(scale)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(3, 4, 35, 41)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 15)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 15)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 15)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 4), 15)
+                            .withScale(scale)
+                            .withBounds(1, 3, 35, 30)
                             .build(),
             });
         }};
