@@ -9,8 +9,6 @@ import Utils.MathUtils;
 import java.awt.*;
 import java.util.HashMap;
 
-import Enemies.Stick;
-import Enemies.TreeEnemy;
 
 /*
 	The all important GameObject class is what every "entity" used in this game should be based off of
@@ -332,9 +330,9 @@ public class GameObject extends AnimatedSprite {
 
             // Uncomment this to draw player's bounds to screen -- useful for debugging
             // Change this to the name of the class that you want to see bounds for
-            if (this instanceof Player) {
-                drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-            }
+            // if (this instanceof TreeEnemy) {
+            //     drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+            // }
             
         } else {
             super.draw(graphicsHandler);

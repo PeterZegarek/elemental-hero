@@ -47,8 +47,8 @@ public class Stick extends Enemy {
             if (intersects(activeFireball)) {
                 enemyAttacked(this);
 
-                // For now I don't want the fireball to despawn when killing a stick
-                //ElementalAbilityListenerManager.fireballKilledEnemy();
+                // Comment this if you don't want the fireball to despawn when killing a stick
+                ElementalAbilityListenerManager.fireballKilledEnemy();
 
                 // For now I don't want it to reset the cooldown of fireball
                  // Player.setCooldownCounter(20);

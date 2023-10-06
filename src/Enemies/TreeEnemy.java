@@ -109,7 +109,15 @@ public class TreeEnemy extends Enemy {
         if (treeState == TreeState.SHOOT_WAIT) {
             if (previoustreeState == TreeState.WALK) {
                 shootTimer = 40;
-                currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
+                // This line of code takes the current direction the tree is facing and makes it shoot in that direction
+                // If facingdirection is right, it shoots right, else it shoots left
+                // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
+                if (this.getX() > player.getX()){
+                    currentAnimationName = "SHOOT_LEFT";
+                }
+                else{
+                    currentAnimationName = "SHOOT_RIGHT";
+                }
             } else if (shootTimer == 0) {
                 treeState = TreeState.SHOOT;
             }
@@ -124,7 +132,7 @@ public class TreeEnemy extends Enemy {
             // and define its movement speed
             int stickX;
             float movementSpeed;
-            if (facingDirection == Direction.RIGHT) {
+            if (currentAnimationName == "SHOOT_RIGHT") {
                 stickX = Math.round(getX()) + getWidth() - 30;
                 movementSpeed = 1.5f;
             } else {
@@ -132,19 +140,19 @@ public class TreeEnemy extends Enemy {
                 movementSpeed = -1.5f;
             }
 
-            // define where fireball will spawn on the map (y location) relative to tree's location
+            // define where stick will spawn on the map (y location) relative to tree's location
             int stickY = Math.round(getY()) - 16;
 
             // create stick enemy
             Stick stick = new Stick(new Point(stickX, stickY), movementSpeed);
 
-            // add fireball enemy to the map for it to spawn in the level
+            // add stick enemy to the map for it to spawn in the level
             map.addEnemy(stick);
 
-            // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
+            // change tree back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
             treeState = TreeState.WALK;
 
-            // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
+            // reset shoot wait timer so the process can happen again (tree walks around, then waits, then shoots)
             shootWaitTimer = 130;
         }
 
@@ -152,7 +160,7 @@ public class TreeEnemy extends Enemy {
 
         previoustreeState = treeState;
 
-        // if there is a fireball and it got hit
+        // if there is a player fireball and it got hit
         if (activeFireball != null){
             if (intersects(activeFireball)){
                 enemyAttacked(this);
@@ -161,6 +169,7 @@ public class TreeEnemy extends Enemy {
             }
         }
 
+        // if there is a wave and it gets hit. Irrelevant for now
          if (activeWave != null){
             if (intersects(activeWave)){
                 enemyAttacked(this);
