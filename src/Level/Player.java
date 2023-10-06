@@ -50,7 +50,7 @@ public abstract class Player extends GameObject{
     protected Key CROUCH_KEY = Key.DOWN;
     // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
-    // adding wave key
+    // adding wave key W
     protected Key WAVE_KEY = Key.W;
 
     // flags
@@ -58,7 +58,7 @@ public abstract class Player extends GameObject{
     protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
     protected boolean waveOnCooldown = false; // Whether wave is on cooldown
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
-    protected int isInvincibleCounter;
+    protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);

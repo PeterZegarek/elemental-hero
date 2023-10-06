@@ -134,17 +134,20 @@ public class TreeEnemy extends Enemy {
             float movementSpeed;
             if (currentAnimationName == "SHOOT_RIGHT") {
                 stickX = Math.round(getX()) + getWidth() - 30;
-                movementSpeed = 1.5f;
+                movementSpeed = 2f;
             } else {
                 stickX = Math.round(getX() - 35);
-                movementSpeed = -1.5f;
+                movementSpeed = -2f;
             }
 
             // define where stick will spawn on the map (y location) relative to tree's location
             int stickY = Math.round(getY()) - 16;
 
+            //Modify how high it throws the stick
+            float heightY = -6f;
+
             // create stick enemy
-            Stick stick = new Stick(new Point(stickX, stickY), movementSpeed);
+            Stick stick = new Stick(new Point(stickX, stickY), movementSpeed, heightY);
 
             // add stick enemy to the map for it to spawn in the level
             map.addEnemy(stick);
