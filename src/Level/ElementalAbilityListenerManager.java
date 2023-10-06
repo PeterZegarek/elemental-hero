@@ -72,7 +72,6 @@ public class ElementalAbilityListenerManager {
     }
 
     // broadcasts the fact that the wave killed an enemy to the wave so that it disappears 
-    // This is currently not in use.
     public static void waveKilledEnemy(){
         for (ElementalAbilityListener listener : elementalListeners){
             listener.waveKilledEnemy();
