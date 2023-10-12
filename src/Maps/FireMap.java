@@ -2,7 +2,6 @@ package Maps;
 
 import java.util.ArrayList;
 
-import Enemies.DinosaurEnemy;
 import Enemies.FireDinosaurEnemy;
 import Enemies.Firewisp;
 import Engine.ImageLoader;
@@ -12,7 +11,6 @@ import GameObject.Rectangle;
 import Level.*;
 import Tilesets.FireTileset; // change to FireTileset
 import Utils.Direction;
-import Utils.Point;
 
 public class FireMap extends Map{
     
@@ -53,7 +51,7 @@ public class FireMap extends Map{
                 getMapTile(31, 24).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 5,
-                new Rectangle(0, 6,160,40),
+                new Rectangle(1, 6,14,8),
                 Direction.RIGHT
         );
         enhancedMapTiles.add(hmp);
