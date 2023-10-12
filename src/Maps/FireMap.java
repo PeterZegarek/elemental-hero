@@ -45,16 +45,27 @@ public class FireMap extends Map{
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        HorizontalMovingPlatform hmp = new HorizontalMovingPlatform(
+        HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
                 ImageLoader.load("16x16FloatingRock.png"),
                 getMapTile(10, 24).getLocation(),
-                getMapTile(31, 24).getLocation(),
+                getMapTile(20, 24).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 5,
                 new Rectangle(1, 6,14,8),
                 Direction.RIGHT
         );
-        enhancedMapTiles.add(hmp);
+        enhancedMapTiles.add(hmp1);
+
+        HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
+                ImageLoader.load("16x16FloatingRock.png"),
+                getMapTile(21, 24).getLocation(),
+                getMapTile(33, 24).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                5,
+                new Rectangle(1, 6,14,8),
+                Direction.LEFT
+        );
+        enhancedMapTiles.add(hmp2);
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(0, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
