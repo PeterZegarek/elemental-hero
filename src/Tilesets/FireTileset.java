@@ -21,7 +21,7 @@ public class FireTileset extends Tileset {
     public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
 
-        // Add tile name here
+        //Main walking block
         Frame Fire1Frame = new FrameBuilder(getSubImage(0, 0))
                 .withScale(tileScale)
                 .build();
@@ -31,16 +31,16 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire1Tile);
  
-        // Add tile name here
+        // Lava pool in wall(Not being used)
         Frame Fire2Frame = new FrameBuilder(getSubImage(0, 3))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Fire2Tile = new MapTileBuilder(Fire2Frame);
-
+        MapTileBuilder Fire2Tile = new MapTileBuilder(Fire2Frame)
+                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(Fire2Tile);
 
-        // Add tile name here
+        // Pattern block(Not being used)
         Frame Fire3Frame = new FrameBuilder(getSubImage(1, 0))
                 .withScale(tileScale)
                 .build();
@@ -49,7 +49,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire3Tile);
 
-        // Add tile name here
+        //Jumping Part background brick
         Frame Fire4Frame = new FrameBuilder(getSubImage(1, 4))
                 .withScale(tileScale)
                 .build();
@@ -59,7 +59,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire4Tile);
  
-        // Add tile name here
+        //Type of lava(Not being used)
         Frame Fire5Frame = new FrameBuilder(getSubImage(3, 0))
                 .withScale(tileScale)
                 .build();
@@ -68,7 +68,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire5Tile);
 
-        // Add tile name here
+        //Main lava
         Frame Fire6Frame = new FrameBuilder(getSubImage(3, 3))
                 .withScale(tileScale)
                 .build();
@@ -77,8 +77,8 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire6Tile);
 
-        // Add tile name here
-        Frame Fire7Frame = new FrameBuilder(getSubImage(3, 4))
+        //Black background (USE THIS ROW AND COLUMN BECAUSE IT IS THE CORRECT SHADE)
+        Frame Fire7Frame = new FrameBuilder(getSubImage(6, 0))
                 .withScale(tileScale)
                 .build();
 
@@ -86,7 +86,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire7Tile);
 
-        // Add tile name here
+        // Orange shade(Not being used)
         Frame Fire8Frame = new FrameBuilder(getSubImage(4, 0))
                 .withScale(tileScale)
                 .build();
@@ -95,7 +95,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire8Tile);
 
-        // Add tile name here
+        // Spikes(Not being used)
         Frame Fire9Frame = new FrameBuilder(getSubImage(4, 1))
                 .withScale(tileScale)
                 .build();
@@ -104,7 +104,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire9Tile);
 
-        // Add tile name here
+        // Spikes 2(Not being used)
         Frame Fire10Frame = new FrameBuilder(getSubImage(4, 2))
                 .withScale(tileScale)
                 .build();
@@ -113,8 +113,8 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire10Tile);
 
-        // Add tile name here
-        Frame Fire11Frame = new FrameBuilder(getSubImage(4, 3))
+        // Chains
+        Frame Fire11Frame = new FrameBuilder(getSubImage(5, 2))
                 .withScale(tileScale)
                 .build();
 
@@ -122,7 +122,7 @@ public class FireTileset extends Tileset {
 
         mapTiles.add(Fire11Tile);
 
-        // Add tile name here
+        // Lava Stream(Not being used)
         Frame Fire12Frame = new FrameBuilder(getSubImage(4, 4))
                 .withScale(tileScale)
                 .build();
@@ -130,6 +130,38 @@ public class FireTileset extends Tileset {
         MapTileBuilder Fire12Tile = new MapTileBuilder(Fire12Frame);
 
         mapTiles.add(Fire12Tile);
+
+        // left 45 degree slope
+        Frame leftSlopeFrame = new FrameBuilder(getSubImage(5, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder leftSlopeTile = new MapTileBuilder(leftSlopeFrame)
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createLeft45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(leftSlopeTile);
+        
+
+        // right 45 degree slope
+        Frame rightSlopeFrame = new FrameBuilder(getSubImage(5, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder rightSlopeTile = new MapTileBuilder(rightSlopeFrame)
+                .withTileType(TileType.SLOPE)
+                .withTileLayout(SlopeTileLayoutUtils.createRight45SlopeLayout(spriteWidth, (int) tileScale));
+
+        mapTiles.add(rightSlopeTile);
+
+        //Chain Platform 
+        Frame Fire15Frame = new FrameBuilder(getSubImage(5, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Fire15Tile = new MapTileBuilder(Fire15Frame)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+        mapTiles.add(Fire15Tile);
 
         return mapTiles;
     }

@@ -24,6 +24,7 @@ public class HorizontalMovingPlatform extends EnhancedMapTile {
 
     public HorizontalMovingPlatform(BufferedImage image, Point startLocation, Point endLocation, TileType tileType, float scale, Rectangle bounds, Direction startDirection) {
         super(startLocation.x, startLocation.y, new FrameBuilder(image).withBounds(bounds).withScale(scale).build(), tileType);
+        isUpdateOffScreen = true;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startDirection = startDirection;
