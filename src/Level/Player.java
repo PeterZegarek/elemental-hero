@@ -39,6 +39,9 @@ public abstract class Player extends GameObject{
     protected LevelState levelState;
     protected int lives = 3;
 
+    //keeps track of glide power and whether it is on or not
+    protected boolean isGlideOn = false;
+
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
@@ -48,10 +51,14 @@ public abstract class Player extends GameObject{
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    //adding key to skip level
+    protected Key LEVEL_KEY = Key.L;
     // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
     // adding wave key W
     protected Key WAVE_KEY = Key.W;
+    //adding glide key G
+    protected Key GLIDE_KEY = Key.A;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -344,6 +351,23 @@ public abstract class Player extends GameObject{
         if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL2)){
             waveAttack(getX(), getY(), getFacingDirection());
         }
+
+        if(Keyboard.isKeyDown(GLIDE_KEY)){
+            if(!isGlideOn){
+                setTerminalVelocityY(0.7f);
+            }
+            else{
+                setTerminalVelocityY(6f);
+            }
+            isGlideOn = !isGlideOn;
+        }
+
+        if((Keyboard.isKeyDown(LEVEL_KEY))){
+            //This just completes the level, taken from method updateLevelCompleted()
+            for (PlayerListener listener : listeners) {
+                listener.onLevelCompleted();
+            }
+        }
     }
 
     // x and y are the player's positions, directions is the direction they are facing
@@ -451,23 +475,19 @@ public abstract class Player extends GameObject{
             moveYHandleCollision(moveAmountY);
         }
         // move player to the right until it walks off screen
-        else if (map.getCamera().containsDraw(this))
-         {
-            if(ScreenCoordinator.getGameState()== GameState.LEVEL2)
-            {
-            currentAnimationName = "WALK_LEFT";
-            super.update();
-            moveXHandleCollision(-walkSpeed);
+        else if (map.getCamera().containsDraw(this)){
+            if(ScreenCoordinator.getGameState()== GameState.LEVEL2){
+                currentAnimationName = "WALK_LEFT";
+                super.update();
+                moveXHandleCollision(-walkSpeed);
             }
-            else
-            {
+            else{
                 currentAnimationName = "WALK_RIGHT";
-            super.update();
-            moveXHandleCollision(walkSpeed);
+                super.update();
+                moveXHandleCollision(walkSpeed);
             }
         } 
-        else 
-        {
+        else {
             // tell all player listeners that the player has finished the level
             for (PlayerListener listener : listeners) {
                 listener.onLevelCompleted();
@@ -537,5 +557,13 @@ public abstract class Player extends GameObject{
 
     public static void setCooldownCounter(int cooldownCounter){
         Player.cooldownCounter = cooldownCounter;
+    }
+
+    public float getTerminalVelocityY(){
+        return terminalVelocityY;
+    }
+
+    public void setTerminalVelocityY(float terminalVelocityY){
+        this.terminalVelocityY = terminalVelocityY;
     }
 }
