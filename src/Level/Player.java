@@ -57,8 +57,8 @@ public abstract class Player extends GameObject{
     protected Key FIREBALL_KEY = Key.F;
     // adding wave key W
     protected Key WAVE_KEY = Key.W;
-    //adding glide key G
-    protected Key GLIDE_KEY = Key.A;
+    //adding glide key SHIFT
+    protected Key GLIDE_KEY = Key.SHIFT;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -262,8 +262,13 @@ public abstract class Player extends GameObject{
         }
 
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
+        // if player hits ground then glide ability shuts off
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
+            if(isGlideOn){
+                isGlideOn = false;
+                setTerminalVelocityY(6f);
+            }
         }
     }
 
@@ -352,14 +357,12 @@ public abstract class Player extends GameObject{
             waveAttack(getX(), getY(), getFacingDirection());
         }
 
+        //turns on glide ability if player is in the air
         if(Keyboard.isKeyDown(GLIDE_KEY)){
-            if(!isGlideOn){
+            if(airGroundState == AirGroundState.AIR){
+                isGlideOn=true;
                 setTerminalVelocityY(0.7f);
             }
-            else{
-                setTerminalVelocityY(6f);
-            }
-            isGlideOn = !isGlideOn;
         }
 
         if((Keyboard.isKeyDown(LEVEL_KEY))){
