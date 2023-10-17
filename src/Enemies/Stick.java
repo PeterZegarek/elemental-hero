@@ -29,6 +29,7 @@ public class Stick extends Enemy {
     public Stick(Point location, float movementSpeed, float momentumY) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("TreeStick.png"), 40, 40), "DEFAULT");
         this.movementSpeed = movementSpeed;
+        isUpdateOffScreen = true;
         this.momentumY = momentumY;
         initialize();
     }
