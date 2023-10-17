@@ -8,7 +8,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
-import NPCs.Walrus;
+import NPCs.UnknownTraveler;
 import Tilesets.EarthTileset;
 import Utils.Direction;
 
@@ -104,8 +104,8 @@ public class EarthMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(getMapTile(48, 26).getLocation().subtractY(13));
-        npcs.add(walrus);
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(1, 26).getLocation().subtractY(42));
+        npcs.add(UnknownTraveler);
 
         return npcs;
     }

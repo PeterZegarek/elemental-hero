@@ -9,6 +9,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import NPCs.UnknownTraveler;
 import Tilesets.FireTileset; // change to FireTileset
 import Utils.Direction;
 
@@ -72,6 +73,14 @@ public class FireMap extends Map{
 
         return enhancedMapTiles;
     }
-    
-    
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(0, 20).getLocation().subtractY(42));
+        npcs.add(UnknownTraveler);
+
+        return npcs;
+    }
+     
 }
