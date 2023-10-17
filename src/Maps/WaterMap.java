@@ -12,14 +12,15 @@ public class WaterMap extends Map{
     public WaterMap(){
 
         super("WaterMap.txt", new WaterTileset()); // change to WaterTileset
-        this.playerStartPosition = new Point(5, 6);
+        this.playerStartPosition = new Point(5, 19);
 
     }
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(3, 11).getLocation().subtractY(42));
+        //Added Argument to control sprite direction (TO FLIP, REPLACE "RIGHT" with "LEFT")
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(3, 11).getLocation().subtractY(42), "STANDING_LEFT"); 
         npcs.add(UnknownTraveler);
 
         return npcs;

@@ -77,7 +77,8 @@ public class FireMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(0, 20).getLocation().subtractY(42));
+        //Added Argument to control sprite direction (TO FLIP, REPLACE "LEFT" with "RIGHT")
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(0, 20).getLocation().subtractY(42), "STANDING_RIGHT");       
         npcs.add(UnknownTraveler);
 
         return npcs;
