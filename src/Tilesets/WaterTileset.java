@@ -20,249 +20,244 @@ public class WaterTileset extends Tileset {
     public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
 
-        // Placeholder for now
+        // Water1 Tile - (Light Blue)
         Frame Water1Frame = new FrameBuilder(getSubImage(0, 0))
                 .withScale(tileScale)
                 .build();
 
         MapTileBuilder Water1Tile = new MapTileBuilder(Water1Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.WATER);
 
         mapTiles.add(Water1Tile);
 
-        // Placeholder for now
-        Frame Water2Frame = new FrameBuilder(getSubImage(0, 1))
+        // Wave1
+        Frame Wave1Frame = new FrameBuilder(getSubImage(0, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Wave1Tile = new MapTileBuilder(Wave1Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(Wave1Tile);
+
+        // Wave2
+        Frame Wave2Frame = new FrameBuilder(getSubImage(0, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Wave2Tile = new MapTileBuilder(Wave2Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(Wave2Tile);
+ 
+        // Wave3
+        Frame Wave3Frame = new FrameBuilder(getSubImage(0, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Wave3Tile = new MapTileBuilder(Wave3Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(Wave3Tile);
+
+        // Wave 4 (Not going to use)
+        Frame Wave4Frame = new FrameBuilder(getSubImage(0, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Wave4Tile = new MapTileBuilder(Wave4Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(Wave4Tile);
+
+        // Water 2 Tile
+        Frame Water2Frame = new FrameBuilder(getSubImage(1, 0))
                 .withScale(tileScale)
                 .build();
 
         MapTileBuilder Water2Tile = new MapTileBuilder(Water2Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.WATER);
         mapTiles.add(Water2Tile);
 
-        // Placeholder for now
-        Frame Water3Frame = new FrameBuilder(getSubImage(0, 2))
+        // TransitionWater1
+        Frame TransitionWater1Frame = new FrameBuilder(getSubImage(1, 1))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water3Tile = new MapTileBuilder(Water3Frame);
+        MapTileBuilder TransitionWater1Tile = new MapTileBuilder(TransitionWater1Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(TransitionWater1Tile);
+
+        // TransitionWater2
+        Frame TransitionWater2Frame = new FrameBuilder(getSubImage(1, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder TransitionWater2Tile = new MapTileBuilder(TransitionWater2Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(TransitionWater2Tile);
+
+        // TransitionWater3
+        Frame TransitionWater3Frame = new FrameBuilder(getSubImage(1, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder TransitionWater3Tile = new MapTileBuilder(TransitionWater3Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(TransitionWater3Tile);
+ 
+        // TransitionWater4
+        Frame TransitionWater4Frame = new FrameBuilder(getSubImage(1, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder TransitionWater4Tile = new MapTileBuilder(TransitionWater4Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(TransitionWater4Tile);
+
+        // TransitionWater5 (Light Blue to Blue)
+        Frame TransitionWater5Frame = new FrameBuilder(getSubImage(2, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder TransitionWater5Tile = new MapTileBuilder(TransitionWater5Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(TransitionWater5Tile);
+
+        // Ground Spike 1 - (Dark Blue Background)
+        Frame GroundSpike1Frame = new FrameBuilder(getSubImage(2, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder GroundSpike1Tile = new MapTileBuilder(GroundSpike1Frame)
+                .withTileType(TileType.WATER);
+
+        mapTiles.add(GroundSpike1Tile);
+
+        // Column 1 - (Dark Blue Background)
+        Frame Column1Frame = new FrameBuilder(getSubImage(2, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Column1Tile = new MapTileBuilder(Column1Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Column1Tile);
+
+        // Stone 1 - (dark Blue Background)
+        Frame Stone1Frame = new FrameBuilder(getSubImage(2, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Stone1Tile = new MapTileBuilder(Stone1Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Stone1Tile);
+
+        // Stone 2 - (Blue Background)
+        Frame Stone2Frame = new FrameBuilder(getSubImage(2, 4))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Stone2Tile = new MapTileBuilder(Stone2Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Stone2Tile);
+
+        // Ground Spike 2 - (Blue Background)
+        Frame GroundSpike2Frame = new FrameBuilder(getSubImage(3, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder GroundSpike2Tile = new MapTileBuilder(GroundSpike2Frame)
+                .withTileType(TileType.WATER);
+
+        mapTiles.add(GroundSpike2Tile);
+
+        // Stone 3 - (Light Blue Background)
+        Frame Stone3Frame = new FrameBuilder(getSubImage(3, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Stone3Tile = new MapTileBuilder(Stone3Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Stone3Tile);
+
+        // TransitionWater6 (Blue to Dark Blue)
+        Frame TransitionWater6Frame = new FrameBuilder(getSubImage(3, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder TransitionWater6Tile = new MapTileBuilder(TransitionWater6Frame)
+                .withTileType(TileType.WATER);
+        mapTiles.add(TransitionWater6Tile);
+
+        // Water 3 Tile - (Dark Blue)
+        Frame Water3Frame = new FrameBuilder(getSubImage(3, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Water3Tile = new MapTileBuilder(Water3Frame)
+                .withTileType(TileType.WATER);
 
         mapTiles.add(Water3Tile);
- 
-        // Placeholder for now
-        Frame Water4Frame = new FrameBuilder(getSubImage(0, 3))
+
+        // Sky Tile
+        Frame SkyFrame = new FrameBuilder(getSubImage(3, 4))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water4Tile = new MapTileBuilder(Water4Frame);
+        MapTileBuilder SkyTile = new MapTileBuilder(SkyFrame)
+                .withTileType(TileType.PASSABLE);
 
-        mapTiles.add(Water4Tile);
+        mapTiles.add(SkyTile);
 
-        // Placeholder for now
-        Frame Water5Frame = new FrameBuilder(getSubImage(0, 4))
+        // Ceiling Spike 1 - (Dark Blue Background)
+        Frame CeilingSpike1Frame = new FrameBuilder(getSubImage(4, 0))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water5Tile = new MapTileBuilder(Water5Frame);
+        MapTileBuilder CeilingSpike1Tile = new MapTileBuilder(CeilingSpike1Frame)
+                .withTileType(TileType.WATER);
 
-        mapTiles.add(Water5Tile);
+        mapTiles.add(CeilingSpike1Tile);
 
-        // Placeholder for now
-        Frame Water6Frame = new FrameBuilder(getSubImage(1, 0))
+        // Column 2 - (Blue Background)
+        Frame Column2Frame = new FrameBuilder(getSubImage(4, 1))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water6Tile = new MapTileBuilder(Water6Frame);
-
-        mapTiles.add(Water6Tile);
-
-        // Placeholder for now
-        Frame Water7Frame = new FrameBuilder(getSubImage(1, 1))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water7Tile = new MapTileBuilder(Water7Frame);
-
-        mapTiles.add(Water7Tile);
-
-        // Placeholder for now
-        Frame Water8Frame = new FrameBuilder(getSubImage(1, 2))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water8Tile = new MapTileBuilder(Water8Frame);
-
-        mapTiles.add(Water8Tile);
-
-        // Placeholder for now
-        Frame Water9Frame = new FrameBuilder(getSubImage(1, 3))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water9Tile = new MapTileBuilder(Water9Frame)
+        MapTileBuilder Column2Tile = new MapTileBuilder(Column2Frame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(Water9Tile);
- 
-        // Placeholder for now
-        Frame Water10Frame = new FrameBuilder(getSubImage(1, 4))
+        mapTiles.add(Column2Tile);
+
+        // Ceiling Spike 2 - (Blue Background)
+        Frame CeilingSpike2Frame = new FrameBuilder(getSubImage(4, 2))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water10Tile = new MapTileBuilder(Water10Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder CeilingSpike2Tile = new MapTileBuilder(CeilingSpike2Frame)
+                .withTileType(TileType.WATER);
 
-        mapTiles.add(Water10Tile);
+        mapTiles.add(CeilingSpike2Tile);
 
-        // Placeholder for now
-        Frame Water11Frame = new FrameBuilder(getSubImage(2, 0))
+        // Background of some kind? (Not Used)
+        Frame BackgroundFrame = new FrameBuilder(getSubImage(4, 3))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water11Tile = new MapTileBuilder(Water11Frame)
+        MapTileBuilder BackgroundTile = new MapTileBuilder(BackgroundFrame)
                 .withTileType(TileType.NOT_PASSABLE);
 
-        mapTiles.add(Water11Tile);
+        mapTiles.add(BackgroundTile);
 
-        // Placeholder for now
-        Frame Water12Frame = new FrameBuilder(getSubImage(2, 1))
+        // Ground Spike 3 - (Light Blue Background)
+        Frame GroundSpike3Frame = new FrameBuilder(getSubImage(4, 4))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder Water12Tile = new MapTileBuilder(Water12Frame)
-                .withTileType(TileType.NOT_PASSABLE);
+        MapTileBuilder GroundSpike3Tile = new MapTileBuilder(GroundSpike3Frame)
+                .withTileType(TileType.WATER);
 
-        mapTiles.add(Water12Tile);
-
-        // Placeholder for now
-        Frame Water13Frame = new FrameBuilder(getSubImage(2, 2))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water13Tile = new MapTileBuilder(Water13Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water13Tile);
-
-        // Placeholder for now
-        Frame Water14Frame = new FrameBuilder(getSubImage(2, 3))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water14Tile = new MapTileBuilder(Water14Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water14Tile);
-
-        // Placeholder for now
-        Frame Water15Frame = new FrameBuilder(getSubImage(2, 4))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water15Tile = new MapTileBuilder(Water15Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water15Tile);
-
-        // Placeholder for now
-        Frame Water16Frame = new FrameBuilder(getSubImage(3, 0))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water16Tile = new MapTileBuilder(Water16Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water16Tile);
-
-        // Placeholder for now
-        Frame Water17Frame = new FrameBuilder(getSubImage(3, 1))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water17Tile = new MapTileBuilder(Water17Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water17Tile);
-
-        // Placeholder for now
-        Frame Water18Frame = new FrameBuilder(getSubImage(3, 2))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water18Tile = new MapTileBuilder(Water18Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water18Tile);
-
-        // Placeholder for now
-        Frame Water19Frame = new FrameBuilder(getSubImage(3, 3))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water19Tile = new MapTileBuilder(Water19Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water19Tile);
-
-        // Placeholder for now
-        Frame Water20Frame = new FrameBuilder(getSubImage(3, 4))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water20Tile = new MapTileBuilder(Water20Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water20Tile);
-
-        // Placeholder for now
-        Frame Water21Frame = new FrameBuilder(getSubImage(4, 0))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water21Tile = new MapTileBuilder(Water21Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water21Tile);
-
-        // Placeholder for now
-        Frame Water22Frame = new FrameBuilder(getSubImage(4, 1))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water22Tile = new MapTileBuilder(Water22Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water22Tile);
-
-        // Placeholder for now
-        Frame Water23Frame = new FrameBuilder(getSubImage(4, 2))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water23Tile = new MapTileBuilder(Water23Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water23Tile);
-
-        // Placeholder for now
-        Frame Water24Frame = new FrameBuilder(getSubImage(4, 3))
-                .withScale(tileScale)
-                .build();
-
-        MapTileBuilder Water24Tile = new MapTileBuilder(Water24Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water24Tile);
-
-        // Placeholder for now
-        Frame Water25Frame = new FrameBuilder(getSubImage(4, 4))
-                .withScale(tileScale)
-                .build();
-
-        // Placeholder for now
-        MapTileBuilder Water25Tile = new MapTileBuilder(Water25Frame)
-                .withTileType(TileType.NOT_PASSABLE);
-
-        mapTiles.add(Water25Tile);
+        mapTiles.add(GroundSpike3Tile);
     
         return mapTiles;
     }
