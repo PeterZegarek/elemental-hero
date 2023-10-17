@@ -52,7 +52,7 @@ public class UnknownTraveler extends NPC {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("STANDING_RIGHT", new Frame[] {
+            put("STANDING", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                            .withScale(2)
                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
@@ -70,20 +70,6 @@ public class UnknownTraveler extends NPC {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                            .build(),
            });
-            put("STANDING_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                           .withScale(2)                        
-                           .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                           .withScale(2)
-                           .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
-                           .withScale(2)
-                           .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                            .withScale(2)
-                           .build(),
-           });         
         }};
     }
 
