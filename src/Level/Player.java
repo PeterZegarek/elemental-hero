@@ -3,6 +3,7 @@ package Level;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import EnhancedMapTiles.MovingCloud;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.GameObject;
@@ -572,7 +573,7 @@ public abstract class Player extends GameObject{
         }
         // move player to the right until it walks off screen
         else if (map.getCamera().containsDraw(this)){
-            if(ScreenCoordinator.getGameState()== GameState.LEVEL2){
+            if(ScreenCoordinator.getGameState()== GameState.LEVEL2 || ScreenCoordinator.getGameState() == GameState.LEVEL5){
                 currentAnimationName = "WALK_LEFT";
                 super.update();
                 moveXHandleCollision(-walkSpeed);
