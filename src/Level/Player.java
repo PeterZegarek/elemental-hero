@@ -3,6 +3,7 @@ package Level;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import EnhancedMapTiles.MovingCloud;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.GameObject;
@@ -99,6 +100,12 @@ public abstract class Player extends GameObject{
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
+            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                playerState = PlayerState.SWIMMING;
+            }
             applyGravity();
 
             // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
@@ -154,9 +161,45 @@ public abstract class Player extends GameObject{
             case JUMPING:
                 playerJumping();
                 break;
+            case SWIMMING:
+                playerSwimming();
+                break;
         }
     }
 
+    protected void playerSwimming() {
+
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+            moveAmountX -= walkSpeed;
+            facingDirection = Direction.LEFT;
+            playerState = PlayerState.SWIMMING;
+        }
+
+        // if walk right key is pressed, move player to the right
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            moveAmountX += walkSpeed;
+            facingDirection = Direction.RIGHT;
+            playerState = PlayerState.SWIMMING;
+        }   
+        else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+            playerState = PlayerState.SWIMMING;
+        }
+
+        // if jump key is pressed, player enters JUMPING state
+        if (Keyboard.isKeyDown(JUMP_KEY)) {
+            moveAmountY -= walkSpeed;
+            playerState = PlayerState.SWIMMING;
+        }
+
+        // if crouch key is pressed,
+        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
+            moveAmountY += walkSpeed;
+            playerState = PlayerState.SWIMMING;
+        }
+    }
+        
+    
+    
     // player STANDING state logic
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
@@ -267,7 +310,7 @@ public abstract class Player extends GameObject{
             playerState = PlayerState.STANDING;
             if(isGlideOn){
                 isGlideOn = false;
-                setTerminalVelocityY(6f);
+                setTerminalVelocityY(6f);               
             }
         }
     }
@@ -321,7 +364,15 @@ public abstract class Player extends GameObject{
             //Makes Hurt Animation stay while walking
             if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_WALK_RIGHT" : "HURT_WALK_LEFT";    
-                }                
+                }  
+            // handles putting goggles on when standing in water
+            // checks if the center of the player is currently touching a water tile
+            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            }              
         }
         else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
@@ -329,6 +380,14 @@ public abstract class Player extends GameObject{
             if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 } 
+            // handles putting goggles on when standing in water
+            // checks if the center of the player is currently touching a water tile
+            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            }
         }
         else if (playerState == PlayerState.JUMPING) {
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
@@ -338,15 +397,47 @@ public abstract class Player extends GameObject{
                 if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
                 }
+                // handles putting goggles on when standing in water
+                // checks if the center of the player is currently touching a water tile
+                int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+                int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+                MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+                if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                }
             } 
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
-                //Makes Hurt Animation stay while jumping
+                //Makes Hurt Animation stay while falling
                 if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
                 }
+                // handles putting goggles on when standing in water
+                // checks if the center of the player is currently touching a water tile
+                int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+                int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+                MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+                if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                }
             }           
         }
+        else if (playerState == PlayerState.SWIMMING){
+            // handles putting goggles on when standing in water
+            // checks if the center of the player is currently touching a water tile
+            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                }
+                //Makes Hurt Animation stay while swimming
+                if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";
+                }
+        }
+        
+    
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
         if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL1)){
@@ -374,6 +465,7 @@ public abstract class Player extends GameObject{
             }
         }
     }
+
 
     // x and y are the player's positions, directions is the direction they are facing
     public void fireballSpit(float x, float y, Direction direction){
@@ -481,7 +573,7 @@ public abstract class Player extends GameObject{
         }
         // move player to the right until it walks off screen
         else if (map.getCamera().containsDraw(this)){
-            if(ScreenCoordinator.getGameState()== GameState.LEVEL2){
+            if(ScreenCoordinator.getGameState()== GameState.LEVEL2 || ScreenCoordinator.getGameState() == GameState.LEVEL5){
                 currentAnimationName = "WALK_LEFT";
                 super.update();
                 moveXHandleCollision(-walkSpeed);
