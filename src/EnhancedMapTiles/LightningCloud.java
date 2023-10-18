@@ -36,14 +36,14 @@ public class LightningCloud extends EnhancedMapTile {
         lightningCounter++;
 
         // This timing helps it spawn on animation 4 every time. If you change the frame delay you have to change this number too. 
-        // 10/17 it takes 225 frames for the first lightning bolt, and 300 for every future lightning bolt.
-        if ((lightningCounter % 225 == 0) && (lightningCounter != 0)){
+        // 10/18 it takes 150 frames for the first lightning bolt, and 200 for every future lightning bolt.
+        if ((lightningCounter % 150 == 0) && (lightningCounter != 0)){
             VerticalElectricity lightning1 = new VerticalElectricity(new Point(this.startLocation.x - 10, this.startLocation.y + 50));
             map.addEnemy(lightning1);
-            VerticalElectricity lightning2 = new VerticalElectricity(new Point(this.startLocation.x + 50, this.startLocation.y + 50));
+            VerticalElectricity lightning2 = new VerticalElectricity(new Point(this.startLocation.x + 40, this.startLocation.y + 50));
             map.addEnemy(lightning2);
             // This is just to make the math work out.
-            lightningCounter = -75;
+            lightningCounter = -50;
         }
 
         super.update(player);
@@ -55,19 +55,19 @@ public class LightningCloud extends EnhancedMapTile {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 75)
+                new FrameBuilder(spriteSheet.getSprite(0, 0), 50)
                         .withScale(3)
                         .withBounds(1, 1, 32, 14)
                         .build(),
-                new FrameBuilder(spriteSheet.getSprite(1, 0), 75)
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 50)
                         .withScale(3)
                         .withBounds(1, 1, 32, 14)
                         .build(),
-                new FrameBuilder(spriteSheet.getSprite(2, 0), 75)
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 50)
                         .withScale(3)
                         .withBounds(1, 1, 32, 14)
                         .build(),
-                new FrameBuilder(spriteSheet.getSprite(3, 0), 75)
+                new FrameBuilder(spriteSheet.getSprite(3, 0), 50)
                         .withScale(3)
                         .withBounds(1, 1, 32, 14)
                         .build()

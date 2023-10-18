@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Enemies.VerticalElectricity;
 import EnhancedMapTiles.LightningCloud;
 import Level.*;
+import NPCs.UnknownTraveler;
 import Tilesets.ElectricTileset;
 import Utils.Point;
 
@@ -13,7 +14,7 @@ public class ElectricMap extends Map{
     public ElectricMap(){
 
         super("ElectricMap.txt", new ElectricTileset()); 
-        this.playerStartPosition = getMapTile(0, 14).getLocation();
+        this.playerStartPosition = getMapTile(0, 22).getLocation();
 
     }
 
@@ -32,11 +33,27 @@ public class ElectricMap extends Map{
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        LightningCloud lightningCloud1 = new LightningCloud(getMapTile(4,11).getLocation());
+        LightningCloud lightningCloud1 = new LightningCloud(getMapTile(4,22).getLocation());
         enhancedMapTiles.add(lightningCloud1);
+
+        LightningCloud lightningCloud2 = new LightningCloud(getMapTile(9,12).getLocation());
+        enhancedMapTiles.add(lightningCloud2);
+
+        LightningCloud lightningCloud3 = new LightningCloud(getMapTile(11,13).getLocation());
+        enhancedMapTiles.add(lightningCloud3);
 
 
         return enhancedMapTiles;
 
+    }
+
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(10, 11).getLocation().subtractY(42));
+        npcs.add(UnknownTraveler);
+
+        return npcs;
     }
 }
