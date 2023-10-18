@@ -51,7 +51,7 @@ public class ElectricMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(10, 11).getLocation().subtractY(42));
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(10, 11).getLocation().subtractY(42), "STANDING_LEFT");
         npcs.add(UnknownTraveler);
 
         return npcs;

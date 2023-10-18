@@ -31,7 +31,7 @@ public class UnknownTraveler extends NPC {
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL3) // Water Level           
             textbox.setText("");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL4) // Electric Level
-            textbox.setText("Yep, you can stand on clouds. Watch out for lightning... the SHIFT key might help you glide around in the air.");
+            textbox.setText("Watch out for lightning... the SHIFT key will help you glide around in the air.");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL5) // Air Level
             textbox.setText("");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL6) // Void Level
@@ -39,6 +39,9 @@ public class UnknownTraveler extends NPC {
            
         textboxOffsetX = -4;
         textboxOffsetY = -34;
+        if (ScreenCoordinator.getGameState() == GameState.LEVEL4){
+            textboxOffsetX = -80;
+        }
     }
 
     public void update(Player player) {
