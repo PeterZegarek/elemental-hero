@@ -38,7 +38,7 @@ public class WaterMap extends Map{
         ArrayList<NPC> npcs = new ArrayList<>();
 
         //Added Argument to control sprite direction (TO FLIP, REPLACE "RIGHT" with "LEFT")
-        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(3, 11).getLocation().subtractY(42), "STANDING_LEFT"); 
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(3, 11).getLocation().subtractY(42), "STANDING_RIGHT"); 
         npcs.add(UnknownTraveler);
 
         return npcs;

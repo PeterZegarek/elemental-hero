@@ -97,14 +97,15 @@ public abstract class Player extends GameObject{
                 isInvincible = false;             
             }
         }
-
+        System.out.println(playerState);
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                playerState = PlayerState.SWIMMING;
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && playerState != PlayerState.HURT) {
+                playerState = PlayerState.SWIMMING;  
+                
             }
             applyGravity();
 
@@ -123,7 +124,7 @@ public abstract class Player extends GameObject{
             handlePlayerAnimation();
 
             updateLockedKeys();
-
+            
             // update player's animation
             super.update();
         }
@@ -147,7 +148,7 @@ public abstract class Player extends GameObject{
     protected void handlePlayerState() {
         switch (playerState) {
             case HURT:                
-                playerHurt();               
+                playerHurt();              
                 break;
             case STANDING:
                 playerStanding();
@@ -260,7 +261,7 @@ public abstract class Player extends GameObject{
             playerState = PlayerState.JUMPING;
         }
     }
-
+    
     // player JUMPING state logic
     protected void playerJumping() {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
@@ -353,11 +354,12 @@ public abstract class Player extends GameObject{
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            }
                 if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";   //Change to Hurt_SWIM_STAND_... LEFT or RIGHT 
                 }
             }
-        }
+        
         else if (playerState == PlayerState.HURT) { 
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";                                                
             }         
@@ -407,6 +409,10 @@ public abstract class Player extends GameObject{
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+
+                    if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
+                    }
                 }
             } 
             else {
@@ -422,6 +428,10 @@ public abstract class Player extends GameObject{
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                    
+                    if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
+                    }
                 }
             }           
         }
