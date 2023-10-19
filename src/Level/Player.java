@@ -97,7 +97,6 @@ public abstract class Player extends GameObject{
                 isInvincible = false;             
             }
         }
-        System.out.println(playerState);
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
@@ -428,7 +427,7 @@ public abstract class Player extends GameObject{
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
-                    
+
                     if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
                     }
