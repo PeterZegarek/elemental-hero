@@ -33,7 +33,7 @@ public class UnknownTraveler extends NPC {
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL4) // Electric Level
             textbox.setText("Watch out for lightning... the SHIFT key will help you glide around in the air.");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL5) // Air Level
-            textbox.setText("");
+            textbox.setText("Be careful of the cloud enemies above, and look out for tornados up ahead!");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL6) // Void Level
             textbox.setText("");
            
