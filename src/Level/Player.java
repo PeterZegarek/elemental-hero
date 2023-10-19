@@ -310,6 +310,9 @@ public abstract class Player extends GameObject{
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";   //Change to Hurt_SWIM_STAND_... LEFT or RIGHT 
+                }
             }
         }
         else if (playerState == PlayerState.HURT) { 
