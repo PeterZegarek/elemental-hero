@@ -42,9 +42,10 @@ public class HorizontalElectricity extends Enemy {
         frameCounter++;
 
         if (landed){
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
             landedFrameCounter++;
             if (landedFrameCounter == 5){
-                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                // this.mapEntityStatus = MapEntityStatus.REMOVED;
             }
         }
         else {
@@ -90,7 +91,7 @@ public class HorizontalElectricity extends Enemy {
             put("AIR", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
                             .withScale(4)
-                            .withBounds(4, 0, 10, 15)
+                            .withBounds(0, 4, 16, 10)
                             .build(),
             });
 

@@ -87,7 +87,7 @@ public class ElectricTileset extends Tileset {
 
         mapTiles.add(transparentFrame);
 
-        // middle platform to be jumped through when going up
+        // middle platform to be jumped through when going up - left side
         Frame middlePlatformFrame = new FrameBuilder(getSubImage(3, 2))
                 .withScale(tileScale)
                 .withBounds(0, 6, 16, 4)
@@ -107,8 +107,8 @@ public class ElectricTileset extends Tileset {
 
         mapTiles.add(supportBeamTile);
 
-        // half platform that you can jump through
-        Frame halfPlatformFrame = new FrameBuilder(getSubImage(3,2))
+        // half platform that you can jump through - right side
+        Frame halfPlatformFrame = new FrameBuilder(getSubImage(2,2))
                 .withScale(tileScale)
                 .withBounds(0, 6, 16, 4)
                 .build();
@@ -135,6 +135,44 @@ public class ElectricTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(wallTopTile);
+
+        // sky frame without clouds
+        Frame skyFrame = new FrameBuilder(getSubImage(3,0))
+                .withScale(tileScale)
+                .build();
+        MapTileBuilder skyTile = new MapTileBuilder(skyFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(skyTile);
+
+        // sky frame with clouds
+        Frame sky1Frame = new FrameBuilder(getSubImage(2,0))
+                .withScale(tileScale)
+                .build();
+        MapTileBuilder sky1Tile = new MapTileBuilder(sky1Frame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(sky1Tile);
+
+        // sky frame with one big cloud
+        Frame sky2Frame = new FrameBuilder(getSubImage(1,0))
+                .withScale(tileScale)
+                .build();
+        MapTileBuilder sky2Tile = new MapTileBuilder(sky2Frame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(sky2Tile);
+
+        // middle platform to be jumped through when going up - middle
+        Frame middlePlatform1Frame = new FrameBuilder(getSubImage(2, 1))
+                .withScale(tileScale)
+                .withBounds(0, 6, 16, 4)
+                .build();
+
+        MapTileBuilder middlePlatform1Tile = new MapTileBuilder(middlePlatform1Frame)
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
+
+        mapTiles.add(middlePlatform1Tile);
 
 
         

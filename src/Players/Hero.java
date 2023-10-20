@@ -31,13 +31,16 @@ public class Hero extends Player {
         // drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
     }
 
+    // Peter changed 10/20. 
+    // Originally the withBounds for the hero was .withBounds(8,10,8,10)
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -45,34 +48,34 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 4), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 5), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -80,39 +83,39 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 4), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 5), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
             put("JUMP_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 2))
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -120,14 +123,14 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(1, 2))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
             put("FALL_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 3))
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -135,14 +138,14 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(1, 3)) 
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
             put("CROUCH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 4))
                             .withScale(3)
-                            .withBounds(8, 13, 8, 7)
+                            .withBounds(8,11,8,9)
                             .build()
             });
 
@@ -150,14 +153,14 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(1, 4))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 13, 8, 7)
+                            .withBounds(8,11,8,9)
                             .build()
             });
 
             put("HURT_STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2,1))
                             .withScale(3)
-                            .withBounds(8, 13, 8, 7)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -165,26 +168,26 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 1))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 13, 8, 7)
+                            .withBounds(8,6,8,14)
                             .build()
             }); 
 
             put("HURT_WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 2), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 3), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 4), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 5), 14)
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
             });
 
@@ -192,29 +195,29 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 2), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 3), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 4), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(2, 5), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build(),
             });
 
             put("HURT_JUMP_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2,3))
                             .withScale(3)
-                            .withBounds(8, 13, 8, 7)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -222,14 +225,14 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 3))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 13, 8, 7)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
             put("HURT_FALL_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 4))
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -237,7 +240,7 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 4))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -292,7 +295,7 @@ public class Hero extends Player {
             put("SWIM_STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(3)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
 
@@ -300,7 +303,7 @@ public class Hero extends Player {
                     new FrameBuilder(spriteSheet.getSprite(2, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(8, 10, 8, 10)
+                            .withBounds(8,6,8,14)
                             .build()
             });
         }};
