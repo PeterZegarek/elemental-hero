@@ -21,7 +21,7 @@ public class UnknownTraveler extends NPC {
     String animation; 
 
     public UnknownTraveler(Point location, String animation) { 
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("NPCPOSSS.png"), 37, 47), animation);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("UnknownTraveler.png"), 37, 47), animation);
         isInteractable = true;
         talkedToTime = 200;
         if (ScreenCoordinator.getGameState() == GameState.LEVEL1) // Earth Level
