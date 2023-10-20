@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.VerticalElectricity;
+import EnhancedMapTiles.ElectricShooter;
 import EnhancedMapTiles.LightningCloud;
 import Level.*;
 import NPCs.UnknownTraveler;
@@ -41,6 +42,18 @@ public class ElectricMap extends Map{
 
         LightningCloud lightningCloud3 = new LightningCloud(getMapTile(11,13).getLocation());
         enhancedMapTiles.add(lightningCloud3);
+
+        LightningCloud lightningCloud4 = new LightningCloud(getMapTile(24,15).getLocation());
+        enhancedMapTiles.add(lightningCloud4);
+
+        LightningCloud lightningCloud5 = new LightningCloud(getMapTile(20,9).getLocation());
+        enhancedMapTiles.add(lightningCloud5);
+
+        ElectricShooter electricShooter1 = new ElectricShooter(getMapTile(14, 22).getLocation());
+        enhancedMapTiles.add(electricShooter1);
+
+        ElectricShooter electricShooter2 = new ElectricShooter(getMapTile(14, 19).getLocation());
+        enhancedMapTiles.add(electricShooter2);
 
 
         return enhancedMapTiles;
