@@ -3,6 +3,10 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.SlimeEnemy;
+import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.HorizontalMovingPlatform;
+import GameObject.Rectangle;
 import Level.*;
 import NPCs.UnknownTraveler;
 import Tilesets.WaterTileset; // change to WaterTileset
@@ -42,5 +46,14 @@ public class WaterMap extends Map{
         npcs.add(UnknownTraveler);
 
         return npcs;
+    }
+     @Override
+    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
+        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(69, 5).getLocation());
+        enhancedMapTiles.add(endLevelBox);
+
+        return enhancedMapTiles;
     }
 }

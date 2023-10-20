@@ -163,7 +163,7 @@ public class SlimeEnemy extends Enemy {
 
     @Override
     public void touchedPlayer(Player player) {
-        player.hurtPlayer(this);
+        super.touchedPlayer(player);
         isInvincible = true;
         isInvincibleCounter = 20;
         SlimeState = SlimeState.EXPLODE; 
