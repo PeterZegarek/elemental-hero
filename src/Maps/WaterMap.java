@@ -35,8 +35,35 @@ public class WaterMap extends Map{
         SlimeEnemy SlimeEnemy3 = new SlimeEnemy(getMapTile(15, 33).getLocation(), getMapTile(29, 33).getLocation(), Direction.LEFT);
         enemies.add(SlimeEnemy3);
 
-        WaterWizardEnemy wizard1 = new WaterWizardEnemy(getMapTile(16, 22).getLocation(), getMapTile(25, 22).getLocation(), Direction.LEFT);
+        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(getMapTile(29, 30).getLocation(), getMapTile(40, 30).getLocation(), Direction.LEFT, "FLIP");
+        enemies.add(SlimeEnemy4);
+
+        SlimeEnemy SlimeEnemy5 = new SlimeEnemy(getMapTile(29, 32).getLocation(), getMapTile(40, 32).getLocation(), Direction.RIGHT);
+        enemies.add(SlimeEnemy5);
+
+        WaterWizardEnemy wizard1 = new WaterWizardEnemy(getMapTile(14, 19).getLocation(), getMapTile(25, 19).getLocation(), Direction.LEFT);
         enemies.add(wizard1);
+
+        WaterWizardEnemy wizard2 = new WaterWizardEnemy(getMapTile(3, 27).getLocation(), getMapTile(9, 27).getLocation(), Direction.LEFT);
+        enemies.add(wizard2);
+
+        WaterWizardEnemy wizard3 = new WaterWizardEnemy(getMapTile(6, 24).getLocation(), getMapTile(12, 24).getLocation(), Direction.LEFT);
+        enemies.add(wizard3);
+
+        WaterWizardEnemy wizard4 = new WaterWizardEnemy(getMapTile(17, 28).getLocation(), getMapTile(25, 28).getLocation(), Direction.RIGHT);
+        enemies.add(wizard4);
+
+        WaterWizardEnemy wizard5 = new WaterWizardEnemy(getMapTile(24, 13).getLocation(), getMapTile(29, 13).getLocation(), Direction.LEFT);
+        enemies.add(wizard5);
+
+        WaterWizardEnemy wizard6 = new WaterWizardEnemy(getMapTile(21, 3).getLocation(), getMapTile(29, 3).getLocation(), Direction.LEFT);
+        enemies.add(wizard6);
+
+        WaterWizardEnemy wizard7 = new WaterWizardEnemy(getMapTile(3, 16).getLocation(), getMapTile(10, 16).getLocation(), Direction.LEFT);
+        enemies.add(wizard7);
+
+        WaterWizardEnemy wizard8 = new WaterWizardEnemy(getMapTile(15, 23).getLocation(), getMapTile(26, 23).getLocation(), Direction.RIGHT);
+        enemies.add(wizard8);
 
         return enemies;
 

@@ -40,9 +40,19 @@ public class SlimeEnemy extends Enemy {
     protected SlimeState SlimeState;
     protected SlimeState previousSlimeState;
     protected PlayerState playerState;
+    protected String verticalFlip;
 
     public SlimeEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("SlimeEnemy.png"), 31, 24), "WALK_RIGHT");
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        this.startFacingDirection = facingDirection;
+        this.initialize();
+    }
+
+    public SlimeEnemy(Point startLocation, Point endLocation, Direction facingDirection, String verticalFlip) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("SlimeEnemy.png"), 31, 24), "UPSIDEDOWN_WALK_RIGHT");
+        this.verticalFlip = verticalFlip;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -54,18 +64,34 @@ public class SlimeEnemy extends Enemy {
         // Add the Slime enemy as an enemy to listen for elemental abilities
         ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
-        SlimeState = SlimeState.WALK;
+        if(verticalFlip == "FLIP"){
+            SlimeState = SlimeState.UPSIDEDOWNWALK;
+        }
+        else{
+            SlimeState = SlimeState.WALK;
+        }
         previousSlimeState = SlimeState;
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
-            currentAnimationName = "WALK_RIGHT";
-        } else if (facingDirection == Direction.LEFT) {
-            currentAnimationName = "WALK_LEFT";
+            if(verticalFlip == "FLIP"){
+                currentAnimationName = "UPSIDEDOWN_WALK_RIGHT";
+            }
+            else{ 
+                currentAnimationName = "WALK_RIGHT";
+            }
+        } 
+        else if (facingDirection == Direction.LEFT) {
+            if(verticalFlip == "FLIP"){
+                currentAnimationName = "UPSIDEDOWN_WALK_LEFT";
+            }
+            else{ 
+                currentAnimationName = "WALK_LEFT";
+            }
         }
         airGroundState = AirGroundState.GROUND;
 }
 
-    @Override
+    @Override 
     public void update(Player player) {
         
         if (isInvincibleCounter > 0){           
@@ -87,6 +113,12 @@ public class SlimeEnemy extends Enemy {
             case WALK: 
                 slimeWalk();                             
                 break;
+            case UPSIDEDOWNWALK:
+                slimeWalk();
+                break;
+            case UPSIDEDOWNEXPLODE:  
+                slimeExplode();
+                break;
             case EXPLODE:
                 slimeExplode();
                 break;
@@ -102,10 +134,20 @@ public class SlimeEnemy extends Enemy {
         // Need it to actually move
         // When changing direction he changes the way it is facing
         if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "WALK_RIGHT";
+                if(verticalFlip == "FLIP"){
+                     currentAnimationName = "UPSIDEDOWN_WALK_RIGHT";   
+                }
+                else{
+                     currentAnimationName = "WALK_RIGHT";
+                }
                 moveXHandleCollision(movementSpeed);
         } else {
-                currentAnimationName = "WALK_LEFT";
+                if(verticalFlip == "FLIP"){
+                     currentAnimationName = "UPSIDEDOWN_WALK_LEFT";   
+                }
+                else{
+                     currentAnimationName = "WALK_LEFT";
+                }
                 moveXHandleCollision(-movementSpeed);
         }
 
@@ -141,10 +183,20 @@ public class SlimeEnemy extends Enemy {
         // Need it to actually move
         // When changing direction he changes the way it is facing
         if (facingDirection == Direction.RIGHT) {
-                currentAnimationName = "EXPLODE_RIGHT";
+                if(verticalFlip == "FLIP"){
+                     currentAnimationName = "UPSIDEDOWN_EXPLODE_RIGHT";   
+                }
+                else{
+                     currentAnimationName = "EXPLODE_RIGHT";
+                }
         } 
         else {
+                if(verticalFlip == "FLIP"){
+                     currentAnimationName = "UPSIDEDOWN_EXPLODE_LEFT";   
+                }
+                else{
                 currentAnimationName = "EXPLODE_LEFT";
+                }
         }
     }
     @Override
@@ -153,10 +205,18 @@ public class SlimeEnemy extends Enemy {
         if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
-                currentAnimationName = "WALK_RIGHT";
+                if(verticalFlip == "FLIP"){
+                    currentAnimationName = "UPSIDEDOWN_WALK_LEFT";
+                }
+                else
+                    currentAnimationName = "WALK_LEFT";
             } else {
                 facingDirection = Direction.RIGHT;
-                currentAnimationName = "WALK_LEFT";
+                if(verticalFlip == "FLIP"){
+                    currentAnimationName = "UPSIDEDOWN_WALK_RIGHT";
+                }
+                else
+                    currentAnimationName = "WALK_RIGHT";
             }
         } 
     }
@@ -166,6 +226,9 @@ public class SlimeEnemy extends Enemy {
         super.touchedPlayer(player);
         isInvincible = true;
         isInvincibleCounter = 20;
+        if(verticalFlip == "FLIP"){
+                SlimeState = SlimeState.UPSIDEDOWNEXPLODE;
+        }
         SlimeState = SlimeState.EXPLODE; 
         }
 
@@ -299,11 +362,151 @@ public class SlimeEnemy extends Enemy {
                             .withBounds(6, 6, 6, 14)
                             .build()
             });
+
+                put("UPSIDEDOWN_WALK_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 4), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 5), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 6), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 7), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(5, 8, 20, 14)
+                            .build()
+            });
+
+                put("UPSIDEDOWN_WALK_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 4), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 5), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 6), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 7), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(5, 8, 20, 14)
+                            .build()
+            });
+                put("UPSIDEDOWN_EXPLODE_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 0), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 4), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                            .withBounds(6, 6, 6, 14)
+                            .build()
+            });
+                put("UPSIDEDOWN_EXPLODE_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(2, 0), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(6, 6, 6, 14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 4), 8)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                            .withBounds(6, 6, 6, 14)
+                            .build()
+            });
         }};
     }
 
     public enum SlimeState {
-        WALK, EXPLODE
+        WALK, UPSIDEDOWNWALK, EXPLODE, UPSIDEDOWNEXPLODE
     }
 
 }
