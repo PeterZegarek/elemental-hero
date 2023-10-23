@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
+import Game.GameState;
+import Game.ScreenCoordinator;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -19,6 +21,7 @@ public class Wave extends Enemy {
     private int existenceFrames = 32;
     private Direction startDirection;
     private Direction facingDirection;
+    GameState GameState;
 
     public Wave(float xPos, float yPos, Direction direction) {
         super(xPos, yPos, new SpriteSheet(ImageLoader.load("Wave.png"), 32, 67), "RIGHT");
@@ -70,7 +73,10 @@ public class Wave extends Enemy {
 
     // Touched player should not do anything
     @Override
-    public void touchedPlayer(Player player){}
+    public void touchedPlayer(Player player){
+        if(ScreenCoordinator.getGameState() == GameState.LEVEL3)
+            super.touchedPlayer(player);
+    }
 
 
     // As it stands, enemyAttacked is not necessary as the enemies themselves will die if they get hit

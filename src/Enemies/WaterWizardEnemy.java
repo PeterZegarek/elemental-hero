@@ -8,6 +8,7 @@ import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Players.Wave;
 import Utils.AirGroundState;
@@ -16,9 +17,9 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the Angry WaterWizard that throws sticks
+// This class is for the Angry WaterWizard that throws WAVEs
 // It SWIMs back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will throw a stick enemy
+// Every so often (based on shootTimer) it will throw a WAVE enemy
 public class WaterWizardEnemy extends Enemy {
 
     // start and end location defines the two points that it SWIMs between
@@ -40,6 +41,10 @@ public class WaterWizardEnemy extends Enemy {
     // can be either SWIM or SHOOT based on what the enemy is currently set to do
     protected WaterWizardState WaterWizardState;
     protected WaterWizardState previousWaterWizardState;
+
+    protected int isInvincibleCounter;
+    protected boolean isInvincible;
+    private MapEntityStatus enemy;
 
     public WaterWizardEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("WaterWizardEnemy.png"), 215, 226), "SWIM_RIGHT");
@@ -70,6 +75,17 @@ public class WaterWizardEnemy extends Enemy {
 
     @Override
     public void update(Player player) {
+        
+        if (isInvincibleCounter > 0){           
+            isInvincibleCounter--;
+            if (isInvincibleCounter == 0){                                             
+                isInvincible = false;               
+                this.mapEntityStatus = MapEntityStatus.REMOVED;             
+            }
+        }
+          
+        super.update(player);
+        
         float startBound = startLocation.x;
         float endBound = endLocation.x;
 
@@ -105,8 +121,8 @@ public class WaterWizardEnemy extends Enemy {
             }
         }
 
-        // if WaterWizard is waiting to shoot, it does its animations then throws the stick
-        // after this waiting period is over, the stick is thrown
+        // if WaterWizard is waiting to shoot, it does its animations then throws the WAVE
+        // after this waiting period is over, the WAVE is thrown
         if (WaterWizardState == WaterWizardState.SHOOT_WAIT) {
             if (previousWaterWizardState == WaterWizardState.SWIM) {
                 shootTimer = 40;
@@ -126,10 +142,12 @@ public class WaterWizardEnemy extends Enemy {
                 shootTimer--;
             }
         }
-
-        // this is for actually having the WaterWizard throw the stick
+        if (WaterWizardState == WaterWizardState.DEATH){
+            currentAnimationName = "DEATH";
+        }
+        // this is for actually having the WaterWizard shoot the wave
         if (WaterWizardState == WaterWizardState.SHOOT) {
-            // define where stick will spawn on map (x location) relative to WaterWizard's location            
+            // define where WAVE will spawn on map (x location) relative to WaterWizard's location            
             // and define its movement speed
             int waveX;
             if (currentAnimationName == "SHOOT_RIGHT") {
@@ -139,7 +157,7 @@ public class WaterWizardEnemy extends Enemy {
 
             }
 
-            // define where stick will spawn on the map (y location) relative to WaterWizard's location
+            // define where wave will spawn on the map (y location) relative to WaterWizard's location
             int waveY = Math.round(getY()) - 16;
 
             // create Wave enemy
@@ -147,7 +165,7 @@ public class WaterWizardEnemy extends Enemy {
 
             Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
-            // add stick enemy to the map for it to spawn in the level
+            // add WAVE enemy to the map for it to spawn in the level
             if(previousAnimationName == "SHOOT_LEFT"){
                 map.addEnemy(waveAttackLeft);
                 
@@ -168,6 +186,12 @@ public class WaterWizardEnemy extends Enemy {
 
     }
 
+    protected void WaterWizardDeath() {
+        isInvincible = true;
+        isInvincibleCounter = 20; 
+        WaterWizardState = WaterWizardState.DEATH;     
+    }
+
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if dinosaur enemy collides with something on the x axis, it turns around and SWIMs the other way
@@ -181,11 +205,12 @@ public class WaterWizardEnemy extends Enemy {
             }
         }
     }
-   /*  @Override
+    @Override
     public void enemyAttacked(Enemy enemy){
-        
+        WaterWizardDeath();
+        this.enemy = MapEntityStatus.REMOVED;
     }
-*/
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         float scale = .5f;
@@ -194,59 +219,59 @@ public class WaterWizardEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(3, 0), 14)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 10)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 1), 14)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 2), 14)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 3), 14)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 4), 14)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 5), 14)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),                
             });
 
             put("SWIM_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(3, 0), 14)
                             .withScale(scale)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 1), 14)
                             .withScale(scale)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 2), 14)
                             .withScale(scale)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 3), 14)
                             .withScale(scale)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 4), 14)
                             .withScale(scale)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(3, 5), 14)
                             .withScale(scale)
-                            .withBounds(25, 35, 200, 150)
+                            .withBounds(20, 100, 200, 100)
                             .build(),
             });
 
@@ -254,60 +279,82 @@ public class WaterWizardEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 15)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(100, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 15)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(100, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 15)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(100, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 15)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(100, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 15)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(100, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 5), 15)
                             .withScale(scale)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(100, 35, 100, 150)
                             .build()
             });
 
             put("SHOOT_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 15)
                             .withScale(scale)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(15, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 15)
                             .withScale(scale)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(15, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 15)
                             .withScale(scale)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(15, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 15)
                             .withScale(scale)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(15, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 15)
                             .withScale(scale)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(15, 35, 100, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 5), 15)
                             .withScale(scale)
-                            .withBounds(25, 35, 100, 150)
+                            .withBounds(15, 35, 100, 150)
                             .build()
+            });
+            put("DEATH", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
+                            .withScale(scale)
+                            .withBounds(20, 100, 200, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
+                            .withScale(scale)
+                            .withBounds(20, 100, 200, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
+                            .withScale(scale)
+                            .withBounds(20, 100, 200, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
+                            .withScale(scale)
+                            .withBounds(20, 100, 200, 100)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(1, 4), 20)
+                            .withScale(scale)
+                            .withBounds(20, 100, 200, 100)
+                            .build(),
             });
         }};
     }

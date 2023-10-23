@@ -176,35 +176,35 @@ public class SlimeEnemy extends Enemy {
                 put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 5), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 6), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 7), 8)
                             .withScale(2)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build()
             });
 
@@ -212,42 +212,42 @@ public class SlimeEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 5), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 6), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 7), 8)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 6, 14)
+                            .withBounds(5, 8, 20, 14)
                             .build()
             });
                 put("EXPLODE_LEFT", new Frame[] {
@@ -301,8 +301,6 @@ public class SlimeEnemy extends Enemy {
             });
         }};
     }
-
-
 
     public enum SlimeState {
         WALK, EXPLODE
