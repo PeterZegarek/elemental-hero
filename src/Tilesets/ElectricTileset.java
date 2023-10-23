@@ -174,6 +174,48 @@ public class ElectricTileset extends Tileset {
 
         mapTiles.add(middlePlatform1Tile);
 
+        // Up arrow to be used to show where to go
+        Frame upArrowFrame = new FrameBuilder(getSubImage(2,4))
+                .withScale(tileScale)
+                .build();
+        
+        MapTileBuilder upArrowTile = new MapTileBuilder(upArrowFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(upArrowTile);
+
+        // Right arrow to be used to show where to go
+        Frame rightArrowFrame = new FrameBuilder(getSubImage(2,5))
+                .withScale(tileScale)
+                .build();
+        
+        MapTileBuilder rightArrowTile = new MapTileBuilder(rightArrowFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(rightArrowTile);
+
+        // Left arrow to be used to show where to go
+        Frame leftArrowFrame = new FrameBuilder(getSubImage(2,5))
+                .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build();
+        
+        MapTileBuilder leftArrowTile = new MapTileBuilder(leftArrowFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(leftArrowTile);
+
+        // Down arrow to be used to show where to go
+        Frame downArrowFrame = new FrameBuilder(getSubImage(2,4))
+                .withScale(tileScale)
+                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                .build();
+        
+        MapTileBuilder downArrowTile = new MapTileBuilder(downArrowFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(downArrowTile);
+
 
         
         return mapTiles;
