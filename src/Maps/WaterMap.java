@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.SlimeEnemy;
+import Enemies.WaterWizardEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -33,6 +34,9 @@ public class WaterMap extends Map{
 
         SlimeEnemy SlimeEnemy3 = new SlimeEnemy(getMapTile(15, 33).getLocation(), getMapTile(29, 33).getLocation(), Direction.LEFT);
         enemies.add(SlimeEnemy3);
+
+        WaterWizardEnemy wizard1 = new WaterWizardEnemy(getMapTile(16, 22).getLocation(), getMapTile(25, 22).getLocation(), Direction.LEFT);
+        enemies.add(wizard1);
 
         return enemies;
 
