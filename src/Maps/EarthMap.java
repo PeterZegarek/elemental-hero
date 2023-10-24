@@ -54,6 +54,7 @@ public class EarthMap extends Map {
         enemies.add(treeEnemy);
 
 
+
         return enemies;
     }
 

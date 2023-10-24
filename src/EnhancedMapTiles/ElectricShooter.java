@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import Builders.FrameBuilder;
 import Enemies.HorizontalElectricity;
-import Enemies.VerticalElectricity;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;

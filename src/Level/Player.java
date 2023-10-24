@@ -6,6 +6,7 @@ import Engine.Keyboard;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.GameObject;
+import GameObject.IntersectableRectangle;
 import GameObject.SpriteSheet;
 import Players.PlayerFireball;
 import Players.Wave;
@@ -79,7 +80,6 @@ public abstract class Player extends GameObject{
     }
 
     public void update() {
-        
         moveAmountX = 0;
         moveAmountY = 0;
 
@@ -571,6 +571,11 @@ public abstract class Player extends GameObject{
                 }
             }    
         }
+    }
+
+    // this is called by the invisible enemy to instakill the player
+    public void killPlayer(){
+        levelState = LevelState.PLAYER_DEAD;
     }
 
     // other entities can call this to tell the player they beat a level
