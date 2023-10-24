@@ -6,7 +6,6 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import Level.TileType;
 import Level.Tileset;
-import Utils.SlopeTileLayoutUtils;
 
 import java.util.ArrayList;
 

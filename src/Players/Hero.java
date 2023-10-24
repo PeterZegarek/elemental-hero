@@ -292,19 +292,115 @@ public class Hero extends Player {
                             .build()
             });
 
-            put("SWIM_STAND_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(2, 0))
+            put("SWIM_STAND", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(3, 3), 8)
                             .withScale(3)
-                            .withBounds(8,6,8,14)
-                            .build()
+                            .withBounds(6,5,15,18)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 4), 8)
+                            .withScale(3)
+                            .withBounds(6,5,15,18)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 5), 8)
+                            .withScale(3)
+                            .withBounds(6,5,15,18)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 4), 8)
+                            .withScale(3)
+                            .withBounds(6,5,15,18)
+                            .build(),
             });
 
-            put("SWIM_STAND_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(2, 0))
+            put("SWIM_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(3, 0), 8)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(3,5,20,13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 1), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(3,5,20,13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 2), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(3,5,23,13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 1), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(3,5,20,13)
+                            .build(),
+            });
+            put("SWIM_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(3, 0), 8)
+                            .withScale(3)
+                            .withBounds(3,5,20,13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 1), 8)
+                            .withScale(3)
+                            .withBounds(3,5,20,13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 2), 8)
+                            .withScale(3)
+                            .withBounds(3,5,20,13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(3, 1), 8)
+                            .withScale(3)
+                            .withBounds(3,5,20,13)
+                            .build(),
+            });
+            put("HURT_SWIM_STAND", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 3), 8)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 4), 8)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 5), 8)
+                            .withScale(3)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 4), 8)
+                            .withScale(3)
+                            .build(),
+            });
+
+            put("HURT_SWIM_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 0), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 1), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 2), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 1), 8)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+            });
+            put("HURT_SWIM_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 0), 8)
+                            .withScale(3)
                             .withBounds(8,6,8,14)
-                            .build()
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 1), 8)
+                            .withScale(3)
+                            .withBounds(8,6,8,14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 2), 8)
+                            .withScale(3)
+                            .withBounds(8,6,8,14)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(4, 1), 8)
+                            .withScale(3)
+                            .withBounds(8,6,8,14)
+                            .build(),
             });
         }};
     }
