@@ -396,12 +396,21 @@ public abstract class Player extends GameObject{
         }
         else if (playerState == PlayerState.JUMPING) {
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
-            if (lastAmountMovedY <= 0) {
+            if (lastAmountMovedY <= 0 && gameState != GameState.LEVEL3) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
                 //Makes Hurt Animation stay while jumping
                 if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
                 }
+            else {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
+                //Makes Hurt Animation stay while falling
+                if (isInvincible == true){
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
+                }
+            }
+        }
+            if (lastAmountMovedY <= 0 && gameState == GameState.LEVEL3){
                 // checks if the center of the player is currently touching a water tile     
                 int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
                 int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
@@ -412,15 +421,15 @@ public abstract class Player extends GameObject{
                     if (isInvincible == true){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
                    }
-                }
+                }       
                 else{
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
 
                     if (isInvincible == true){
-                        this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_RIGHT" : "HURT_SWIM_LEFT";    
+                        this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
                    }
                 }     
-            }
+            }           
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while falling
@@ -433,14 +442,15 @@ public abstract class Player extends GameObject{
                 int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
 
                     if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
+                        this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_RIGHT" : "HURT_SWIM_LEFT";    
                     }
-                }
-            }           
-        }
+                }            
+            }
+        }           
+
         else if (playerState == PlayerState.SWIMMING){
             // handles putting goggles on when standing in water
             // checks if the center of the player is currently touching a water tile
@@ -456,8 +466,7 @@ public abstract class Player extends GameObject{
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";
                 }
         }
-        
-    
+         
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
         if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL1)){
