@@ -21,7 +21,6 @@ public class Wave extends Enemy {
     private int existenceFrames = 32;
     private Direction startDirection;
     private Direction facingDirection;
-    GameState GameState;
 
     public Wave(float xPos, float yPos, Direction direction) {
         super(xPos, yPos, new SpriteSheet(ImageLoader.load("Wave.png"), 32, 67), "RIGHT");

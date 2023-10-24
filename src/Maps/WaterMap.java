@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import Enemies.SlimeEnemy;
 import Enemies.WaterWizardEnemy;
-import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.HorizontalMovingPlatform;
-import GameObject.Rectangle;
 import Level.*;
 import NPCs.UnknownTraveler;
 import Tilesets.WaterTileset; // change to WaterTileset
@@ -44,23 +41,20 @@ public class WaterMap extends Map{
         SlimeEnemy SlimeEnemy6 = new SlimeEnemy(getMapTile(29, 32).getLocation(), getMapTile(40, 32).getLocation(), Direction.RIGHT);
         enemies.add(SlimeEnemy6);
 
-        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(getMapTile(34, 13).getLocation(), getMapTile(35, 13).getLocation(), Direction.RIGHT);
+        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(getMapTile(41, 33).getLocation(), getMapTile(49, 33).getLocation(), Direction.RIGHT);
         enemies.add(SlimeEnemy7);
 
-        SlimeEnemy SlimeEnemy8 = new SlimeEnemy(getMapTile(41, 33).getLocation(), getMapTile(49, 33).getLocation(), Direction.RIGHT);
+        SlimeEnemy SlimeEnemy8 = new SlimeEnemy(getMapTile(51, 33).getLocation(), getMapTile(63, 33).getLocation(), Direction.RIGHT);
         enemies.add(SlimeEnemy8);
 
-        SlimeEnemy SlimeEnemy9 = new SlimeEnemy(getMapTile(51, 33).getLocation(), getMapTile(63, 33).getLocation(), Direction.RIGHT);
+        SlimeEnemy SlimeEnemy9 = new SlimeEnemy(getMapTile(55, 6).getLocation(), getMapTile(60, 6).getLocation(), Direction.RIGHT);
         enemies.add(SlimeEnemy9);
 
-        SlimeEnemy SlimeEnemy10 = new SlimeEnemy(getMapTile(55, 6).getLocation(), getMapTile(60, 6).getLocation(), Direction.RIGHT);
+        SlimeEnemy SlimeEnemy10 = new SlimeEnemy(getMapTile(60, 10).getLocation(), getMapTile(64, 10).getLocation(), Direction.LEFT, "FLIP");
         enemies.add(SlimeEnemy10);
 
-        SlimeEnemy SlimeEnemy11 = new SlimeEnemy(getMapTile(60, 10).getLocation(), getMapTile(64, 10).getLocation(), Direction.LEFT, "FLIP");
+        SlimeEnemy SlimeEnemy11 = new SlimeEnemy(getMapTile(60, 14).getLocation(), getMapTile(64, 14).getLocation(), Direction.RIGHT);
         enemies.add(SlimeEnemy11);
-
-        SlimeEnemy SlimeEnemy12 = new SlimeEnemy(getMapTile(60, 14).getLocation(), getMapTile(64, 14).getLocation(), Direction.RIGHT);
-        enemies.add(SlimeEnemy12);
 
         WaterWizardEnemy wizard1 = new WaterWizardEnemy(getMapTile(14, 19).getLocation(), getMapTile(25, 19).getLocation(), Direction.LEFT);
         enemies.add(wizard1);

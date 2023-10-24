@@ -39,13 +39,12 @@ public class WaterWizardEnemy extends Enemy {
     protected int shootTimer;
 
     // can be either SWIM or SHOOT based on what the enemy is currently set to do
-    protected WaterWizardState WaterWizardState;
+    protected WaterWizardState waterWizardState;
     protected WaterWizardState previousWaterWizardState;
 
     protected int isInvincibleCounter;
     protected boolean isInvincible;
-    private MapEntityStatus enemy;
-
+    
     public WaterWizardEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("WaterWizardEnemy.png"), 215, 226), "SWIM_RIGHT");
         this.startLocation = startLocation;
@@ -59,8 +58,8 @@ public class WaterWizardEnemy extends Enemy {
         // Add the WaterWizard enemy as an enemy to listen for elemental abilities
         ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
-        WaterWizardState = WaterWizardState.SWIM;
-        previousWaterWizardState = WaterWizardState;
+        waterWizardState = WaterWizardState.SWIM;
+        previousWaterWizardState = waterWizardState;
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "SWIM_RIGHT";
@@ -90,15 +89,15 @@ public class WaterWizardEnemy extends Enemy {
         float endBound = endLocation.x;
 
         // if shoot timer is up and WaterWizard is not currently shooting, set its state to SHOOT
-        if (shootWaitTimer == 0 && WaterWizardState != WaterWizardState.SHOOT_WAIT) {
-            WaterWizardState = WaterWizardState.SHOOT_WAIT;
+        if (shootWaitTimer == 0 && waterWizardState != WaterWizardState.SHOOT_WAIT) {
+            waterWizardState = WaterWizardState.SHOOT_WAIT;
         }
         else {
             shootWaitTimer--;
         }
 
         // if WaterWizard is SWIMMING, determine which direction to SWIM in based on facing direction
-        if (WaterWizardState == WaterWizardState.SWIM) {
+        if (waterWizardState == WaterWizardState.SWIM) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "SWIM_RIGHT";
                 moveXHandleCollision(movementSpeed);
@@ -123,7 +122,7 @@ public class WaterWizardEnemy extends Enemy {
 
         // if WaterWizard is waiting to shoot, it does its animations then throws the WAVE
         // after this waiting period is over, the WAVE is thrown
-        if (WaterWizardState == WaterWizardState.SHOOT_WAIT) {
+        if (waterWizardState == WaterWizardState.SHOOT_WAIT) {
             if (previousWaterWizardState == WaterWizardState.SWIM) {
                 shootTimer = 40;
                 // This line of code takes the current direction the WaterWizard is facing and makes it shoot in that direction
@@ -136,17 +135,17 @@ public class WaterWizardEnemy extends Enemy {
                     currentAnimationName = "SHOOT_RIGHT";
                 }
             } else if (shootTimer == 0) {
-                WaterWizardState = WaterWizardState.SHOOT;
+                waterWizardState = WaterWizardState.SHOOT;
             }
             else {
                 shootTimer--;
             }
         }
-        if (WaterWizardState == WaterWizardState.DEATH){
+        if (waterWizardState == WaterWizardState.DEATH){
             currentAnimationName = "DEATH";
         }
         // this is for actually having the WaterWizard shoot the wave
-        if (WaterWizardState == WaterWizardState.SHOOT) {
+        if (waterWizardState == WaterWizardState.SHOOT) {
             // define where WAVE will spawn on map (x location) relative to WaterWizard's location            
             // and define its movement speed
             int waveX;
@@ -174,7 +173,7 @@ public class WaterWizardEnemy extends Enemy {
                 map.addEnemy(waveAttackRight);
             }
             // change WaterWizard back to its SWIM state after shooting, reset shootTimer to wait a certain number of frames before shooting again
-            WaterWizardState = WaterWizardState.SWIM;
+            waterWizardState = WaterWizardState.SWIM;
 
             // reset shoot wait timer so the process can happen again (WaterWizard SWIMs around, then waits, then shoots)
             shootWaitTimer = 150;
@@ -182,14 +181,14 @@ public class WaterWizardEnemy extends Enemy {
 
         super.update(player);
 
-        previousWaterWizardState = WaterWizardState;
+        previousWaterWizardState = waterWizardState;
 
     }
 
     protected void WaterWizardDeath() {
         isInvincible = true;
         isInvincibleCounter = 20; 
-        WaterWizardState = WaterWizardState.DEATH;     
+        waterWizardState = WaterWizardState.DEATH;     
     }
 
     @Override
@@ -208,7 +207,6 @@ public class WaterWizardEnemy extends Enemy {
     @Override
     public void enemyAttacked(Enemy enemy){
         WaterWizardDeath();
-        this.enemy = MapEntityStatus.REMOVED;
     }
 
     @Override

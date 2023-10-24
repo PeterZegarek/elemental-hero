@@ -3,7 +3,6 @@ package Level;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
-import EnhancedMapTiles.MovingCloud;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.GameObject;
@@ -38,6 +37,7 @@ public abstract class Player extends GameObject{
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
+    protected GameState gameState;
     protected int lives = 3;
 
     //keeps track of glide power and whether it is on or not
@@ -79,7 +79,7 @@ public abstract class Player extends GameObject{
     }
 
     public void update() {
-
+        System.out.println(playerState);
         moveAmountX = 0;
         moveAmountY = 0;
 
@@ -293,7 +293,7 @@ public abstract class Player extends GameObject{
             }
 
             // allows you to move left and right while in the air
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {               
                 moveAmountX -= walkSpeed;
             } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed;
@@ -353,10 +353,10 @@ public abstract class Player extends GameObject{
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
             }
                 if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";   //Change to Hurt_SWIM_STAND_... LEFT or RIGHT 
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";   //Change to Hurt_SWIM_STAND_... LEFT or RIGHT 
                 }
             }
         
@@ -376,7 +376,7 @@ public abstract class Player extends GameObject{
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
             }              
         }
         else if (playerState == PlayerState.CROUCHING) {
@@ -391,7 +391,7 @@ public abstract class Player extends GameObject{
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
             }
         }
         else if (playerState == PlayerState.JUMPING) {
@@ -402,19 +402,18 @@ public abstract class Player extends GameObject{
                 if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
                 }
-                // handles putting goggles on when standing in water
-                // checks if the center of the player is currently touching a water tile
+                // checks if the center of the player is currently touching a water tile     
                 int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
                 int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
-
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
                     if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
+                        this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_RIGHT" : "HURT_SWIM_LEFT";    
                     }
                 }
-            } 
+                
+            }
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while falling
@@ -427,10 +426,10 @@ public abstract class Player extends GameObject{
                 int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
 
                     if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
                     }
                 }
             }           
@@ -442,11 +441,12 @@ public abstract class Player extends GameObject{
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
                 }
+
                 //Makes Hurt Animation stay while swimming
                 if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";
                 }
         }
         

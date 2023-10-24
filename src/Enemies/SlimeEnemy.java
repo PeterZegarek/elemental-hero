@@ -37,7 +37,7 @@ public class SlimeEnemy extends Enemy {
     protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected SlimeState SlimeState;
+    protected SlimeState slimeState;
     protected SlimeState previousSlimeState;
     protected PlayerState playerState;
     protected String verticalFlip;
@@ -65,12 +65,12 @@ public class SlimeEnemy extends Enemy {
         ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
         if(verticalFlip == "FLIP"){
-            SlimeState = SlimeState.UPSIDEDOWNWALK;
+            slimeState = SlimeState.UPSIDEDOWNWALK;
         }
         else{
-            SlimeState = SlimeState.WALK;
+            slimeState = SlimeState.WALK;
         }
-        previousSlimeState = SlimeState;
+        previousSlimeState = slimeState;
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
             if(verticalFlip == "FLIP"){
@@ -109,7 +109,7 @@ public class SlimeEnemy extends Enemy {
     }
 
     protected void handleSlimeState() {
-        switch (SlimeState) {
+        switch (slimeState) {
             case WALK: 
                 slimeWalk();                             
                 break;
@@ -227,9 +227,9 @@ public class SlimeEnemy extends Enemy {
         isInvincible = true;
         isInvincibleCounter = 20;
         if(verticalFlip == "FLIP"){
-                SlimeState = SlimeState.UPSIDEDOWNEXPLODE;
+                slimeState = SlimeState.UPSIDEDOWNEXPLODE;
         }
-        SlimeState = SlimeState.EXPLODE; 
+        slimeState = SlimeState.EXPLODE; 
         }
 
 
