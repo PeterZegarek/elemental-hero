@@ -204,10 +204,11 @@ public class WaterWizardEnemy extends Enemy {
             }
         }
     }
-    @Override
-    public void enemyAttacked(Enemy enemy){
-        WaterWizardDeath();
-    }
+    //Shouldn't need this.. unless the wave hits the enemy, which it shouldn't
+    //@Override
+    //public void enemyAttacked(Enemy enemy){
+    //    this.WaterWizardDeath();
+    //}
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
