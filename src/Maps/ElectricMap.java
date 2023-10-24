@@ -2,7 +2,7 @@ package Maps;
 
 import java.util.ArrayList;
 
-import Enemies.VerticalElectricity;
+import Enemies.InvisibleEnemy;
 import EnhancedMapTiles.ElectricShooter;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.FastLightningCloud;
@@ -10,7 +10,6 @@ import EnhancedMapTiles.LightningCloud;
 import Level.*;
 import NPCs.UnknownTraveler;
 import Tilesets.ElectricTileset;
-import Utils.Point;
 
 public class ElectricMap extends Map{
 
@@ -25,8 +24,22 @@ public class ElectricMap extends Map{
     public ArrayList<Enemy> loadEnemies(){
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        // VerticalElectricity testElectricity = new VerticalElectricity(getMapTile(3, 11).getLocation());
-        // enemies.add(testElectricity);
+        InvisibleEnemy invisEnemy1 = new InvisibleEnemy(getMapTile(8, 28).getLocation());
+        enemies.add(invisEnemy1);
+
+        InvisibleEnemy invisEnemy2 = new InvisibleEnemy(getMapTile(9, 28).getLocation());
+        enemies.add(invisEnemy2);
+
+        InvisibleEnemy invisEnemy3 = new InvisibleEnemy(getMapTile(10, 28).getLocation());
+        enemies.add(invisEnemy3);
+
+        InvisibleEnemy invisEnemy4 = new InvisibleEnemy(getMapTile(11, 28).getLocation());
+        enemies.add(invisEnemy4);
+
+        for (int x = 18; x <= 41; x++) {
+            InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 28).getLocation());
+            enemies.add(invisEnemy);
+        }
 
 
         return enemies;

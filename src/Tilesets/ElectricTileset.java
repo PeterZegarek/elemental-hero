@@ -6,8 +6,6 @@ import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import GameObject.Frame;
 import GameObject.ImageEffect;
-import Level.Map;
-import Level.MapTile;
 import Level.TileType;
 import Utils.SlopeTileLayoutUtils;
 

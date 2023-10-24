@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Enemies.CloudEnemy;
+import Enemies.InvisibleEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.MovingCloud;
@@ -58,6 +59,11 @@ public class AirMap extends Map{
             2.5f
             );
         enemies.add(cloudEnemy4);
+
+        for (int x = 6; x <= 29; x++) {
+            InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 49).getLocation());
+            enemies.add(invisEnemy);
+        }
 
         return enemies;
     }

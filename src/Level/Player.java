@@ -3,7 +3,6 @@ package Level;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
-import EnhancedMapTiles.MovingCloud;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.GameObject;
@@ -567,6 +566,10 @@ public abstract class Player extends GameObject{
                 }
             }    
         }
+    }
+
+    public void killPlayer(){
+        levelState = LevelState.PLAYER_DEAD;
     }
 
     // other entities can call this to tell the player they beat a level
