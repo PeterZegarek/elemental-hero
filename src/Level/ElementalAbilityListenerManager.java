@@ -85,7 +85,7 @@ public class ElementalAbilityListenerManager {
     }
 }
     
-    
+    // broadcasts the fact that the rock is gone to the enemies
     public static void rockAttackDespawned() {
         for (ElementalAbilityListener listener : enemyListeners){
             listener.rockAttackDespawned();
