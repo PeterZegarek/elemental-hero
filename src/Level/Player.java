@@ -576,6 +576,7 @@ public abstract class Player extends GameObject{
         }
     }
 
+    // this is called by the invisible enemy to instakill the player
     public void killPlayer(){
         levelState = LevelState.PLAYER_DEAD;
     }
