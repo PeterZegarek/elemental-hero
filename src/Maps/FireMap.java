@@ -38,10 +38,10 @@ public class FireMap extends Map{
         Firewisp firewisp2 = new Firewisp(getMapTile(24, 23).getLocation().addY(5), getMapTile(33,23).getLocation().addY(5), Direction.LEFT);
         enemies.add(firewisp2);
 
-        for (int x = 10; x <= 31; x++) {
-            InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 25).getLocation());
-            enemies.add(invisEnemy);
-        }
+        // for (int x = 10; x <= 31; x++) {
+        //     InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 25).getLocation());
+        //     enemies.add(invisEnemy);
+        // }
 
         return enemies;
     }
