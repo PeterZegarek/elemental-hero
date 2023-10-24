@@ -129,6 +129,14 @@ public class CloudEnemy extends Enemy {
 
         previousCloudState = cloudState;
 
+        if (activeRockAttack != null){
+            if (intersects(activeRockAttack)){
+                enemyAttacked(this);
+                // broadcast so the fireball disappears
+                ElementalAbilityListenerManager.rockAttackKilledEnemy();
+            }
+        }
+
         // if there is a fireball and it got hit
         if (activeFireball != null){
             if (intersects(activeFireball)){

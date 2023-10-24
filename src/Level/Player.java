@@ -12,6 +12,7 @@ import Players.PlayerFireball;
 import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Players.RockAttack;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,8 @@ public abstract class Player extends GameObject{
     protected Key WAVE_KEY = Key.W;
     //adding glide key SHIFT
     protected Key GLIDE_KEY = Key.SHIFT;
+    //adding earth ability key E
+    protected Key EARTH_ATTACK_KEY = Key.E;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -477,6 +480,11 @@ public abstract class Player extends GameObject{
             waveAttack(getX(), getY(), getFacingDirection());
         }
 
+        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL5)){
+            RockAttack(getX(), getY(), getFacingDirection());
+            }
+            
+
         //turns on glide ability if player is in the air
         isGlideOn=false;
         setTerminalVelocityY(6f);
@@ -495,6 +503,37 @@ public abstract class Player extends GameObject{
         }
     }
 
+
+
+    public void RockAttack(float x, float y, Direction direction){
+        // This method should be similar to fireballSpit() or waveAttack()
+        // but create a PlayerEarthAttack instead
+        float movementSpeed;
+        float spawnX =x;
+        float spawnY = y-15;
+        int existenceFrames = 50;
+        if (direction == Direction.RIGHT){
+        spawnX+= 30;
+        movementSpeed = 4;
+        }
+        else {
+        spawnX += 10;
+        movementSpeed = -4;
+        }
+        if (playerState == PlayerState.CROUCHING)
+        {
+        spawnY += 5;
+        }
+        RockAttack rock = new RockAttack(spawnX, spawnY, movementSpeed, existenceFrames);
+        map.addEnemy(rock);
+        
+        
+        cooldownCounter = 200;
+        fireballOnCooldown = true;
+        
+        
+        }
+        
 
     // x and y are the player's positions, directions is the direction they are facing
     public void fireballSpit(float x, float y, Direction direction){
@@ -543,6 +582,8 @@ public abstract class Player extends GameObject{
         cooldownCounter=150;
         waveOnCooldown = true;
     }
+
+    
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) { }

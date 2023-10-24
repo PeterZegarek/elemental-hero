@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Players.PlayerFireball;
+import Players.RockAttack;
 import Players.Wave;
 
 public class ElementalAbilityListenerManager {
@@ -36,9 +37,9 @@ public class ElementalAbilityListenerManager {
     }
 
     // broadcasts the fireball spawning to all listeners
-    public static void fireballSpawned(PlayerFireball fireball) {
+    public static void fireballSpawned(PlayerFireball playerFireball) {
         for (ElementalAbilityListener listener : enemyListeners) {
-            listener.fireballSpawned(fireball);
+            listener.fireballSpawned(playerFireball);
         }
     }
 
@@ -77,4 +78,25 @@ public class ElementalAbilityListenerManager {
             listener.waveKilledEnemy();
         }
     }
+
+    public static void rockAttackKilledEnemy(){
+        for (ElementalAbilityListener listener : elementalListeners){
+            listener.rockAttackKilledEnemy();
+    }
 }
+    
+    
+    public static void rockAttackDespawned() {
+        for (ElementalAbilityListener listener : elementalListeners){
+            listener.rockAttackDespawned();
+    }
+}
+    
+    
+    public static void rockAttackSpawned(RockAttack rockAttack) {
+        for (ElementalAbilityListener listener : enemyListeners) {
+            listener.rockAttackSpawned(rockAttack);
+    }
+    }
+}
+    
