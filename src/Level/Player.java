@@ -79,7 +79,7 @@ public abstract class Player extends GameObject{
     }
 
     public void update() {
-        System.out.println(playerState);
+        
         moveAmountX = 0;
         moveAmountY = 0;
 
