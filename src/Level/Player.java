@@ -346,18 +346,6 @@ public abstract class Player extends GameObject{
             if (isInvincible == true){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 }
-
-            // handles putting goggles on when standing in water
-            // checks if the center of the player is currently touching a water tile
-            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
-            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
-            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
-            }
-                if (isInvincible == true){
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";   //Change to Hurt_SWIM_STAND_... LEFT or RIGHT 
-                }
             }
         
         else if (playerState == PlayerState.HURT) { 
