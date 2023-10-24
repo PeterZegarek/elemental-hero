@@ -79,7 +79,7 @@ public abstract class Player extends GameObject{
     }
 
     public void update() {
-        
+        System.out.println(playerState);
         moveAmountX = 0;
         moveAmountY = 0;
 
@@ -406,13 +406,20 @@ public abstract class Player extends GameObject{
                 int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
                 int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
                 MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-                if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+                if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER&& Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
+                    
+                    if (isInvincible == true){
+                        this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
+                   }
+                }
+                else{
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
+
                     if (isInvincible == true){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_RIGHT" : "HURT_SWIM_LEFT";    
-                    }
-                }
-                
+                   }
+                }     
             }
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
