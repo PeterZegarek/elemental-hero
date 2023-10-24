@@ -106,7 +106,7 @@ public class EarthMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
         //Added Argument to control sprite direction (TO FLIP, REPLACE "LEFT" with "RIGHT")
-        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(1, 26).getLocation().subtractY(42), "STANDING_RIGHT");
+        UnknownTraveler UnknownTraveler = new UnknownTraveler(getMapTile(11, 15).getLocation().subtractY(23).subtractX(15), "STANDING_LEFT");
         npcs.add(UnknownTraveler);
 
         return npcs;

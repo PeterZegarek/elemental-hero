@@ -87,7 +87,7 @@ public class ElementalAbilityListenerManager {
     
     
     public static void rockAttackDespawned() {
-        for (ElementalAbilityListener listener : elementalListeners){
+        for (ElementalAbilityListener listener : enemyListeners){
             listener.rockAttackDespawned();
     }
 }
