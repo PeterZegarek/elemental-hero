@@ -82,8 +82,6 @@ public class WaterWizardEnemy extends Enemy {
                 this.mapEntityStatus = MapEntityStatus.REMOVED;             
             }
         }
-          
-        super.update(player);
         
         float startBound = startLocation.x;
         float endBound = endLocation.x;
