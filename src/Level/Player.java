@@ -477,19 +477,20 @@ public abstract class Player extends GameObject{
         //turns on glide ability if player is in the air
         isGlideOn=false;
         setTerminalVelocityY(6f);
-        if(Keyboard.isKeyDown(GLIDE_KEY)){
+        if((Keyboard.isKeyDown(GLIDE_KEY)) && (ScreenCoordinator.getGameState() == GameState.LEVEL4)){
             if(airGroundState == AirGroundState.AIR){
                 isGlideOn=true;
                 setTerminalVelocityY(1f);
             }
         }
 
-        if((Keyboard.isKeyDown(LEVEL_KEY))){
-            //This just completes the level, taken from method updateLevelCompleted()
-            for (PlayerListener listener : listeners) {
-                listener.onLevelCompleted();
-            }
-        }
+        // Commented out for now, turn back on after playtesting
+        // if((Keyboard.isKeyDown(LEVEL_KEY))){
+        //     //This just completes the level, taken from method updateLevelCompleted()
+        //     for (PlayerListener listener : listeners) {
+        //         listener.onLevelCompleted();
+        //     }
+        // }
     }
 
 
