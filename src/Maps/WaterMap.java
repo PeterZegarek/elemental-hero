@@ -86,11 +86,8 @@ public class WaterMap extends Map{
         WaterWizardEnemy wizard10 = new WaterWizardEnemy(getMapTile(43, 18).getLocation(), getMapTile(51, 18).getLocation(), Direction.RIGHT);
         enemies.add(wizard10);
 
-        WaterWizardEnemy wizard11 = new WaterWizardEnemy(getMapTile(61, 11).getLocation(), getMapTile(69, 11).getLocation(), Direction.RIGHT);
+        WaterWizardEnemy wizard11 = new WaterWizardEnemy(getMapTile(44, 7).getLocation(), getMapTile(52, 7).getLocation(), Direction.RIGHT);
         enemies.add(wizard11);
-
-        WaterWizardEnemy wizard12 = new WaterWizardEnemy(getMapTile(44, 7).getLocation(), getMapTile(52, 7).getLocation(), Direction.RIGHT);
-        enemies.add(wizard12);
 
         return enemies;
 
