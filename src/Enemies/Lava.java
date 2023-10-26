@@ -53,7 +53,7 @@ return new HashMap<String, Frame[]>() {{
 put("LAVA", new Frame[]{
 new FrameBuilder(spriteSheet.getSprite(0, 0))
 .withScale(2)
-.withBounds(17, 17, 17, 17)
+.withBounds(1, 1, 50, 17)
 .build()
 });
 }};

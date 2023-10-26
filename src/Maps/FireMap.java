@@ -106,6 +106,18 @@ public class FireMap extends Map{
         Lava lava22 = new Lava(getMapTile(31,25).getLocation());
         enemies.add(lava22);
 
+        Lava lava23 = new Lava(getMapTile(39,23).getLocation());
+        enemies.add(lava23);
+
+        Lava lava24 = new Lava(getMapTile(40,23).getLocation());
+        enemies.add(lava24);
+
+        Lava lava25 = new Lava(getMapTile(41,23).getLocation());
+        enemies.add(lava25);
+
+        Lava lava26 = new Lava(getMapTile(38,23).getLocation());
+        enemies.add(lava26);
+
         // for (int x = 10; x <= 31; x++) {
         //     InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 25).getLocation());
         //     enemies.add(invisEnemy);
