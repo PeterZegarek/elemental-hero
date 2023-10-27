@@ -15,7 +15,7 @@ import java.util.HashMap;
 // when the player touches it, it will tell the player that the level has been completed
 public class EndLevelBox extends EnhancedMapTile {
     public EndLevelBox(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("GoldBox.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("ElementalEndLevelBox.png"), 15, 16), TileType.PASSABLE);
     }
 
     @Override
@@ -39,6 +39,14 @@ public class EndLevelBox extends EnhancedMapTile {
                         .withBounds(1, 1, 14, 14)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 40)
+                        .withScale(3)
+                        .withBounds(1, 1, 14, 14)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 3), 40)
+                        .withScale(3)
+                        .withBounds(1, 1, 14, 14)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 4), 40)
                         .withScale(3)
                         .withBounds(1, 1, 14, 14)
                         .build()
