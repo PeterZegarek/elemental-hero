@@ -38,9 +38,9 @@ public abstract class Player extends GameObject{
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
-    protected LevelState levelState;
+    protected static LevelState levelState;
     protected GameState gameState;
-    protected int lives = 3;
+    protected static int lives = 3;
 
     //keeps track of glide power and whether it is on or not
     protected boolean isGlideOn = false;
@@ -484,13 +484,14 @@ public abstract class Player extends GameObject{
             }
         }
 
-        // Commented out for now, turn back on after playtesting
-        // if((Keyboard.isKeyDown(LEVEL_KEY))){
-        //     //This just completes the level, taken from method updateLevelCompleted()
-        //     for (PlayerListener listener : listeners) {
-        //         listener.onLevelCompleted();
-        //     }
-        // }
+        
+        if((Keyboard.isKeyDown(LEVEL_KEY))){
+            //This just completes the level, taken from method updateLevelCompleted()
+            for (PlayerListener listener : listeners) {
+                listener.onLevelCompleted();
+            }
+            lives = 3;
+        }
     }
 
 
@@ -654,6 +655,7 @@ public abstract class Player extends GameObject{
             for (PlayerListener listener : listeners) {
                 listener.onLevelCompleted();
             }
+            lives = 3;
         }
     }
 
@@ -681,6 +683,7 @@ public abstract class Player extends GameObject{
                 for (PlayerListener listener : listeners) {
                     listener.onDeath();
                 }
+                lives = 3;
             }
         }
     }
@@ -705,8 +708,12 @@ public abstract class Player extends GameObject{
         this.facingDirection = facingDirection;
     }
 
+    public static LevelState getLevelState(){
+        return Player.levelState;
+    }
+
     public void setLevelState(LevelState levelState) {
-        this.levelState = levelState;
+        Player.levelState = levelState;
     }
 
     public void addListener(PlayerListener listener) {
@@ -727,5 +734,9 @@ public abstract class Player extends GameObject{
 
     public void setTerminalVelocityY(float terminalVelocityY){
         this.terminalVelocityY = terminalVelocityY;
+    }
+
+    public static int getLives(){
+        return Player.lives;
     }
 }

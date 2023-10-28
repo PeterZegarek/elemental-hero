@@ -1,6 +1,10 @@
 package Engine;
 
 import GameObject.Rectangle;
+import GameObject.Sprite;
+import Level.LevelState;
+import Level.Player;
+import Screens.PlayEarthLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
@@ -29,6 +33,11 @@ public class GamePanel extends JPanel {
 	private boolean showFPS = false;
 	private int currentFPS;
 
+	private Sprite heart1;
+	private Sprite heart2;
+	private Sprite heart3;
+
+
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
 		super();
@@ -48,6 +57,11 @@ public class GamePanel extends JPanel {
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Comic Sans", 12, Color.black);
 
 		currentFPS = Config.TARGET_FPS;
+
+		heart1 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 30, 20);
+		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 20);
+		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 20);
+
 
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
@@ -78,6 +92,19 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
+
+		if(Player.getLives()==3){
+			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
+			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
+			heart3.draw(graphicsHandler);
+			heart2.draw(graphicsHandler);
+		}else if(Player.getLives()==2){
+			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			heart3.draw(graphicsHandler);
+		}else if(Player.getLives()==1){
+			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			heart2.draw(graphicsHandler);
+		}
 
 		if (!isGamePaused) {
 			screenManager.update();
@@ -119,6 +146,12 @@ public class GamePanel extends JPanel {
 
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
+		}
+
+		if(Player.getLevelState()==LevelState.RUNNING){
+			heart1.draw(graphicsHandler);
+			heart2.draw(graphicsHandler);
+			heart3.draw(graphicsHandler);
 		}
 	}
 
