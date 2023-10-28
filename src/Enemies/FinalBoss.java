@@ -39,7 +39,7 @@ public class FinalBoss extends Enemy {
     protected int shootTimer;
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected BossState BossState;
+    protected BossState bossState;
     protected BossState previousBossState;
 
     protected BossPhase BossPhase;
@@ -65,9 +65,9 @@ public class FinalBoss extends Enemy {
         // Add the Boss enemy as an enemy to listen for elemental abilities
         ElementalAbilityListenerManager.addEnemyListener(this);
         super.initialize();
-        BossState = BossState.WALK;
+        bossState = BossState.WALK;
         BossPhase = BossPhase.Fire;
-        previousBossState = BossState;
+        previousBossState = bossState;
 
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
@@ -96,8 +96,8 @@ public class FinalBoss extends Enemy {
 
         // if shoot timer is up and Boss is not currently shooting, set its state to
         // SHOOT
-        if (shootWaitTimer == 0 && BossState != BossState.SHOOT_WAIT) {
-            BossState = BossState.SHOOT;
+        if (shootWaitTimer == 0 && bossState != BossState.SHOOT_WAIT) {
+            bossState = BossState.SHOOT;
         } else {
             shootWaitTimer--;
         }
@@ -105,7 +105,7 @@ public class FinalBoss extends Enemy {
 
         super.update(player);
 
-        previousBossState = BossState;
+        previousBossState = bossState;
 
     }
 
@@ -122,14 +122,14 @@ public class FinalBoss extends Enemy {
         } else if (lives > 0) {
             BossPhase = BossPhase.Air;
         } else if (lives == 0) {
-            BossState = BossState.DEATH;
+            bossState = BossState.DEATH;
         }
     }
 
     // anything extra the Boss should do based on interactions can be handled here
     protected void handleBossAnimation() {
 
-        if (BossState == BossState.SHOOT_WAIT) {
+        if (bossState == BossState.SHOOT_WAIT) {
 
             if (BossPhase == BossPhase.Earth) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOSS_EARTH_STAND_RIGHT" : "BOSS_EARTH_STAND_LEFT";
@@ -149,11 +149,11 @@ public class FinalBoss extends Enemy {
             }
         }
 
-        else if (BossState == BossState.HURT) {
+        else if (bossState == BossState.HURT) {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOSS_HURT_RIGHT" : "BOSS_HURT_LEFT";
         }
 
-        else if (BossState == BossState.WALK) {
+        else if (bossState == BossState.WALK) {
 
             if (BossPhase == BossPhase.Earth) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOSS_EARTH_WALK_RIGHT" : "BOSS_EARTH_WALK_LEFT";
@@ -172,7 +172,7 @@ public class FinalBoss extends Enemy {
             }
         }
 
-        else if (BossState == BossState.SHOOT) {
+        else if (bossState == BossState.SHOOT) {
 
             if (BossPhase == BossPhase.Earth) {
                 if (this.getX() > player.getX()) {
@@ -207,13 +207,13 @@ public class FinalBoss extends Enemy {
             }
         }
 
-        else if (BossState == BossState.DEATH) {
+        else if (bossState == BossState.DEATH) {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "BOSS_DEATH" : "BOSS_DEATH";
         }
     }
 
     protected void handleBossState() {
-        switch (BossState) {
+        switch (bossState) {
             case HURT:
                 BossHurt();
                 break;
@@ -243,7 +243,7 @@ public class FinalBoss extends Enemy {
             // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" :
             // "SHOOT_LEFT";
         } else if (shootTimer == 0) {
-            BossState = BossState.SHOOT;
+            bossState = BossState.SHOOT;
         } else {
             shootTimer--;
         }
@@ -256,7 +256,7 @@ public class FinalBoss extends Enemy {
 
         // if Boss is WALKING, determine which direction to WALK in based on facing
         // direction
-        if (BossState == BossState.WALK) {
+        if (bossState == BossState.WALK) {
             if (facingDirection == Direction.RIGHT) {
                 moveXHandleCollision(movementSpeed);
             } else {
@@ -283,7 +283,7 @@ public class FinalBoss extends Enemy {
 
     protected void BossHurt() {
         isInvincible = true;
-        BossState = BossState.WALK; // Allows player to move after going into Hurt animation
+        bossState = BossState.WALK; // Allows player to move after going into Hurt animation
         isInvincibleCounter = 120; // Keeps Player in a state of Hurt (ADJUST AS SEE FIT)
         handleBossAnimation();
     }
@@ -349,7 +349,7 @@ public class FinalBoss extends Enemy {
 
         // change Boss back to its WALK state after shooting, reset shootTimer to wait a
         // certain number of frames before shooting again
-        BossState = BossState.WALK;
+        bossState = BossState.WALK;
 
         // reset shoot wait timer so the process can happen again (Boss WALKs around,
         // then waits, then shoots)
