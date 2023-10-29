@@ -4,11 +4,14 @@ import GameObject.Rectangle;
 import GameObject.Sprite;
 import Level.LevelState;
 import Level.Player;
-import Screens.PlayEarthLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+
+import Game.GameState;
+import Game.ScreenCoordinator;
+
 import java.awt.*;
 
 /*
@@ -36,6 +39,7 @@ public class GamePanel extends JPanel {
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
+	private GameState currentGameState;
 
 
 	// The JPanel and various important class instances are setup here
@@ -61,8 +65,8 @@ public class GamePanel extends JPanel {
 		heart1 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 30, 20);
 		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 20);
 		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 20);
-
-
+		
+	
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
 		GameLoop gameLoop = new GameLoop(this);
@@ -147,8 +151,11 @@ public class GamePanel extends JPanel {
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
 		}
-
-		if(Player.getLevelState()==LevelState.RUNNING){
+		
+		if(ScreenCoordinator.getGameState() == GameState.LEVEL1 || ScreenCoordinator.getGameState() == GameState.LEVEL2 || ScreenCoordinator.getGameState() == GameState.LEVEL3 
+		|| ScreenCoordinator.getGameState() == GameState.LEVEL4 || ScreenCoordinator.getGameState() == GameState.LEVEL5 || ScreenCoordinator.getGameState() == GameState.LEVEL6 
+		&& Player.getLevelState()==LevelState.RUNNING){
+		
 			heart1.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
 			heart3.draw(graphicsHandler);

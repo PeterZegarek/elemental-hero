@@ -37,7 +37,7 @@ public class PlayAirLevelScreen extends Screen implements PlayerListener {
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen("Air");
         AirLoseScreen = new AirLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;

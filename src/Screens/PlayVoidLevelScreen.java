@@ -37,7 +37,7 @@ public class PlayVoidLevelScreen extends Screen implements PlayerListener {
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen("Void");
         VoidLoseScreen = new VoidLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;

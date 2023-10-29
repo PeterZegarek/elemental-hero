@@ -37,7 +37,7 @@ public class PlayFireLevelScreen extends Screen implements PlayerListener {
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen("Fire");
         FireLoseScreen = new FireLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;

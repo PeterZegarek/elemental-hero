@@ -37,7 +37,7 @@ public class PlayElectricLevelScreen extends Screen implements PlayerListener {
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen("Electric");
         ElectricLoseScreen = new ElectricLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;

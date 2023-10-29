@@ -37,7 +37,7 @@ public class PlayEarthLevelScreen extends Screen implements PlayerListener {
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen("Earth");
         EarthLoseScreen = new EarthLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;

@@ -37,7 +37,7 @@ public class PlayWaterLevelScreen extends Screen implements PlayerListener {
         Point playerStartPosition = map.getPlayerStartPosition();
         this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 
-        levelClearedScreen = new LevelClearedScreen();
+        levelClearedScreen = new LevelClearedScreen("Water");
         WaterLoseScreen = new WaterLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
