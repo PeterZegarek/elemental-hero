@@ -14,11 +14,15 @@ import java.util.HashMap;
 public class Hero extends Player {
     public Hero(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("HeroSheet.png"), 26, 26), x, y, "STAND_RIGHT");
-        gravity = .5f;
-        terminalVelocityY = 6f;
+        // originally .5f
+        gravity = .8f;
+        // originally 6f
+        terminalVelocityY = 8f;
         jumpHeight = 14.5f;
-        jumpDegrade = .5f;
-        walkSpeed = 2.9f;
+        // originally .5f
+        jumpDegrade = .50f;
+        // originally 2.9f
+        walkSpeed = 3.4f;
         momentumYIncrease = .5f;
     }
 

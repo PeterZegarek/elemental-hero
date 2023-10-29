@@ -76,7 +76,8 @@ public class MovingCloud extends EnhancedMapTile{
             if (intersects(player) && moveAmountY >= 0 && player.getBoundsY1() <= getBoundsY2()) {
                 player.moveYHandleCollision(getBoundsY2() - player.getBoundsY1());
             } else if (intersects(player) && moveAmountY <= 0 && player.getBoundsY2() >= getBoundsY1()) { 
-                player.moveYHandleCollision(getBoundsY1() - player.getBoundsY2());
+                // this '-1' was added in order to keep the player on the cloud with the new physics
+                player.moveYHandleCollision(getBoundsY1() - player.getBoundsY2()- 1);
             }
         }
 
