@@ -4,11 +4,13 @@ import GameObject.Rectangle;
 import GameObject.Sprite;
 import Level.LevelState;
 import Level.Player;
+import Level.PlayerState;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
 
+import Enemies.Lava;
 import Game.GameState;
 import Game.ScreenCoordinator;
 
@@ -96,18 +98,29 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
-
 		if(Player.getLives()==3){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
+			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart3.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
+			heart1.draw(graphicsHandler);
 		}else if(Player.getLives()==2){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart3.draw(graphicsHandler);
 		}else if(Player.getLives()==1){
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.draw(graphicsHandler);
+		}
+		
+		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3){
+			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			heart1.draw(graphicsHandler);
+			//This is needed because the third heart would still display if hit by lava
+			if(Lava.getPlayerTouchedLava()){
+				heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+				heart3.draw(graphicsHandler);
+			}
 		}
 
 		if (!isGamePaused) {
