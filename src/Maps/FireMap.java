@@ -71,7 +71,7 @@ public class FireMap extends Map{
         enemies.add(lava10);
 
         Lava lava11 = new Lava(getMapTile(20,25).getLocation());
-        enemies.add(lava1);
+        enemies.add(lava11);
 
         Lava lava12 = new Lava(getMapTile(21,25).getLocation());
         enemies.add(lava12);
