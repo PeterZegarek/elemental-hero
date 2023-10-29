@@ -17,10 +17,11 @@ public class Hero extends Player {
         // originally .5f
         gravity = .8f;
         // originally 6f
-        terminalVelocityY = 8f;
-        jumpHeight = 14.5f;
+        terminalVelocityY = 10f;
+        // originally 14.5f
+        jumpHeight = 17.5f;
         // originally .5f
-        jumpDegrade = .50f;
+        jumpDegrade = .65f;
         // originally 2.9f
         walkSpeed = 3.4f;
         momentumYIncrease = .5f;
