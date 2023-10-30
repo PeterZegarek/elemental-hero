@@ -41,7 +41,8 @@ public class GamePanel extends JPanel {
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
-	private GameState currentGameState;
+
+	private static boolean lostOrCleared = false;
 
 
 	// The JPanel and various important class instances are setup here
@@ -98,22 +99,22 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
-		if(Player.getLives()==3){
+		if(Player.getLives()==3 && !lostOrCleared){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart3.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
 			heart1.draw(graphicsHandler);
-		}else if(Player.getLives()==2){
+		}else if(Player.getLives()==2 && !lostOrCleared){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart3.draw(graphicsHandler);
-		}else if(Player.getLives()==1){
+		}else if(Player.getLives()==1 && !lostOrCleared){
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.draw(graphicsHandler);
 		}
 		
-		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3){
+		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3 && !lostOrCleared){
 			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart1.draw(graphicsHandler);
 			//This is needed because the third heart would still display if hit by lava
@@ -165,14 +166,19 @@ public class GamePanel extends JPanel {
 			fpsDisplayLabel.draw(graphicsHandler);
 		}
 		
-		if(ScreenCoordinator.getGameState() == GameState.LEVEL1 || ScreenCoordinator.getGameState() == GameState.LEVEL2 || ScreenCoordinator.getGameState() == GameState.LEVEL3 
-		|| ScreenCoordinator.getGameState() == GameState.LEVEL4 || ScreenCoordinator.getGameState() == GameState.LEVEL5 || ScreenCoordinator.getGameState() == GameState.LEVEL6 
-		&& Player.getLevelState()==LevelState.RUNNING){
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL1 || ScreenCoordinator.getGameState() == GameState.LEVEL2 
+		|| ScreenCoordinator.getGameState() == GameState.LEVEL3 || ScreenCoordinator.getGameState() == GameState.LEVEL4 
+		|| ScreenCoordinator.getGameState() == GameState.LEVEL5 || ScreenCoordinator.getGameState() == GameState.LEVEL6) 
+		&& !lostOrCleared){
 		
 			heart1.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
 			heart3.draw(graphicsHandler);
 		}
+	}
+
+	public static void setLostOrCleared(boolean lostOrCleared){
+		GamePanel.lostOrCleared = lostOrCleared;
 	}
 
 	@Override

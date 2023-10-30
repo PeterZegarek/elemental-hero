@@ -1,5 +1,6 @@
 package Screens;
 
+import Engine.GamePanel;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -44,6 +45,7 @@ public class PlayEarthLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
+        GamePanel.setLostOrCleared(false);
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going

@@ -1,5 +1,6 @@
 package Screens;
 
+import Engine.GamePanel;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Engine.ScreenManager;
@@ -26,12 +27,12 @@ public class LevelClearedScreen extends Screen {
         electricLevelMessage = new SpriteFont("Now Entering: Air Level...", 325, 330, "Comic Sans", 25, Color.white);
         airLevelMessage = new SpriteFont("Now Entering: Void Level!?!?!?", 290, 330, "Comic Sans", 25, Color.white);
         voidLevelMessage1 = new SpriteFont("Congratulations!", 300, 215, "Comic Sans", 50, Color.white);
-        voidLevelMessage2 = new SpriteFont("You have completed Elemnental Hero!", 285, 330, "Comic Sans", 25, Color.white);
+        voidLevelMessage2 = new SpriteFont("You have completed Elemental Hero!", 285, 330, "Comic Sans", 25, Color.white);
     }
 
     @Override
     public void update() {
-
+        GamePanel.setLostOrCleared(true);
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
