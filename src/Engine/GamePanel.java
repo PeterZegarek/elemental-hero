@@ -1,7 +1,10 @@
 package Engine;
 
+import GameObject.Frame;
+import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.Sprite;
+import GameObject.SpriteSheet;
 import Level.LevelState;
 import Level.Player;
 import Level.PlayerState;
@@ -10,11 +13,13 @@ import Utils.Colors;
 
 import javax.swing.*;
 
+import Builders.FrameBuilder;
 import Enemies.Lava;
 import Game.GameState;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /*
  * This is where the game loop process and render back buffer is setup
@@ -41,6 +46,8 @@ public class GamePanel extends JPanel {
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
+
+	private Sprite fireballHUD;
 
 	private static boolean lostOrCleared = false;
 
@@ -69,7 +76,8 @@ public class GamePanel extends JPanel {
 		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 20);
 		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 20);
 		
-	
+		fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,36, 48), 800, 40);
+
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
 		GameLoop gameLoop = new GameLoop(this);
@@ -124,6 +132,13 @@ public class GamePanel extends JPanel {
 			}
 		}
 
+
+		if(Player.getFireballOnCooldown()){
+			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(38, 0,36, 48), 800, 40);
+		}else{
+			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,36, 48), 800, 40);
+		}
+
 		if (!isGamePaused) {
 			screenManager.update();
 		}
@@ -175,6 +190,11 @@ public class GamePanel extends JPanel {
 			heart2.draw(graphicsHandler);
 			heart3.draw(graphicsHandler);
 		}
+
+		if(ScreenCoordinator.getGameState() == GameState.LEVEL1 && !lostOrCleared){
+			fireballHUD.draw(graphicsHandler);
+		}
+
 	}
 
 	public static void setLostOrCleared(boolean lostOrCleared){
