@@ -1,7 +1,10 @@
 package Engine;
 
+import GameObject.Frame;
+import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.Sprite;
+import GameObject.SpriteSheet;
 import Level.LevelState;
 import Level.Player;
 import Level.PlayerState;
@@ -10,11 +13,13 @@ import Utils.Colors;
 
 import javax.swing.*;
 
+import Builders.FrameBuilder;
 import Enemies.Lava;
 import Game.GameState;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /*
  * This is where the game loop process and render back buffer is setup
@@ -41,7 +46,16 @@ public class GamePanel extends JPanel {
 	private Sprite heart1;
 	private Sprite heart2;
 	private Sprite heart3;
-	private GameState currentGameState;
+
+	private Sprite fireballHUD;
+	int fireballHUDx = 30;
+	int fireballHUDy = 450;
+
+	private Sprite waveHUD;
+	int waveHUDx = 70;
+	int waveHUDy = 450;
+
+	private static boolean lostOrCleared = false;
 
 
 	// The JPanel and various important class instances are setup here
@@ -68,7 +82,9 @@ public class GamePanel extends JPanel {
 		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 20);
 		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 20);
 		
-	
+		fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,37, 37), fireballHUDx, fireballHUDy);
+		waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 32, 54), waveHUDx, waveHUDy);
+
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
 		GameLoop gameLoop = new GameLoop(this);
@@ -98,22 +114,22 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
-		if(Player.getLives()==3){
+		if(Player.getLives()==3 && !lostOrCleared){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart3.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
 			heart1.draw(graphicsHandler);
-		}else if(Player.getLives()==2){
+		}else if(Player.getLives()==2 && !lostOrCleared){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart3.draw(graphicsHandler);
-		}else if(Player.getLives()==1){
+		}else if(Player.getLives()==1 && !lostOrCleared){
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.draw(graphicsHandler);
 		}
 		
-		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3){
+		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3 && !lostOrCleared){
 			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart1.draw(graphicsHandler);
 			//This is needed because the third heart would still display if hit by lava
@@ -122,6 +138,20 @@ public class GamePanel extends JPanel {
 				heart3.draw(graphicsHandler);
 			}
 		}
+
+
+		if(Player.getFireballOnCooldown()){
+			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(38, 0,37, 37), fireballHUDx, fireballHUDy);
+		}else{
+			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,37, 37), fireballHUDx, fireballHUDy);
+		}
+
+		if(Player.getWaveOnCooldown()){
+			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(33, 0, 32, 54), waveHUDx, waveHUDy);
+		}else{
+			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 32, 54), waveHUDx, waveHUDy);
+		}
+
 
 		if (!isGamePaused) {
 			screenManager.update();
@@ -165,14 +195,28 @@ public class GamePanel extends JPanel {
 			fpsDisplayLabel.draw(graphicsHandler);
 		}
 		
-		if(ScreenCoordinator.getGameState() == GameState.LEVEL1 || ScreenCoordinator.getGameState() == GameState.LEVEL2 || ScreenCoordinator.getGameState() == GameState.LEVEL3 
-		|| ScreenCoordinator.getGameState() == GameState.LEVEL4 || ScreenCoordinator.getGameState() == GameState.LEVEL5 || ScreenCoordinator.getGameState() == GameState.LEVEL6 
-		&& Player.getLevelState()==LevelState.RUNNING){
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL1 || ScreenCoordinator.getGameState() == GameState.LEVEL2 
+		|| ScreenCoordinator.getGameState() == GameState.LEVEL3 || ScreenCoordinator.getGameState() == GameState.LEVEL4 
+		|| ScreenCoordinator.getGameState() == GameState.LEVEL5 || ScreenCoordinator.getGameState() == GameState.LEVEL6) 
+		&& !lostOrCleared){
 		
 			heart1.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
 			heart3.draw(graphicsHandler);
 		}
+
+		if(ScreenCoordinator.getGameState() == GameState.LEVEL1 && !lostOrCleared){
+			fireballHUD.draw(graphicsHandler);
+		}
+
+		if(ScreenCoordinator.getGameState() == GameState.LEVEL2 && !lostOrCleared){
+			waveHUD.draw(graphicsHandler);
+		}
+
+	}
+
+	public static void setLostOrCleared(boolean lostOrCleared){
+		GamePanel.lostOrCleared = lostOrCleared;
 	}
 
 	@Override

@@ -210,7 +210,7 @@ public class CloudEnemy extends Enemy {
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 55)
                             .withScale(4)
-                            .withBounds(5, 5, 24, 22)
+                            .withBounds(5, 5, 24, 24)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 8)
                             .withScale(3)
@@ -245,7 +245,7 @@ public class CloudEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 55)
                             .withScale(4)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(5, 5, 24, 22)
+                            .withBounds(5, 5, 24, 24)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 8)
                             .withScale(3)

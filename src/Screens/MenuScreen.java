@@ -41,6 +41,7 @@ public class MenuScreen extends Screen {
     }
 
     public void update() {
+        GamePanel.setLostOrCleared(true);
         // update background map (to play tile animations)
         background.update(null);
 
@@ -84,6 +85,7 @@ public class MenuScreen extends Screen {
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
+                GamePanel.setLostOrCleared(false);
                 screenCoordinator.setGameState(GameState.LEVEL1);
             } else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);

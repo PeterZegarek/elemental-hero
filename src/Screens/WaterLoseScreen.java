@@ -29,6 +29,7 @@ public class WaterLoseScreen extends Screen {
 
     @Override
     public void update() {
+        GamePanel.setLostOrCleared(true);
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
@@ -38,6 +39,7 @@ public class WaterLoseScreen extends Screen {
 
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
+            GamePanel.setLostOrCleared(false);
             playWaterLevelScreen.resetLevel();
         }else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
             playWaterLevelScreen.goBackToMenu();

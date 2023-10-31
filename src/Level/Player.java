@@ -66,8 +66,8 @@ public abstract class Player extends GameObject{
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
-    protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
-    protected boolean waveOnCooldown = false; // Whether wave is on cooldown
+    protected static boolean fireballOnCooldown = false; // Whether fireball is on cooldown
+    protected static boolean waveOnCooldown = false; // Whether wave is on cooldown
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
     protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
@@ -721,6 +721,14 @@ public abstract class Player extends GameObject{
 
     public int getCooldownCounter(){
         return cooldownCounter;
+    }
+
+    public static boolean getFireballOnCooldown(){
+        return Player.fireballOnCooldown;
+    }
+
+    public static boolean getWaveOnCooldown(){
+        return Player.waveOnCooldown;
     }
 
     public static void setCooldownCounter(int cooldownCounter){

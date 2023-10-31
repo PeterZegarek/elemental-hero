@@ -29,6 +29,7 @@ public class AirLoseScreen extends Screen {
 
     @Override
     public void update() {
+        GamePanel.setLostOrCleared(true);
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
@@ -39,6 +40,7 @@ public class AirLoseScreen extends Screen {
         // if space is pressed, reset level. if escape is pressed, go back to main menu
         if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
             playAirLevelScreen.resetLevel();
+            GamePanel.setLostOrCleared(false);
         }else if (Keyboard.isKeyDown(Key.ESC) && !keyLocker.isKeyLocked(Key.ESC)) {
             playAirLevelScreen.goBackToMenu();
         }

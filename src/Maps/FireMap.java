@@ -27,7 +27,7 @@ public class FireMap extends Map{
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(49, 12).getLocation().addY(7), getMapTile(49,12).getLocation().addY(7), Direction.LEFT);
+        /*FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(49, 12).getLocation().addY(7), getMapTile(49,12).getLocation().addY(7), Direction.LEFT);
         enemies.add(fireDinosaurEnemy1);
 
         FireDinosaurEnemy fireDinosaurEnemy2 = new FireDinosaurEnemy(getMapTile(49, 16).getLocation().addY(7), getMapTile(49, 16).getLocation().addY(7), Direction.LEFT);
@@ -38,7 +38,7 @@ public class FireMap extends Map{
 
         Firewisp firewisp2 = new Firewisp(getMapTile(24, 23).getLocation().addY(5), getMapTile(33,23).getLocation().addY(5), Direction.LEFT);
         enemies.add(firewisp2);
-
+        */
         //All of the lava enemy tiles
         Lava lava1 = new Lava(getMapTile(10,25).getLocation());
         enemies.add(lava1);
@@ -135,7 +135,7 @@ public class FireMap extends Map{
         HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
                 ImageLoader.load("16x16FloatingRock.png"),
                 getMapTile(10, 24).getLocation(),
-                getMapTile(20, 24).getLocation(),
+                getMapTile(18, 24).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 5,
                 new Rectangle(1, 6,14,8),
@@ -145,14 +145,25 @@ public class FireMap extends Map{
 
         HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
                 ImageLoader.load("16x16FloatingRock.png"),
-                getMapTile(21, 24).getLocation(),
-                getMapTile(33, 24).getLocation(),
+                getMapTile(19, 24).getLocation(),
+                getMapTile(25, 24).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 5,
                 new Rectangle(1, 6,14,8),
                 Direction.LEFT
         );
         enhancedMapTiles.add(hmp2);
+
+        HorizontalMovingPlatform hmp3 = new HorizontalMovingPlatform(
+                ImageLoader.load("16x16FloatingRock.png"),
+                getMapTile(26, 24).getLocation(),
+                getMapTile(31, 24).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                5,
+                new Rectangle(1, 6,14,8),
+                Direction.LEFT
+        );
+        enhancedMapTiles.add(hmp3);
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(0, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
