@@ -89,11 +89,6 @@ public class FinalBoss extends Enemy {
     @Override
     public void update(Player player) {
 
-
-
-        System.out.println(bossState);
-        System.out.println(BossPhase);
-
         handleBossPhase();
 
         if (isInvincibleCounter > 0){           
