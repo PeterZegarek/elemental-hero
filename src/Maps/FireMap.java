@@ -135,7 +135,7 @@ public class FireMap extends Map{
         HorizontalMovingPlatform hmp1 = new HorizontalMovingPlatform(
                 ImageLoader.load("16x16FloatingRock.png"),
                 getMapTile(10, 24).getLocation(),
-                getMapTile(20, 24).getLocation(),
+                getMapTile(18, 24).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 5,
                 new Rectangle(1, 6,14,8),
@@ -145,14 +145,25 @@ public class FireMap extends Map{
 
         HorizontalMovingPlatform hmp2 = new HorizontalMovingPlatform(
                 ImageLoader.load("16x16FloatingRock.png"),
-                getMapTile(21, 24).getLocation(),
-                getMapTile(33, 24).getLocation(),
+                getMapTile(19, 24).getLocation(),
+                getMapTile(25, 24).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 5,
                 new Rectangle(1, 6,14,8),
                 Direction.LEFT
         );
         enhancedMapTiles.add(hmp2);
+
+        HorizontalMovingPlatform hmp3 = new HorizontalMovingPlatform(
+                ImageLoader.load("16x16FloatingRock.png"),
+                getMapTile(26, 24).getLocation(),
+                getMapTile(31, 24).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                5,
+                new Rectangle(1, 6,14,8),
+                Direction.LEFT
+        );
+        enhancedMapTiles.add(hmp3);
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(0, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
