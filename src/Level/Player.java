@@ -42,7 +42,7 @@ public abstract class Player extends GameObject{
     protected static int lives = 3;
 
     //keeps track of glide power and whether it is on or not
-    protected boolean isGlideOn = false;
+    protected static boolean isGlideOn = false;
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -68,6 +68,7 @@ public abstract class Player extends GameObject{
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
     protected static boolean fireballOnCooldown = false; // Whether fireball is on cooldown
     protected static boolean waveOnCooldown = false; // Whether wave is on cooldown
+    protected static boolean rockOnCooldown = false;
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
     protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
@@ -91,7 +92,8 @@ public abstract class Player extends GameObject{
             cooldownCounter--;
             if (cooldownCounter == 0){
                 fireballOnCooldown = false;
-                waveOnCooldown = false;                         
+                waveOnCooldown = false;  
+                rockOnCooldown = false;                       
             }
         }
         //cooldown counter for invincibility
@@ -468,7 +470,7 @@ public abstract class Player extends GameObject{
             waveAttack(getX(), getY(), getFacingDirection());
         }
 
-        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL5) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
+        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (rockOnCooldown == false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL5) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
             RockAttack(getX(), getY(), getFacingDirection());
             }
             
@@ -519,7 +521,7 @@ public abstract class Player extends GameObject{
         
         
         cooldownCounter = 200;
-        fireballOnCooldown = true;
+        rockOnCooldown = true;
         
         
         }
@@ -729,6 +731,14 @@ public abstract class Player extends GameObject{
 
     public static boolean getWaveOnCooldown(){
         return Player.waveOnCooldown;
+    }
+
+    public static boolean getRockOnCooldown(){
+        return Player.rockOnCooldown;
+    }
+
+    public static boolean getIsGlideOn(){
+        return Player.isGlideOn;
     }
 
     public static void setCooldownCounter(int cooldownCounter){

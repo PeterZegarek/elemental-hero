@@ -1,25 +1,19 @@
 package Engine;
 
-import GameObject.Frame;
-import GameObject.ImageEffect;
 import GameObject.Rectangle;
 import GameObject.Sprite;
-import GameObject.SpriteSheet;
 import Level.LevelState;
 import Level.Player;
-import Level.PlayerState;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
 
-import Builders.FrameBuilder;
 import Enemies.Lava;
 import Game.GameState;
 import Game.ScreenCoordinator;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /*
  * This is where the game loop process and render back buffer is setup
@@ -55,6 +49,18 @@ public class GamePanel extends JPanel {
 	int waveHUDx = 85;
 	int waveHUDy = 70;
 
+	private Sprite lightningHUD;
+	int lightningHUDx = 132;
+	int lightningHUDy = 70;
+
+	private Sprite glideHUD;
+	int glideHUDx = 179;
+	int glideHUDy = 70;
+
+	private Sprite rockHUD;
+	int rockHUDx = 226;
+	int rockHUDy = 70;
+
 	private static boolean lostOrCleared = false;
 
 
@@ -78,12 +84,15 @@ public class GamePanel extends JPanel {
 
 		currentFPS = Config.TARGET_FPS;
 
-		heart1 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 30, 20);
-		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 20);
-		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 20);
+		heart1 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 30, 10);
+		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 10);
+		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 10);
 		
 		fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,38, 37), fireballHUDx, fireballHUDy);
 		waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 38, 37), waveHUDx, waveHUDy);
+		lightningHUD = new Sprite(ImageLoader.load("LightningHUD.png").getSubimage(0, 0,37, 37), lightningHUDx, lightningHUDy);
+		glideHUD = new Sprite(ImageLoader.load("GlideHUD.png").getSubimage(0, 0, 37, 37), glideHUDx, glideHUDy);
+		rockHUD = new Sprite(ImageLoader.load("RockHUD.png").getSubimage(0, 0, 37, 37), rockHUDx, rockHUDy);
 
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
@@ -152,6 +161,18 @@ public class GamePanel extends JPanel {
 			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 38, 37), waveHUDx, waveHUDy);
 		}
 
+		if(Player.getIsGlideOn()){
+			glideHUD = new Sprite(ImageLoader.load("GlideHUD.png").getSubimage(37, 0, 38, 37), glideHUDx, glideHUDy);
+		}else {
+			glideHUD = new Sprite(ImageLoader.load("GlideHUD.png").getSubimage(0, 0, 38, 37), glideHUDx, glideHUDy);
+		}
+
+		if(Player.getRockOnCooldown()){
+			rockHUD = new Sprite(ImageLoader.load("RockHUD.png").getSubimage(37, 0,38, 37), rockHUDx, rockHUDy);
+		}else{
+			rockHUD = new Sprite(ImageLoader.load("RockHUD.png").getSubimage(0, 0,38, 37), rockHUDx, rockHUDy);
+		}
+
 
 		if (!isGamePaused) {
 			screenManager.update();
@@ -206,12 +227,38 @@ public class GamePanel extends JPanel {
 		}
 
 		if((ScreenCoordinator.getGameState() == GameState.LEVEL1 || 
-			ScreenCoordinator.getGameState() == GameState.LEVEL2) && !lostOrCleared){
+			ScreenCoordinator.getGameState() == GameState.LEVEL2 ||
+			ScreenCoordinator.getGameState() == GameState.LEVEL3 || 
+			ScreenCoordinator.getGameState() == GameState.LEVEL4 ||
+			ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
+			ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
 			fireballHUD.draw(graphicsHandler);
 		}
 
-		if(ScreenCoordinator.getGameState() == GameState.LEVEL2 && !lostOrCleared){
-			waveHUD.draw(graphicsHandler);
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL2 ||
+		   ScreenCoordinator.getGameState() == GameState.LEVEL3 || 
+		   ScreenCoordinator.getGameState() == GameState.LEVEL4 ||
+		   ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
+		   ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
+		   waveHUD.draw(graphicsHandler);
+		}
+
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL3 || 
+		   ScreenCoordinator.getGameState() == GameState.LEVEL4 ||
+		   ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
+		   ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
+		   lightningHUD.draw(graphicsHandler);
+		}
+
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL4 ||
+		   ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
+		   ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
+		   glideHUD.draw(graphicsHandler);
+		}
+
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
+		   ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
+		   rockHUD.draw(graphicsHandler);
 		}
 
 	}

@@ -84,7 +84,6 @@ public class FinalBoss extends Enemy {
 
         @Override
         public void update(Player player) {
-
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
