@@ -462,15 +462,15 @@ public abstract class Player extends GameObject{
          
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
-        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL1)){
+        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL1) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
             fireballSpit(getX(), getY(), getFacingDirection());
         }
         
-        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL2)){
+        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL2) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
             waveAttack(getX(), getY(), getFacingDirection());
         }
 
-        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (rockOnCooldown == false) && (isInvincible == false) && (ScreenCoordinator.getGameState() == GameState.LEVEL5)){
+        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (rockOnCooldown == false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL5) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
             RockAttack(getX(), getY(), getFacingDirection());
             }
             
