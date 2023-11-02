@@ -20,7 +20,7 @@ public class VoidMap extends Map{
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        FinalBoss finalBoss = new FinalBoss(getMapTile(22, 51).getLocation().subtractY(410).subtractX(160),getMapTile(22, 51).getLocation().subtractX(160).subtractY(410), Direction.LEFT);
+        FinalBoss finalBoss = new FinalBoss(getMapTile(22, 51).getLocation().subtractY(410).subtractX(160),getMapTile(25, 51).getLocation().subtractX(160).subtractY(410), Direction.LEFT);
         enemies.add(finalBoss);
 
 
