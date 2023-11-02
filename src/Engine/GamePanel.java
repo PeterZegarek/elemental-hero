@@ -48,12 +48,12 @@ public class GamePanel extends JPanel {
 	private Sprite heart3;
 
 	private Sprite fireballHUD;
-	int fireballHUDx = 30;
-	int fireballHUDy = 450;
+	int fireballHUDx = 38;
+	int fireballHUDy = 70;
 
 	private Sprite waveHUD;
-	int waveHUDx = 70;
-	int waveHUDy = 450;
+	int waveHUDx = 85;
+	int waveHUDy = 70;
 
 	private static boolean lostOrCleared = false;
 
@@ -82,8 +82,8 @@ public class GamePanel extends JPanel {
 		heart2 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 79, 20);
 		heart3 = new Sprite(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48), 128, 20);
 		
-		fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,37, 37), fireballHUDx, fireballHUDy);
-		waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 32, 54), waveHUDx, waveHUDy);
+		fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,38, 37), fireballHUDx, fireballHUDy);
+		waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 38, 37), waveHUDx, waveHUDy);
 
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
@@ -141,15 +141,15 @@ public class GamePanel extends JPanel {
 
 
 		if(Player.getFireballOnCooldown()){
-			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(38, 0,37, 37), fireballHUDx, fireballHUDy);
+			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(37, 0,38, 37), fireballHUDx, fireballHUDy);
 		}else{
-			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,37, 37), fireballHUDx, fireballHUDy);
+			fireballHUD = new Sprite(ImageLoader.load("FireballHUD.png").getSubimage(0, 0,38, 37), fireballHUDx, fireballHUDy);
 		}
 
 		if(Player.getWaveOnCooldown()){
-			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(33, 0, 32, 54), waveHUDx, waveHUDy);
+			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(37, 0, 38, 37), waveHUDx, waveHUDy);
 		}else{
-			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 32, 54), waveHUDx, waveHUDy);
+			waveHUD = new Sprite(ImageLoader.load("WaveHUD.png").getSubimage(0, 0, 38, 37), waveHUDx, waveHUDy);
 		}
 
 
@@ -205,7 +205,8 @@ public class GamePanel extends JPanel {
 			heart3.draw(graphicsHandler);
 		}
 
-		if(ScreenCoordinator.getGameState() == GameState.LEVEL1 && !lostOrCleared){
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL1 || 
+			ScreenCoordinator.getGameState() == GameState.LEVEL2) && !lostOrCleared){
 			fireballHUD.draw(graphicsHandler);
 		}
 
