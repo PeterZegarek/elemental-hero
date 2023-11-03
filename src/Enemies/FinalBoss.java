@@ -16,7 +16,9 @@ import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Level.BossLivesListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is for the Angry Boss that throws WAVEs
@@ -52,12 +54,15 @@ public class FinalBoss extends Enemy {
         protected int lives = 15;
         protected Player player;
 
+        private ArrayList<BossLivesListener> listeners;
+
         public FinalBoss(Point startLocation, Point endLocation, Direction facingDirection) {
                 super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FinalBoss.png"), 159, 127),
                                 "EARTH_STAND_LEFT");
                 this.startLocation = startLocation;
                 this.endLocation = endLocation;
                 this.startFacingDirection = facingDirection;
+                listeners = new ArrayList<BossLivesListener>(10);
                 this.initialize();
         }
 
@@ -80,11 +85,12 @@ public class FinalBoss extends Enemy {
 
                 // every certain number of frames, the Wave will be shot out
                 shootWaitTimer = 45;
+                // sendBossLives();
         }
 
         @Override
         public void update(Player player) {
-                
+                sendBossLives();
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
@@ -229,24 +235,24 @@ public class FinalBoss extends Enemy {
                         // WaterWizard's location
                         int waveY = Math.round(getY() - 16);
 
-                        // create Wave enemy
+                        // create Wave enemies
                         Wave waveAttackLeft = new Wave(waveX, waveY, Direction.LEFT);
-
                         Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
+                        //create FireBall enemies
+                        Fireball fireball1 = new Fireball(new Point(waveX, waveY), movementSpeed, 60);
+
                         // add WAVE enemy to the map for it to spawn in the level
-                        if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
-                                        || previousAnimationName == "WATER_SHOOT_LEFT" ||
-                                        previousAnimationName == "ELECTRIC_SHOOT_LEFT"
-                                        || previousAnimationName == "AIR_SHOOT_LEFT") {
+                        if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT" || previousAnimationName == "WATER_SHOOT_LEFT" || 
+                            previousAnimationName == "ELECTRIC_SHOOT_LEFT" || previousAnimationName == "AIR_SHOOT_LEFT") {
                                 if((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT")) || 
                                         (bossState != BossState.SHOOT_WAIT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT"))){
-                                        map.addEnemy(waveAttackLeft);
+                                        map.addEnemy(fireball1);
                                 }
                         } else {
                                 if((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT")) ||
                                     (bossState != BossState.SHOOT_WAIT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT"))){
-                                        map.addEnemy(waveAttackRight);
+                                        map.addEnemy(fireball1);
                                 }
                         }
                         // change Boss back to its Stand state after shooting, reset shootTimer to wait
@@ -270,7 +276,20 @@ public class FinalBoss extends Enemy {
                 isInvincible = true;
                 isInvincibleCounter = 40;
                 shootWaitTimer = 150;
-        }            
+                sendBossLives();
+        }    
+        
+        // to add things to the list of listeners listening to the amount of lives the boss has
+        public void addToArrayList(BossLivesListener listener){
+                this.listeners.add(listener);
+        }
+
+        // to send the amount of lives to the listeners
+        public void sendBossLives(){
+                for (BossLivesListener listener: listeners){
+                        listener.getBossLives(lives);
+                }
+        }
         
 
         @Override
@@ -922,86 +941,86 @@ public class FinalBoss extends Enemy {
                                                                 .build()
                                 });
                                 put("ELECTRIC_DEATH_LEFT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(19, 0), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 0), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 1), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 1), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 2), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 2), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 3), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 3), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 4), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 4), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 5), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 5), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 6), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 6), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 7), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 7), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 8), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 8), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build()
                                 });
                                 put("ELECTRIC_DEATH_RIGHT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(19, 0), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 0), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 1), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 1), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 2), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 2), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 3), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 3), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 4), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 4), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 5), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 5), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 6), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 6), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 7), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 7), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(19, 8), 40)
+                                                new FrameBuilder(spriteSheet.getSprite(20, 8), 40)
                                                                 .withScale(scale)
                                                                 .withBounds(55, 65, 45, 50)
                                                                 .build()
