@@ -35,6 +35,9 @@ FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(43, 21).
 enemies.add(fireDinosaurEnemy1);
 
 
+
+
+
 //FireDinosaurEnemy fireDinosaurEnemy2 = new FireDinosaurEnemy(getMapTile(49, 16).getLocation().addY(7), getMapTile(49, 16).getLocation().addY(7), Direction.LEFT);
 //enemies.add(fireDinosaurEnemy2);
 
