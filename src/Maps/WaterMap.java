@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.SlimeEnemy;
+import Enemies.WaterBoss;
 import Enemies.WaterWizardEnemy;
 import EnhancedMapTiles.EndLevelBox;
 import Level.*;
@@ -88,6 +89,10 @@ public class WaterMap extends Map{
 
         WaterWizardEnemy wizard11 = new WaterWizardEnemy(getMapTile(44, 7).getLocation(), getMapTile(52, 7).getLocation(), Direction.RIGHT);
         enemies.add(wizard11);
+
+        WaterBoss waterBoss = new WaterBoss(getMapTile(60, 29).getLocation().subtractX(70).subtractY(145), getMapTile(60, 29).getLocation().subtractX(70).subtractY(145), Direction.LEFT);
+        enemies.add(waterBoss);
+
 
         return enemies;
 

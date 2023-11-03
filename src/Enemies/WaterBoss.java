@@ -84,14 +84,16 @@ public class WaterBoss extends Enemy {
 
         @Override
         public void update(Player player) {
-                
+
+                System.out.println(bossState);
+
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
                                 isInvincible = false;
                                 lives--;
                                 if(lives > 0){
-                                        bossState = BossState.STAND;
+                                        bossState = BossState.SHOOT_WAIT;
                                 } 
                                 else{
                                         this.mapEntityStatus = MapEntityStatus.REMOVED; 
@@ -102,8 +104,8 @@ public class WaterBoss extends Enemy {
 
                 // if shoot timer is up and WaterWizard is not currently shooting, set its state
                 // to SHOOT
-                if (shootWaitTimer == 0 && bossState != BossState.STAND_WAIT) {
-                        bossState = BossState.STAND_WAIT;
+                if (shootWaitTimer == 0 && bossState != BossState.SHOOT_WAIT) {
+                        bossState = BossState.SHOOT_WAIT;
                 } else {
                         shootWaitTimer--;
                 }
@@ -111,51 +113,46 @@ public class WaterBoss extends Enemy {
                 // if BossWizard is waiting to shoot, it does its animations then throws the
                 // WAVE
                 // after this waiting period is over, the WAVE is thrown
-                if (bossState == BossState.STAND_WAIT) {
+                if (bossState == BossState.SHOOT_WAIT) {
                         if (previousBossState == BossState.STAND) {
                                 if (lives >= 3)  {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "STAND_RIGHT"
-                                                        : "STAND_LEFT";
+                                                        ? "EARTH_STAND_RIGHT"
+                                                        : "EARTH_STAND_LEFT";
                                 } else if (lives >= 2) {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "STAND_RIGHT"
-                                                        : "STAND_LEFT";
+                                                        ? "FIRE_STAND_RIGHT"
+                                                        : "FIRE_STAND_LEFT";
                                 } else if (lives >= 1) {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "STAND_RIGHT"
-                                                        : "STAND_LEFT";                               
+                                                        ? "WATER_STAND_RIGHT"
+                                                        : "WATER_STAND_LEFT";
                                 }
-                                shootTimer = 40;
+                                
+                        
+                                shootTimer = 150;
                                 // This line of code takes the current direction the WaterWizard is facing and
                                 // makes it shoot in that direction
                                 // If facingdirection is right, it shoots right, else it shoots left
-                                // currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" :
-                                // "STAND_LEFT";
+                                // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" :
+                                // "SHOOT_LEFT";
                                 if (this.getX() > player.getX()) {
-                                        if (lives == 3)  {
+                                        if (lives >= 1)  {
                                                 currentAnimationName = "STAND_LEFT";
-                                        } else if (lives == 2) {
-                                                currentAnimationName = "STAND_LEFT";
-                                        } else if (lives == 1) {
-                                                currentAnimationName = "STAND_LEFT";
+                                        } 
                                 } else {
-                                        if (lives == 3)  {
+                                        if (lives >= 1)  {
                                                 currentAnimationName = "STAND_RIGHT";
-                                        } else if (lives == 2) {
-                                                currentAnimationName = "STAND_RIGHT";
-                                        } else if (lives == 1) {
-                                                currentAnimationName = "STAND_RIGHT";
-                                        }
-                                    }
-                        } else if (shootTimer == 0 && currentAnimationName != "HURT_RIGHT" || currentAnimationName != "HURT_LEFT") {
+                                        } 
+                                }
+                        } else if (shootTimer == 0 && (currentAnimationName != "HURT_RIGHT" || currentAnimationName != "HURT_LEFT") && currentAnimationName != "HIDDEN") {
                                 bossState = BossState.SHOOT;
                         } else {
                                 shootTimer--;
                         }
                 }
                 else if (bossState == BossState.HURT) {
-                        if(lives == 3 || lives == 1 ){
+                        if(lives > 1){
                                 if (this.getX() + 250 > player.getX()){
                                         currentAnimationName = "HURT_LEFT";
                                 }
@@ -163,7 +160,7 @@ public class WaterBoss extends Enemy {
                                        currentAnimationName = "HURT_RIGHT"; 
                                 }                                
                         }
-                        else if (lives == 2){
+                        else {
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
                                                         ? "DEATH_RIGHT"
                                                         : "DEATH_LEFT";   
@@ -171,54 +168,45 @@ public class WaterBoss extends Enemy {
                 }
                 // this is for actually having the WaterWizard shoot the wave
                 else if (bossState == BossState.SHOOT) {
+                        this.currentAnimationName = "HIDDEN";
                         // define where WAVE will spawn on map (x location) relative to WaterWizard's
                         // location
                         // and define its movement speed
-                        //int waveX;
-                        //if (currentAnimationName == "EARTH_STAND_RIGHT") {
-                        //        waveX = Math.round(getX()) + getWidth() + 35;
-                        //} else {
-                        //        waveX = Math.round(getX() - 95);
+                        int waveX;
+                        if (currentAnimationName == "HIDDEN") {
+                                waveX = Math.round(getX()) + getWidth() + 35;
+                        } else {
+                                waveX = Math.round(getX() - 95);
 
-                        //}
-                    
+                        }
 
                         // define where wave will spawn on the map (y location) relative to
                         // WaterWizard's location
                         int waveY = Math.round(getY() - 16);
 
-                        // create Wave enemy
-                        KrakenEnemy Kraken = new KrakenEnemy(new Point(startPositionX, startPositionY), 60);
+                        // create Wave enemies
+                        //Wave waveAttackLeft = new Wave(waveX, waveY, Direction.LEFT);
+                        //Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
+                        //create FireBall enemies
+                        KrakenEnemy Kraken = new KrakenEnemy(new Point(waveX - 305, waveY - 100),  150);
 
                         // add WAVE enemy to the map for it to spawn in the level
-                        if (previousAnimationName == "STAND_LEFT") {
-                                if((bossState != BossState.HURT && (currentAnimationName != "HURT_LEFT" || currentAnimationName != "HURT_RIGHT")) || 
-                                        (bossState != BossState.STAND_WAIT && (currentAnimationName != "HURT_LEFT" || currentAnimationName != "HURT_RIGHT"))){
-                                        bossState = BossState.HIDDEN;
-                                        map.addEnemy(Kraken);
-                                }
-                        } else {
-                                if((bossState != BossState.HURT && (currentAnimationName != "HURT_LEFT" || currentAnimationName != "HURT_RIGHT")) ||
-                                    (bossState != BossState.STAND_WAIT && (currentAnimationName != "HURT_LEFT" || currentAnimationName != "HURT_RIGHT"))){
-                                        map.addEnemy(Kraken);
-                                }
-                        }
+                        map.addEnemy(Kraken);
                         // change Boss back to its Stand state after shooting, reset shootTimer to wait
                         // a certain number of frames before shooting again
                         bossState = BossState.STAND;
+                                
 
                         // reset shoot wait timer so the process can happen again (STAND around, then
                         // waits, then shoots)
                         shootWaitTimer = 150;
                         super.update(player);
                 }
-            
+
                 super.update(player);
 
                 previousBossState = bossState;
-            
-            }
         }
 
         @Override
@@ -227,122 +215,121 @@ public class WaterBoss extends Enemy {
                 isInvincible = true;
                 isInvincibleCounter = 40;
                 shootWaitTimer = 150;
-        }            
+        }
 
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        float scale = 1f;
-        return new HashMap<String, Frame[]>() {
-            {
-                put("STAND_RIGHT", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                                .withScale(scale)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .withBounds(20, 100, 200, 10)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                                .withScale(scale)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
-                                .withScale(scale)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
-                                .withScale(scale)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                });
+        @Override
+        public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+                float scale = 1.2f;
+                return new HashMap<String, Frame[]>() {
+                        {
+                                put("STAND_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                                                                .withScale(scale)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(20, 100, 200, 10)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                                                                .withScale(scale)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
+                                                                .withScale(scale)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
+                                                                .withScale(scale)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                });
 
-                put("STAND_LEFT", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                });
+                                put("STAND_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                });
 
-                put("HURT_RIGHT", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
-                                .withScale(scale)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .withBounds(100, 35, 100, 150)
-                                .build(),
-                });
+                                put("HURT_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
+                                                                .withScale(scale)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(100, 35, 100, 150)
+                                                                .build(),
+                                });
 
-                put("HURT_LEFT", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
-                                .withScale(scale)
-                                .withBounds(15, 35, 100, 150)
-                                .build(),
-                });
-                put("DEATH_LEFT", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .build(),
-                });
-                put("DEATH_RIGHT", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .build(),
-                        new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
-                                .withScale(scale)
-                                .withBounds(20, 100, 200, 100)
-                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                .build(),
-                });
-                put("HIDDEN", new Frame[] {
-                        new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
-                                .withScale(1)
-                                .withBounds(0, 0, 0, 0)
-                                .build()
-                        
-                });
-            }
-        };
-    }
+                                put("HURT_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
+                                                                .withScale(scale)
+                                                                .withBounds(15, 35, 100, 150)
+                                                                .build(),
+                                });
+                                put("DEATH_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .build(),
+                                });
+                                put("DEATH_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
+                                                                .withScale(scale)
+                                                                .withBounds(20, 100, 200, 100)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .build(),
+                                });
+                                put("HIDDEN", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
+                                                                .withScale(1)
+                                                                .withBounds(0, 0, 0, 0)
+                                                                .build()
 
+                                });
+                        }
+                };
+        }
 
-    public enum BossState {
-        STAND, STAND_WAIT, SHOOT, HURT, HIDDEN
-    }
+        public enum BossState {
+                STAND, SHOOT_WAIT, SHOOT, HURT, HIDDEN
+        }
 }
