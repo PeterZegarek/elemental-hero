@@ -31,21 +31,32 @@ public ArrayList<Enemy> loadEnemies() {
 ArrayList<Enemy> enemies = new ArrayList<>();
 
 
-/*FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(49, 12).getLocation().addY(7), getMapTile(49,12).getLocation().addY(7), Direction.LEFT);
+FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(43, 21).getLocation().addY(7), getMapTile(49,21).getLocation().addY(7), Direction.LEFT);
 enemies.add(fireDinosaurEnemy1);
 
 
-FireDinosaurEnemy fireDinosaurEnemy2 = new FireDinosaurEnemy(getMapTile(49, 16).getLocation().addY(7), getMapTile(49, 16).getLocation().addY(7), Direction.LEFT);
-enemies.add(fireDinosaurEnemy2);
+//FireDinosaurEnemy fireDinosaurEnemy2 = new FireDinosaurEnemy(getMapTile(49, 16).getLocation().addY(7), getMapTile(49, 16).getLocation().addY(7), Direction.LEFT);
+//enemies.add(fireDinosaurEnemy2);
 
 
 Firewisp firewisp1 = new Firewisp(getMapTile(11, 23).getLocation().addY(5), getMapTile(21,23).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp1);
 
-
 Firewisp firewisp2 = new Firewisp(getMapTile(24, 23).getLocation().addY(5), getMapTile(33,23).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp2);
-*/
+
+Firewisp firewisp3 = new Firewisp(getMapTile(54, 6).getLocation().addY(5), getMapTile(59,6).getLocation().addY(5), Direction.LEFT);
+enemies.add(firewisp3);
+
+Firewisp firewisp4 = new Firewisp(getMapTile(10, 6).getLocation().addY(5), getMapTile(19,6).getLocation().addY(5), Direction.LEFT);
+enemies.add(firewisp4);
+
+Firewisp firewisp5 = new Firewisp(getMapTile(20, 6).getLocation().addY(5), getMapTile(27,6).getLocation().addY(5), Direction.LEFT);
+enemies.add(firewisp5);
+
+Firewisp firewisp6 = new Firewisp(getMapTile(28, 6).getLocation().addY(5), getMapTile(33,6).getLocation().addY(5), Direction.LEFT);
+enemies.add(firewisp6);
+
 //All of the lava enemy tiles
 Lava lava1 = new Lava(getMapTile(10,25).getLocation());
 enemies.add(lava1);
