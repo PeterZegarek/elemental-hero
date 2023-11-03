@@ -2,7 +2,9 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.KrakenEnemy;
 import Enemies.TreeEnemy;
+import Enemies.WaterBoss;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -52,6 +54,9 @@ public class EarthMap extends Map {
 
         TreeEnemy treeEnemy = new TreeEnemy(getMapTile(11, 3).getLocation().addY(-12), getMapTile(15, 3).getLocation().addY(-12), Direction.LEFT);
         enemies.add(treeEnemy);
+        
+        //WaterBoss waterBoss = new WaterBoss(getMapTile(58, 26).getLocation().subtractX(75).subtractY(110), getMapTile(58, 26).getLocation().subtractX(75).subtractY(110), Direction.LEFT);
+        //enemies.add(waterBoss);
 
 
 
