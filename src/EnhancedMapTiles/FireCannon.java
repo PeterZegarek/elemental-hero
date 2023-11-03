@@ -47,20 +47,18 @@ fireballCounter++;
 // As of right now, it shoots fireball every 2.2 seconds
 if ((fireballCounter % 132 == 0)){
 // define where fireball will spawn on map (x location) relative to FireCannon's location
-// and define its movement speed
-int fireballX = Math.round(this.startLocation.x) + getWidth();
-float movementSpeed = 1.5f;
+        // and define its movement speed
+        int fireballWidth = 7 * 3; // Fireball sprite width (7) multiplied by its scale (3)
+        int fireballX = Math.round(this.startLocation.x) - fireballWidth;
+        float movementSpeed = -1.5f;
 
+        // define where fireball will spawn on the map (y location) relative to FireCannon's location
+        int fireballY = Math.round(this.startLocation.y) + 4;
 
-// define where fireball will spawn on the map (y location) relative to FireCannon's location
-int fireballY = Math.round(this.startLocation.y) + 4;
+        // create Fireball enemy
+        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
 
-
-// create Fireball enemy
-Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
-
-
-// add fireball enemy to the map for it to spawn in the level
+        // add fireball enemy to the map for it to spawn in the level
 map.addEnemy(fireball);
 }
 super.update(player);
