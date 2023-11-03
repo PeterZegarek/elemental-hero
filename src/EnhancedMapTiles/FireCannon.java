@@ -71,7 +71,7 @@ return new HashMap<String, Frame[]>() {{
 put("DEFAULT", new Frame[] {
 new FrameBuilder(spriteSheet.getSprite(0, 0), 50)
 .withScale(3)
-.withBounds(4, 4, 10, 10)
+.withBounds(1, 1, 11, 7)
 .build(),
 });
 }};

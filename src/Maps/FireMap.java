@@ -207,6 +207,9 @@ enhancedMapTiles.add(hmp3);
 FireCannon fireCannon1 = new FireCannon(getMapTile(52, 20).getLocation());
 enhancedMapTiles.add(fireCannon1);
 
+FireCannon fireCannon2 = new FireCannon(getMapTile(54, 18).getLocation());
+enhancedMapTiles.add(fireCannon2);
+
 
 EndLevelBox endLevelBox = new EndLevelBox(getMapTile(0, 5).getLocation());
 enhancedMapTiles.add(endLevelBox);
