@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class VoidTileset extends Tileset {
 
     public VoidTileset(){
-         super(ImageLoader.load("VoidTileset.png"), 16, 16, 3);
+         super(ImageLoader.load("VoidTilesetNew.png"), 16, 16, 3);
     }
 
     @Override
@@ -71,6 +71,7 @@ public class VoidTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
 
         mapTiles.add(banner2Frame);
+
 
 
 
@@ -143,6 +144,24 @@ public class VoidTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(floorTile);
+
+        // default background wall tile - corrupted version of tile
+        Frame wall1Frame = new FrameBuilder(getSubImage(1,6))
+                .withScale(tileScale)
+                .build();
+        MapTileBuilder wall1Tile = new MapTileBuilder(wall1Frame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(wall1Tile);
+
+        // brick background wall tile
+        Frame wallBrickFrame = new FrameBuilder(getSubImage(3,4))
+                .withScale(tileScale)
+                .build();
+        MapTileBuilder wallBrickTile = new MapTileBuilder(wallBrickFrame)
+                .withTileType(TileType.PASSABLE);
+
+        mapTiles.add(wallBrickTile);
 
         
 

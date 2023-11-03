@@ -5,7 +5,9 @@ import Enemies.VerticalElectricity;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Level.BossLivesListener;
 import Level.EnhancedMapTile;
+import Level.MapEntityStatus;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 
 
 // This class is for the cloud that shoots out lightning
-public class LightningCloud extends EnhancedMapTile {
+public class LightningCloud extends EnhancedMapTile implements BossLivesListener {
 
     protected Point startLocation;
     private int lightningCounter = 0;
@@ -35,7 +37,6 @@ public class LightningCloud extends EnhancedMapTile {
     @Override
     public void update(Player player) {
         lightningCounter++;
-
         // This timing helps it spawn on animation 4 every time. If you change the frame delay you have to change this number too. 
         // 10/18 it takes 150 frames for the first lightning bolt, and 200 for every future lightning bolt.
         if ((lightningCounter % 150 == 0) && (lightningCounter != 0)){
@@ -49,6 +50,19 @@ public class LightningCloud extends EnhancedMapTile {
 
         super.update(player);
 
+    }
+
+    // This is active if the boss is in the electric phase
+    @Override
+    public void getBossLives(int bossLives){
+        if ((bossLives >= 4) && (bossLives < 7)){
+            this.mapEntityStatus = MapEntityStatus.ACTIVE;
+        }
+        else {
+            // this doesnt work. camera just re-makes it active
+            // workaround may be to create an "inactive" phase.... where it's invisible, no hitbox, etc
+            this.mapEntityStatus = MapEntityStatus.INACTIVE;
+        }
     }
 
 
