@@ -59,7 +59,15 @@ public class AirMap extends Map{
             Direction.RIGHT,
             2.5f
             );
-        enemies.add(cloudEnemy4);
+            enemies.add(cloudEnemy4);
+
+        CloudEnemy cloudEnemy5 = new CloudEnemy(
+            getMapTile(16, 45).getLocation(), 
+            getMapTile(22, 45).getLocation(), 
+            Direction.RIGHT,
+            2.5f
+            );
+            enemies.add(cloudEnemy5);
 
         for (int x = 6; x <= 29; x++) {
             InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 49).getLocation());
