@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Enemies.AngelBoss;
 import Enemies.CloudEnemy;
 import Enemies.InvisibleEnemy;
 import Engine.ImageLoader;
@@ -65,6 +66,11 @@ public class AirMap extends Map{
             enemies.add(invisEnemy);
         }
 
+        AngelBoss angelBoss = new AngelBoss(getMapTile(8, 12).getLocation(), 
+                                            getMapTile(15, 12).getLocation(),
+                                            Direction.RIGHT
+                                            );
+        enemies.add(angelBoss);
         return enemies;
     }
 

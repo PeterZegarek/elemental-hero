@@ -96,6 +96,7 @@ existenceFrames--;
 public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
 // if fireball collides with anything solid on the x axis, it is removed
 if (hasCollided) {
+    ElementalAbilityListenerManager.rockAttackDespawned();
 this.mapEntityStatus = MapEntityStatus.REMOVED;
 }
 }
