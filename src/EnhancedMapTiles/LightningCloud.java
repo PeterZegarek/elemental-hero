@@ -55,13 +55,8 @@ public class LightningCloud extends EnhancedMapTile implements BossLivesListener
     // This is active if the boss is in the electric phase
     @Override
     public void getBossLives(int bossLives){
-        if ((bossLives >= 4) && (bossLives < 7)){
-            this.mapEntityStatus = MapEntityStatus.ACTIVE;
-        }
-        else {
-            // this doesnt work. camera just re-makes it active
-            // workaround may be to create an "inactive" phase.... where it's invisible, no hitbox, etc
-            this.mapEntityStatus = MapEntityStatus.INACTIVE;
+        if (bossLives <= 4){
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
     }
 

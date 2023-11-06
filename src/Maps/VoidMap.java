@@ -38,24 +38,24 @@ public class VoidMap extends Map{
 
     }
 
-    @Override
-    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles(){
-        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        lightningClouds = new ArrayList<LightningCloud>(10);
-        LightningCloud lightningCloud = new LightningCloud(getMapTile(17, 1).getLocation());
-        enhancedMapTiles.add(lightningCloud);
-        lightningClouds.add(lightningCloud);
-        return enhancedMapTiles;
-    }
+    // @Override
+    // public ArrayList<EnhancedMapTile> loadEnhancedMapTiles(){
+    //     ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+    //     lightningClouds = new ArrayList<LightningCloud>(10);
+    //     LightningCloud lightningCloud = new LightningCloud(getMapTile(17, 1).getLocation());
+    //     enhancedMapTiles.add(lightningCloud);
+    //     lightningClouds.add(lightningCloud);
+    //     return enhancedMapTiles;
+    // }
 
     // In this function, add all the enhanced map tiles as a list of listeners to within the boss class
     // the boss will store these listeners and then call functions on them, this will be similar to the listener manager but within the boss
-    @Override
-    protected void postLoad() {
+    // @Override
+    // protected void postLoad() {
 
-        for (LightningCloud lightningCloud: lightningClouds){
-            finalBoss.addToArrayList(lightningCloud);
-        }
+    //     for (LightningCloud lightningCloud: lightningClouds){
+    //         finalBoss.addToArrayList(lightningCloud);
+    //     }
         
-    }
+    // }
 }

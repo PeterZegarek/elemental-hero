@@ -3,6 +3,7 @@ package Enemies;
 import Builders.FrameBuilder;
 import Enemies.SlimeEnemy.SlimeState;
 import Engine.ImageLoader;
+import EnhancedMapTiles.LightningCloud;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -54,6 +55,9 @@ public class FinalBoss extends Enemy {
         protected int lives = 15;
         protected Player player;
 
+        // used to determine if clouds have been spawned
+        protected boolean cloudsSpawned = false;
+
         private ArrayList<BossLivesListener> listeners;
 
         public FinalBoss(Point startLocation, Point endLocation, Direction facingDirection) {
@@ -90,17 +94,15 @@ public class FinalBoss extends Enemy {
 
         @Override
         public void update(Player player) {
-                sendBossLives();
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
                                 isInvincible = false;
                                 lives--;
-                                if(lives > 0){
+                                if (lives > 0) {
                                         bossState = BossState.STAND;
-                                } 
-                                else{
-                                        this.mapEntityStatus = MapEntityStatus.REMOVED; 
+                                } else {
+                                        this.mapEntityStatus = MapEntityStatus.REMOVED;
                                 }
                         }
                         super.update(player);
@@ -119,7 +121,7 @@ public class FinalBoss extends Enemy {
                 // after this waiting period is over, the WAVE is thrown
                 if (bossState == BossState.SHOOT_WAIT) {
                         if (previousBossState == BossState.STAND) {
-                                if (lives >= 13)  {
+                                if (lives >= 13) {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
                                                         ? "EARTH_STAND_RIGHT"
                                                         : "EARTH_STAND_LEFT";
@@ -140,8 +142,7 @@ public class FinalBoss extends Enemy {
                                                         ? "AIR_STAND_RIGHT"
                                                         : "AIR_STAND_LEFT";
                                 }
-                                
-                        
+
                                 shootTimer = 40;
                                 // This line of code takes the current direction the WaterWizard is facing and
                                 // makes it shoot in that direction
@@ -149,7 +150,7 @@ public class FinalBoss extends Enemy {
                                 // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" :
                                 // "SHOOT_LEFT";
                                 if (this.getX() + 250 > player.getX()) {
-                                        if (lives >= 13)  {
+                                        if (lives >= 13) {
                                                 currentAnimationName = "EARTH_SHOOT_LEFT";
                                         } else if (lives >= 10) {
                                                 currentAnimationName = "FIRE_SHOOT_LEFT";
@@ -161,7 +162,7 @@ public class FinalBoss extends Enemy {
                                                 currentAnimationName = "AIR_SHOOT_LEFT";
                                         }
                                 } else {
-                                        if (lives >= 13)  {
+                                        if (lives >= 13) {
                                                 currentAnimationName = "EARTH_SHOOT_RIGHT";
                                         } else if (lives >= 10) {
                                                 currentAnimationName = "FIRE_SHOOT_RIGHT";
@@ -173,46 +174,44 @@ public class FinalBoss extends Enemy {
                                                 currentAnimationName = "AIR_SHOOT_RIGHT";
                                         }
                                 }
-                        } else if (shootTimer == 0 && currentAnimationName != "BOSS_HURT_RIGHT" || currentAnimationName != "BOSS_HURT_LEFT") {
+                        } else if (shootTimer == 0 && currentAnimationName != "BOSS_HURT_RIGHT"
+                                        || currentAnimationName != "BOSS_HURT_LEFT") {
                                 bossState = BossState.SHOOT;
                         } else {
                                 shootTimer--;
                         }
-                }
-                else if (bossState == BossState.HURT) {
-                        if(lives == 15 || lives == 14 || lives == 12 || lives == 11 || lives == 9 || 
-                           lives == 8 || lives == 6 || lives == 5 ||lives == 3 || lives == 2){
-                                if (this.getX() + 250 > player.getX()){
+                } else if (bossState == BossState.HURT) {
+                        if (lives == 15 || lives == 14 || lives == 12 || lives == 11 || lives == 9 ||
+                                        lives == 8 || lives == 6 || lives == 5 || lives == 3 || lives == 2) {
+                                if (this.getX() + 250 > player.getX()) {
                                         currentAnimationName = "BOSS_HURT_LEFT";
+                                } else {
+                                        currentAnimationName = "BOSS_HURT_RIGHT";
                                 }
-                                else{
-                                       currentAnimationName = "BOSS_HURT_RIGHT"; 
-                                }                                
-                        }
-                        else if (lives == 13){
+                        } else if (lives == 13) {
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "EARTH_DEATH_RIGHT"
-                                                        : "EARTH_DEATH_LEFT";   
-                        }
-                        else if (lives == 10){
+                                                ? "EARTH_DEATH_RIGHT"
+                                                : "EARTH_DEATH_LEFT";
+                        } else if (lives == 10) {
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "FIRE_DEATH_RIGHT"
-                                                        : "FIRE_DEATH_LEFT";   
-                        }
-                        else if (lives == 7){
+                                                ? "FIRE_DEATH_RIGHT"
+                                                : "FIRE_DEATH_LEFT";
+                        } else if (lives == 7) {
+                                spawnClouds();
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "WATER_DEATH_RIGHT"
-                                                        : "WATER_DEATH_LEFT";   
-                        }
-                        else if (lives == 4){
+                                                ? "WATER_DEATH_RIGHT"
+                                                : "WATER_DEATH_LEFT";
+                        } else if (lives == 4) {
+                                for (BossLivesListener listener : listeners) {
+                                        listener.getBossLives(lives);
+                                }
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "ELECTRIC_DEATH_RIGHT"
-                                                        : "ELECTRIC_DEATH_LEFT";   
-                        }
-                        else if (lives == 1){
+                                                ? "ELECTRIC_DEATH_RIGHT"
+                                                : "ELECTRIC_DEATH_LEFT";
+                        } else if (lives == 1) {
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "AIR_DEATH_RIGHT"
-                                                        : "AIR_DEATH_LEFT";   
+                                                ? "AIR_DEATH_RIGHT"
+                                                : "AIR_DEATH_LEFT";
                         }
                 }
                 // this is for actually having the WaterWizard shoot the wave
@@ -239,19 +238,27 @@ public class FinalBoss extends Enemy {
                         Wave waveAttackLeft = new Wave(waveX, waveY, Direction.LEFT);
                         Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
-                        //create FireBall enemies
+                        // create FireBall enemies
                         Fireball fireball1 = new Fireball(new Point(waveX, waveY), movementSpeed, 60);
 
                         // add WAVE enemy to the map for it to spawn in the level
-                        if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT" || previousAnimationName == "WATER_SHOOT_LEFT" || 
-                            previousAnimationName == "ELECTRIC_SHOOT_LEFT" || previousAnimationName == "AIR_SHOOT_LEFT") {
-                                if((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT")) || 
-                                        (bossState != BossState.SHOOT_WAIT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT"))){
+                        if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
+                                        || previousAnimationName == "WATER_SHOOT_LEFT" ||
+                                        previousAnimationName == "ELECTRIC_SHOOT_LEFT"
+                                        || previousAnimationName == "AIR_SHOOT_LEFT") {
+                                if ((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT"
+                                                || currentAnimationName != "BOSS_HURT_RIGHT")) ||
+                                                (bossState != BossState.SHOOT_WAIT
+                                                                && (currentAnimationName != "BOSS_HURT_LEFT"
+                                                                                || currentAnimationName != "BOSS_HURT_RIGHT"))) {
                                         map.addEnemy(fireball1);
                                 }
                         } else {
-                                if((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT")) ||
-                                    (bossState != BossState.SHOOT_WAIT && (currentAnimationName != "BOSS_HURT_LEFT" || currentAnimationName != "BOSS_HURT_RIGHT"))){
+                                if ((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT"
+                                                || currentAnimationName != "BOSS_HURT_RIGHT")) ||
+                                                (bossState != BossState.SHOOT_WAIT
+                                                                && (currentAnimationName != "BOSS_HURT_LEFT"
+                                                                                || currentAnimationName != "BOSS_HURT_RIGHT"))) {
                                         map.addEnemy(fireball1);
                                 }
                         }
@@ -277,20 +284,43 @@ public class FinalBoss extends Enemy {
                 isInvincibleCounter = 40;
                 shootWaitTimer = 150;
                 sendBossLives();
-        }    
-        
-        // to add things to the list of listeners listening to the amount of lives the boss has
-        public void addToArrayList(BossLivesListener listener){
+        }
+
+        // to add things to the list of listeners listening to the amount of lives the
+        // boss has
+        public void addToArrayList(BossLivesListener listener) {
                 this.listeners.add(listener);
         }
 
         // to send the amount of lives to the listeners
-        public void sendBossLives(){
-                for (BossLivesListener listener: listeners){
+        public void sendBossLives() {
+                for (BossLivesListener listener : listeners) {
                         listener.getBossLives(lives);
                 }
         }
-        
+
+        // this spawns in all the clouds when the boss enters the electric phase
+        public void spawnClouds() {
+                if (!cloudsSpawned) {
+                        LightningCloud cloud1 = new LightningCloud(map.getMapTile(17, 1).getLocation());
+                        map.addEnhancedMapTile(cloud1);
+                        listeners.add(cloud1);
+                        LightningCloud cloud2 = new LightningCloud(map.getMapTile(20, 1).getLocation());
+                        map.addEnhancedMapTile(cloud2);
+                        listeners.add(cloud2);
+                        LightningCloud cloud3 = new LightningCloud(map.getMapTile(24, 1).getLocation());
+                        map.addEnhancedMapTile(cloud3);
+                        listeners.add(cloud3);
+                        LightningCloud cloud4 = new LightningCloud(map.getMapTile(28, 1).getLocation());
+                        map.addEnhancedMapTile(cloud4);
+                        listeners.add(cloud4);
+                        LightningCloud cloud5 = new LightningCloud(map.getMapTile(31, 1).getLocation());
+                        map.addEnhancedMapTile(cloud5);
+                        listeners.add(cloud5);
+                        cloudsSpawned = true;
+                }
+
+        }
 
         @Override
         public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
@@ -1715,13 +1745,13 @@ public class FinalBoss extends Enemy {
                                                 new FrameBuilder(spriteSheet.getSprite(5, 1), 40)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(0,0,0,0)
+                                                                .withBounds(0, 0, 0, 0)
                                                                 .build()
                                 });
                                 put("BOSS_HURT_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(5, 1), 40)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
+                                                                .withBounds(0, 0, 0, 0)
                                                                 .build()
                                 });
                         }
