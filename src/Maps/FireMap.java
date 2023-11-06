@@ -31,7 +31,7 @@ public ArrayList<Enemy> loadEnemies() {
 ArrayList<Enemy> enemies = new ArrayList<>();
 
 
-FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(43, 21).getLocation().addY(7), getMapTile(49,21).getLocation().addY(7), Direction.LEFT);
+FireDinosaurEnemy fireDinosaurEnemy1 = new FireDinosaurEnemy(getMapTile(43, 21).getLocation().addY(2), getMapTile(49,21).getLocation().addY(2), Direction.LEFT);
 enemies.add(fireDinosaurEnemy1);
 
 
