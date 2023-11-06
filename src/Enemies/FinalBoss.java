@@ -58,6 +58,9 @@ public class FinalBoss extends Enemy {
         // used to determine if clouds have been spawned
         protected boolean cloudsSpawned = false;
 
+        // cooldown for spawning the tree enemies
+        protected int treeCooldown = 660;
+
         private ArrayList<BossLivesListener> listeners;
 
         public FinalBoss(Point startLocation, Point endLocation, Direction facingDirection) {
@@ -94,6 +97,7 @@ public class FinalBoss extends Enemy {
 
         @Override
         public void update(Player player) {
+                treeCooldown--;
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {

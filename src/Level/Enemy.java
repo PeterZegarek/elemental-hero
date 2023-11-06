@@ -17,6 +17,7 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     protected Wave activeWave = null;
     protected RockAttack activeRockAttack = null;
 
+    protected boolean isOnMap = true;
 
     @Override
     public void rockAttackSpawned(RockAttack rock) {
@@ -114,6 +115,7 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     // Override as necessary; The enemy parameter is the enemy being hit
     public void enemyAttacked(Enemy enemy){
     
+        isOnMap = false;
         // This makes the enemy dissapear
         enemy.mapEntityStatus = MapEntityStatus.REMOVED;
     }
