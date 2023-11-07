@@ -5,9 +5,11 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.BossLivesListener;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -18,7 +20,9 @@ import java.util.HashMap;
 // This class is for the green dinosaur enemy that shoots fireballs
 // It walks back and forth between two set points (startLocation and endLocation)
 // Every so often (based on shootTimer) it will shoot a Fireball enemy
-public class Firewisp extends Enemy {
+public class Firewisp extends Enemy implements BossLivesListener {
+
+    // start and end locati implements BossLivesListener {
 
     // start and end location defines the two points that it walks between
     // is only made to walk along the x axis and has no air ground state logic, so
@@ -117,6 +121,13 @@ public class Firewisp extends Enemy {
                 facingDirection = Direction.RIGHT;
                 currentAnimationName = "FLY_RIGHT";
             }
+        }
+    }
+
+    @Override
+    public void getBossLives(int bossLives){
+        if (bossLives < 1){
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
     }
 

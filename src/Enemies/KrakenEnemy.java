@@ -70,7 +70,7 @@ public class KrakenEnemy extends Enemy {
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(100, 100, 10, 10)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(scale)
