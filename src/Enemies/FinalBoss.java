@@ -52,7 +52,8 @@ public class FinalBoss extends Enemy {
         protected boolean isInvincible = false;
 
         // change this to change what phase the boss starts in
-        protected int lives = 7;
+        // default is 15
+        protected int lives = 15;
         protected Player player;
 
         // used to determine if clouds/tornadoes have been spawned
@@ -133,15 +134,15 @@ public class FinalBoss extends Enemy {
                         if (treesSpawned < 3) {
                                 spawnTrees(true);
                         }
-                } else if (lives < 13 && lives > 9) {
+                } else if (lives < 13 && lives > 10) {
                         if (fireWispsSpawned < 6) {
                                 spawnFireWisps(true);
                         }
-                } else if (lives < 10 && lives > 6) {
+                } else if (lives < 10 && lives > 7) {
                         if (slimeEnemiesSpawned < 8) {
                                 spawnSlimeEnemies(true);
                         }
-                } else if (lives < 7 && lives > 3) {
+                } else if (lives < 7 && lives > 4) {
                         if (!isElectricHitboxActive) {
                                 createElectricHitbox();
                         }

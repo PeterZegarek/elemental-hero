@@ -2,6 +2,7 @@ package GameObject;
 
 import Engine.GraphicsHandler;
 import Level.*;
+import Players.Wave;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.MathUtils;
@@ -337,7 +338,7 @@ public class GameObject extends AnimatedSprite {
 
             // Uncomment this to draw player's bounds to screen -- useful for debugging
             // Change this to the name of the class that you want to see bounds for
-            if (this instanceof InvisibleHitbox) {
+            if (this instanceof Wave) {
                drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
             }
             
