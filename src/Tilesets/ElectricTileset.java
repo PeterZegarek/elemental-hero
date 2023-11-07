@@ -214,7 +214,7 @@ public class ElectricTileset extends Tileset {
 
         mapTiles.add(downArrowTile);
 
-
+        
         
         return mapTiles;
 

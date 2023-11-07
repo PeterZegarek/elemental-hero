@@ -5,7 +5,9 @@ import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Level.BossLivesListener;
 import Level.EnhancedMapTile;
+import Level.MapEntityStatus;
 import Level.Player;
 import Level.TileType;
 import Utils.AirGroundState;
@@ -14,7 +16,7 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-public class Tornado extends EnhancedMapTile{
+public class Tornado extends EnhancedMapTile implements BossLivesListener{
     private Point startLocation;
     private Point endLocation;
     private float movementSpeed;
@@ -98,6 +100,13 @@ public class Tornado extends EnhancedMapTile{
 
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+    }
+
+    @Override
+    public void getBossLives(int bossLives){
+        if (bossLives < 1){
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
     }
 
     @Override
