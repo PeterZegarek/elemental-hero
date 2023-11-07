@@ -1,24 +1,22 @@
 package Enemies;
 
 import Builders.FrameBuilder;
-import Enemies.SlimeEnemy.SlimeState;
 import Engine.ImageLoader;
 import EnhancedMapTiles.LightningCloud;
+import EnhancedMapTiles.Tornado;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
-import Level.LevelState;
 import Level.MapEntityStatus;
 import Level.Player;
-import Level.PlayerState;
 import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 import Level.BossLivesListener;
-
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,6 +55,7 @@ public class FinalBoss extends Enemy {
 
         // used to determine if clouds have been spawned
         protected boolean cloudsSpawned = false;
+        protected boolean tornadoesSpawned = false;
 
         private ArrayList<BossLivesListener> listeners;
 
@@ -94,7 +93,8 @@ public class FinalBoss extends Enemy {
 
         @Override
         public void update(Player player) {
-                if (isInvincibleCounter > 0) {
+     
+                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
                                 isInvincible = false;
@@ -202,6 +202,7 @@ public class FinalBoss extends Enemy {
                                                 ? "WATER_DEATH_RIGHT"
                                                 : "WATER_DEATH_LEFT";
                         } else if (lives == 4) {
+                                spawnTornadoes();
                                 for (BossLivesListener listener : listeners) {
                                         listener.getBossLives(lives);
                                 }
@@ -209,6 +210,9 @@ public class FinalBoss extends Enemy {
                                                 ? "ELECTRIC_DEATH_RIGHT"
                                                 : "ELECTRIC_DEATH_LEFT";
                         } else if (lives == 1) {
+                                for (BossLivesListener listener : listeners) {
+                                        listener.getBossLives(lives);
+                                }
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
                                                 ? "AIR_DEATH_RIGHT"
                                                 : "AIR_DEATH_LEFT";
@@ -239,7 +243,22 @@ public class FinalBoss extends Enemy {
                         Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
                         // create FireBall enemies
-                        Fireball fireball1 = new Fireball(new Point(waveX, waveY), movementSpeed, 60);
+                        Fireball fireball1 = new Fireball(new Point(20, 11), movementSpeed, 60);
+                        Fireball fireball2 = new Fireball(new Point(16, 9), movementSpeed, 60);
+                        Fireball fireball3 = new Fireball(new Point(19,6), movementSpeed, 60);
+                        Fireball fireball4 = new Fireball(new Point(29,11), movementSpeed, 60);
+                        Fireball fireball5 = new Fireball(new Point(30,6), movementSpeed, 60);
+                        Fireball fireball6 = new Fireball(new Point(33,9), movementSpeed, 60);
+
+                        Random rand = new Random();
+                        float momentumY = 120f;
+
+                        Arrow arrow1 = new Arrow(new Point(20,11), rand.nextFloat(2), momentumY, "RIGHT");
+                        Arrow arrow2 = new Arrow(new Point(16,9), rand.nextFloat(2), momentumY, "RIGHT");
+                        Arrow arrow3 = new Arrow(new Point(19,6), rand.nextFloat(2), momentumY, "RIGHT");
+                        Arrow arrow4 = new Arrow(new Point(29,11), rand.nextFloat(2), momentumY, "LEFT");
+                        Arrow arrow5 = new Arrow(new Point(30,6), rand.nextFloat(2), momentumY, "LEFT");
+                        Arrow arrow6 = new Arrow(new Point(33,9), rand.nextFloat(2), momentumY, "LEFT");
 
                         // add WAVE enemy to the map for it to spawn in the level
                         if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
@@ -251,7 +270,22 @@ public class FinalBoss extends Enemy {
                                                 (bossState != BossState.SHOOT_WAIT
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
-                                        map.addEnemy(fireball1);
+                                        if(lives >= 10){
+                                                map.addEnemy(fireball1);
+                                                map.addEnemy(fireball2);
+                                                map.addEnemy(fireball3);
+                                                map.addEnemy(fireball4);
+                                                map.addEnemy(fireball5);
+                                                map.addEnemy(fireball6);
+                                        }
+                                        else if (lives >= 1){
+                                                map.addEnemy(arrow1);
+                                                map.addEnemy(arrow2);
+                                                map.addEnemy(arrow3);
+                                                map.addEnemy(arrow4);
+                                                map.addEnemy(arrow5);
+                                                map.addEnemy(arrow6);   
+                                        }
                                 }
                         } else {
                                 if ((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT"
@@ -259,7 +293,22 @@ public class FinalBoss extends Enemy {
                                                 (bossState != BossState.SHOOT_WAIT
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
-                                        map.addEnemy(fireball1);
+                                        if(lives >= 13){
+                                                map.addEnemy(fireball1);
+                                                map.addEnemy(fireball2);
+                                                map.addEnemy(fireball3);
+                                                map.addEnemy(fireball4);
+                                                map.addEnemy(fireball5);
+                                                map.addEnemy(fireball6);
+                                        }
+                                        else if (lives > 0){
+                                                map.addEnemy(arrow1);
+                                                map.addEnemy(arrow2);
+                                                map.addEnemy(arrow3);
+                                                map.addEnemy(arrow4);
+                                                map.addEnemy(arrow5);
+                                                map.addEnemy(arrow6);   
+                                        }
                                 }
                         }
                         // change Boss back to its Stand state after shooting, reset shootTimer to wait
@@ -279,11 +328,74 @@ public class FinalBoss extends Enemy {
 
         @Override
         public void enemyAttacked(Enemy enemy) {
-                bossState = BossState.HURT;
-                isInvincible = true;
-                isInvincibleCounter = 40;
-                shootWaitTimer = 150;
-                sendBossLives();
+                if(lives >= 13){ 
+                        if (activeFireball != null){
+                                if (intersects(activeFireball)){
+                                        bossState = BossState.HURT;
+                                        isInvincible = true;
+                                        isInvincibleCounter = 40;
+                                        shootWaitTimer = 150;
+                                        sendBossLives();
+                                    // broadcast to the fireball that it killed something so it should disappear
+                                    ElementalAbilityListenerManager.fireballKilledEnemy();
+                                }             
+                        }
+                }
+                else if (lives >= 10){
+                        if (activeWave != null){
+                                if (intersects(activeWave)){
+                                        bossState = BossState.HURT;
+                                        isInvincible = true;
+                                        isInvincibleCounter = 40;
+                                        shootWaitTimer = 150;
+                                        sendBossLives();
+                                        // broadcast to the fireball that it killed something so it should disappear
+                                        ElementalAbilityListenerManager.waveKilledEnemy();
+                                        } 
+                                }
+                        }
+                //ELectric Ability
+               // else if (lives >= 7){ 
+                        /*if (activeWave != null){
+                                //if (intersects(activeElectric)){ 
+                                        bossState = BossState.HURT;
+                                        isInvincible = true;
+                                        isInvincibleCounter = 40;
+                                        shootWaitTimer = 150;
+                                        sendBossLives();
+                                        // broadcast to the fireball that it killed something so it should disappear
+                                        ElementalAbilityListenerManager.waveKilledEnemy();
+                                        } 
+                                }
+                                
+                //        }
+                else if (lives >= 4){
+                        Key GLIDE_KEY = Key.SHIFT;
+                        if (Keyboard.isKeyDown(GLIDE_KEY)){
+                                if(intersects(player)){
+                                        bossState = BossState.HURT;
+                                        isInvincible = true;
+                                        isInvincibleCounter = 40;
+                                        shootWaitTimer = 150;
+                                        sendBossLives();
+                                } 
+                        }
+                }
+                */
+                else if (lives >= 1){
+                        if (activeRockAttack != null){
+                                if (intersects(activeRockAttack)){
+                                        bossState = BossState.HURT;
+                                        isInvincible = true;
+                                        isInvincibleCounter = 40;
+                                        shootWaitTimer = 150;
+                                        sendBossLives();
+                                        // broadcast to the fireball that it killed something so it should disappear
+                                        ElementalAbilityListenerManager.rockAttackKilledEnemy();
+                                } 
+                        }
+                }  
+                
         }
 
         // to add things to the list of listeners listening to the amount of lives the
@@ -320,6 +432,39 @@ public class FinalBoss extends Enemy {
                         cloudsSpawned = true;
                 }
 
+        }
+
+        public void spawnTornadoes() {
+                
+                if (!tornadoesSpawned) {
+                        Random random = new Random();
+
+                        Tornado tornado1 = new Tornado(map.getMapTile(18, 11).getLocation().subtractY(20).subtractY(20), map.getMapTile(20, 11).getLocation(), random.nextFloat()*2+3, Direction.RIGHT);
+                        map.addEnhancedMapTile(tornado1);
+                        listeners.add(tornado1);
+
+                        Tornado tornado2 = new Tornado(map.getMapTile(13, 9).getLocation().subtractY(20), map.getMapTile(16,9).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        map.addEnhancedMapTile(tornado2);
+                        listeners.add(tornado2);
+
+                        Tornado tornado3= new Tornado(map.getMapTile(17,6).getLocation().subtractY(20), map.getMapTile(19,6).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        map.addEnhancedMapTile(tornado3);
+                        listeners.add(tornado3);
+
+                        Tornado tornado4 = new Tornado(map.getMapTile(29,11).getLocation().subtractY(20), map.getMapTile(31,11 ).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        map.addEnhancedMapTile(tornado4);
+                        listeners.add(tornado4);
+
+                        Tornado tornado5 = new Tornado(map.getMapTile(30,6).getLocation().subtractY(20), map.getMapTile(32,6).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        map.addEnhancedMapTile(tornado5);
+                        listeners.add(tornado5);
+
+                        Tornado tornado6 = new Tornado(map.getMapTile(33,9).getLocation().subtractY(20), map.getMapTile(36,9).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        map.addEnhancedMapTile(tornado6);
+                        listeners.add(tornado6);
+
+                        tornadoesSpawned = true;
+                }
         }
 
         @Override

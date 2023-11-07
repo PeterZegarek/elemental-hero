@@ -40,7 +40,7 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     public void fireballDespawned(){
         activeFireball = null;
     }
-
+    
     // This is irrelevant for enemies, only relevant for the player fireball
     @Override
     public void fireballKilledEnemy(){}
@@ -98,6 +98,11 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
         }
         if(activeWave!=null){
             if(intersects(activeWave)){
+                enemyAttacked(this);
+            }
+        }
+        if(activeRockAttack!=null){
+            if(intersects(activeRockAttack)){
                 enemyAttacked(this);
             }
         }
