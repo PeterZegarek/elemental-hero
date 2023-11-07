@@ -421,14 +421,6 @@ public class FinalBoss extends Enemy {
                         shootWaitTimer = 150;
                         super.update(player);
                 }
-
-                super.update(player);
-
-                previousBossState = bossState;
-        }
-
-        @Override
-        public void enemyAttacked(Enemy enemy) {
                 if (lives >= 13) {
                         // if there are no trees left then he can take damage
                         if (activeFireball != null && treesAlive == 0) {
@@ -508,7 +500,12 @@ public class FinalBoss extends Enemy {
                         }
                 }
 
+                super.update(player);
+
+                previousBossState = bossState;
         }
+
+        
 
         // to spawn tree enemies - params are whether it's initial spawn or secondary
         // spawn
