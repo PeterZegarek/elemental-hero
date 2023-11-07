@@ -86,15 +86,6 @@ public class Firewisp extends Enemy implements BossLivesListener {
 
         super.update(player);
 
-        // if there is a fireball and it got hit
-        if (activeFireball != null) {
-            if (intersects(activeFireball)) {
-                enemyAttacked(this);
-                // broadcast so the fireball disappears
-                ElementalAbilityListenerManager.fireballKilledEnemy();
-            }
-        }
-
         // if it gets hit by a wave it gets killed
         if (activeWave != null) {
             if (intersects(activeWave)) {
