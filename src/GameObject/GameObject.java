@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import Enemies.InvisibleEnemy;
 import Enemies.Lava;
+import Enemies.TreeEnemy;
 
 
 
@@ -334,7 +335,7 @@ public class GameObject extends AnimatedSprite {
 
             // Uncomment this to draw player's bounds to screen -- useful for debugging
             // Change this to the name of the class that you want to see bounds for
-            // if (this instanceof Lava) {
+            // if (this instanceof TreeEnemy) {
             //    drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
             // }
             

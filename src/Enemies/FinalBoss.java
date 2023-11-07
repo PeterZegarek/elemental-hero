@@ -62,7 +62,8 @@ public class FinalBoss extends Enemy {
 
         // cooldown for spawning the tree enemies
         protected int treeCooldown = 660;
-
+        protected int treesSpawned;
+        private ArrayList<TreeEnemy> trees = new ArrayList<TreeEnemy>(10);
         private ArrayList<BossLivesListener> listeners;
 
         public FinalBoss(Point startLocation, Point endLocation, Direction facingDirection) {
@@ -100,6 +101,14 @@ public class FinalBoss extends Enemy {
         @Override
         public void update(Player player) {
                 treeCooldown--;
+                if (treesSpawned < 3 && lives > 13){
+                        spawnTrees(true);
+                }
+                else{
+                        if (treeCooldown == 0){
+                                spawnTrees(false);
+                        }
+                }
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
@@ -234,6 +243,10 @@ public class FinalBoss extends Enemy {
                 }
                 // this is for actually having the Boss shoot the attacks
                 else if (bossState == BossState.SHOOT) {
+
+                        // this will be for spawning the tree enemies
+
+
               
                         // FIRE PHASE
                         Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation().addY(10), -movementSpeed, 120);
@@ -423,8 +436,39 @@ public class FinalBoss extends Enemy {
                 
         }
 
-        // to add things to the list of listeners listening to the amount of lives the
-        // boss has
+        // to spawn tree enemies - params are whether it's initial spawn or secondary spawn
+        /*
+         * Locations to spawn trees:
+         * 21,11 to 18, 11
+         * 29, 11 to 31, 11
+         * 17, 9 to 13, 9
+         * 33, 9 to 36, 9
+         * 22, 4 to 27, 4
+         */
+        // not verified to work yet
+        public void spawnTrees(boolean initialSpawn){
+                // if this is the initial spawn, it spawns 3 immediately
+                if (initialSpawn){
+                        TreeEnemy tree1 = new TreeEnemy(map.getMapTile(18,11).getLocation().addY(12), map.getMapTile(21,11).getLocation().addY(12) , Direction.RIGHT);
+                        trees.add(tree1);
+                        map.addEnemy(tree1);
+                        treesSpawned++;
+                        TreeEnemy tree2 = new TreeEnemy(map.getMapTile(13,9).getLocation().addY(12), map.getMapTile(17,9).getLocation().addY(12) , Direction.RIGHT);
+                        trees.add(tree2);
+                        map.addEnemy(tree2);
+                        System.out.println(tree2);
+                        treesSpawned++;
+                        TreeEnemy tree3 = new TreeEnemy(map.getMapTile(22,4).getLocation(), map.getMapTile(27,4).getLocation() , Direction.RIGHT);
+                        trees.add(tree3);
+                        map.addEnemy(tree3);
+                        treesSpawned++;
+                }
+                else{
+                        // spawn 1 tree at a time
+                }
+        }
+
+        // to add things to the list of listeners listening to the amount of lives the boss has
         public void addToArrayList(BossLivesListener listener) {
                 this.listeners.add(listener);
         }
