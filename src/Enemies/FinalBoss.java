@@ -7,6 +7,7 @@ import EnhancedMapTiles.LightningCloud;
 import EnhancedMapTiles.Tornado;
 import GameObject.Frame;
 import GameObject.ImageEffect;
+import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
@@ -52,7 +53,8 @@ public class FinalBoss extends Enemy {
         protected int isInvincibleCounter;
         protected boolean isInvincible = false;
 
-        protected int lives = 15;
+        // change this to change what phase the boss starts in
+        protected int lives = 7;
         protected Player player;
 
         // used to determine if clouds/tornadoes have been spawned
@@ -79,8 +81,10 @@ public class FinalBoss extends Enemy {
         protected int cloudEnemiesSpawned;
         protected int cloudEnemiesAlive;
 
-
-
+        // this will help us trigger the spawning and despawning of the new electric
+        // damage box
+        protected boolean isElectricHitboxActive = false;
+        protected InvisibleHitbox electricHitbox = null;
 
         private ArrayList<TreeEnemy> trees = new ArrayList<TreeEnemy>(10);
         private ArrayList<Firewisp> fireWisps = new ArrayList<Firewisp>(10);
@@ -127,24 +131,28 @@ public class FinalBoss extends Enemy {
                 fireWispCooldown--;
                 slimeEnemyCooldown--;
                 cloudEnemyCooldown--;
-                if (lives < 16 && lives > 13){
-                        if(treesSpawned < 3){
-                        spawnTrees(true);
+                if (lives < 16 && lives > 13) {
+                        if (treesSpawned < 3) {
+                                spawnTrees(true);
                         }
-                }
-                else if (lives < 13 && lives > 9){
-                        if(fireWispsSpawned < 6 ){
-                        spawnFireWisps(true);
+                } else if (lives < 13 && lives > 9) {
+                        if (fireWispsSpawned < 6) {
+                                spawnFireWisps(true);
                         }
-                }         
-                else if (lives < 10 && lives > 6){
-                        if (slimeEnemiesSpawned < 8){
-                        spawnSlimeEnemies(true);
+                } else if (lives < 10 && lives > 6) {
+                        if (slimeEnemiesSpawned < 8) {
+                                spawnSlimeEnemies(true);
                         }
-                }
-                else if (lives < 4 && lives > 1){
-                        if (cloudEnemiesSpawned < 3){
-                        spawnCloudEnemies(true);
+                } else if (lives < 7 && lives > 3) {
+                        if (!isElectricHitboxActive) {
+                                createElectricHitbox();
+                        }
+                } else if (lives < 4 && lives > 1) {
+                        if (isElectricHitboxActive) {
+                                deleteElectricHitbox();
+                        }
+                        if (cloudEnemiesSpawned < 3) {
+                                spawnCloudEnemies(true);
                         }
                 }
 
@@ -168,6 +176,18 @@ public class FinalBoss extends Enemy {
                         bossState = BossState.SHOOT_WAIT;
                 } else {
                         shootWaitTimer--;
+                }
+
+                // if electric phase and the hitbox is touched and it is not in hurt animation, it takes damage
+                // untested
+                if (isElectricHitboxActive) {
+                        if ((electricHitbox.isTouched()) && (bossState != BossState.HURT) && (lives > 3)) {
+                                bossState = BossState.HURT;
+                                isInvincible = true;
+                                isInvincibleCounter = 40;
+                                shootWaitTimer = 150;
+                                sendBossLives();
+                        }
                 }
 
                 // if BossWizard is waiting to shoot, it does its animations then throws the
@@ -295,39 +315,40 @@ public class FinalBoss extends Enemy {
 
                         // this will be for spawning the tree enemies
 
-
-              
                         // FIRE PHASE
-                        Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation().addY(10), -movementSpeed, 120);
+                        Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation().addY(10), -movementSpeed,
+                                        120);
                         fireball1.setScale(5);
-                        Fireball fireball2 = new Fireball(map.getMapTile(16, 9).getLocation().addY(10), -movementSpeed, 150);
+                        Fireball fireball2 = new Fireball(map.getMapTile(16, 9).getLocation().addY(10), -movementSpeed,
+                                        150);
                         fireball2.setScale(5);
-                        Fireball fireball3 = new Fireball(map.getMapTile(19,6).getLocation().addY(10), -movementSpeed, 120);
+                        Fireball fireball3 = new Fireball(map.getMapTile(19, 6).getLocation().addY(10), -movementSpeed,
+                                        120);
                         fireball3.setScale(5);
-                        Fireball fireball4 = new Fireball(map.getMapTile(29,11).getLocation().addY(10), movementSpeed, 120);
+                        Fireball fireball4 = new Fireball(map.getMapTile(29, 11).getLocation().addY(10), movementSpeed,
+                                        120);
                         fireball4.setScale(5);
-                        Fireball fireball5 = new Fireball(map.getMapTile(30,6).getLocation().addY(10), movementSpeed, 150);
+                        Fireball fireball5 = new Fireball(map.getMapTile(30, 6).getLocation().addY(10), movementSpeed,
+                                        150);
                         fireball5.setScale(5);
-                        Fireball fireball6 = new Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
+                        Fireball fireball6 = new Fireball(map.getMapTile(33, 9).getLocation().addY(10), movementSpeed,
+                                        120);
                         fireball6.setScale(5);
-                        //Fireball fireball7 = new Fireball(map.getMapTile(30,6).getLocation().addY(10), movementSpeed, 150);
-                        //fireball7.setScale(5);
-                        //Fireball fireball8 = new Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
-                        //fireball8.setScale(5);
+                        // Fireball fireball7 = new
+                        // Fireball(map.getMapTile(30,6).getLocation().addY(10), movementSpeed, 150);
+                        // fireball7.setScale(5);
+                        // Fireball fireball8 = new
+                        // Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
+                        // fireball8.setScale(5);
 
-                        //AIR PHASE
+                        // AIR PHASE
                         float momentumY = 30f;
                         Arrow arrow1 = new Arrow(map.getMapTile(10, 1).getLocation(), 2, momentumY, "RIGHT");
-                        Arrow arrow2 = new Arrow(map.getMapTile(12,1).getLocation(), 2, momentumY, "RIGHT");
+                        Arrow arrow2 = new Arrow(map.getMapTile(12, 1).getLocation(), 2, momentumY, "RIGHT");
                         Arrow arrow3 = new Arrow(map.getMapTile(14, 1).getLocation(), 2, momentumY, "RIGHT");
-                        Arrow arrow4 = new Arrow(map.getMapTile(39,1).getLocation(), -2, momentumY, "LEFT");
-                        Arrow arrow5 = new Arrow(map.getMapTile(37,1).getLocation(), -2, momentumY, "LEFT");
-                        Arrow arrow6 = new Arrow(map.getMapTile(35,1).getLocation(), -2, momentumY, "LEFT");
-
-                       
-                        
-
-                        
+                        Arrow arrow4 = new Arrow(map.getMapTile(39, 1).getLocation(), -2, momentumY, "LEFT");
+                        Arrow arrow5 = new Arrow(map.getMapTile(37, 1).getLocation(), -2, momentumY, "LEFT");
+                        Arrow arrow6 = new Arrow(map.getMapTile(35, 1).getLocation(), -2, momentumY, "LEFT");
 
                         // add enemies to the map for it to spawn in the level
                         if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
@@ -339,31 +360,29 @@ public class FinalBoss extends Enemy {
                                                 (bossState != BossState.SHOOT_WAIT
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
-                                        if (lives >= 13){
-                                                //map.addEnemy(rock1);
-                                                //map.addEnemy(rock2);
-                                                //map.addEnemy(rock3);
-                                                //map.addEnemy(rock4);
-                                                //map.addEnemy(rock5);
-                                                //map.addEnemy(rock6);
-                                        }                
-                                        else if(lives >= 10){
+                                        if (lives >= 13) {
+                                                // map.addEnemy(rock1);
+                                                // map.addEnemy(rock2);
+                                                // map.addEnemy(rock3);
+                                                // map.addEnemy(rock4);
+                                                // map.addEnemy(rock5);
+                                                // map.addEnemy(rock6);
+                                        } else if (lives >= 10) {
                                                 map.addEnemy(fireball1);
                                                 map.addEnemy(fireball2);
                                                 map.addEnemy(fireball3);
                                                 map.addEnemy(fireball4);
                                                 map.addEnemy(fireball5);
                                                 map.addEnemy(fireball6);
-                                                //map.addEnemy(fireball7);
-                                                //map.addEnemy(fireball8);
-                                        }
-                                        else if (lives >= 1){
+                                                // map.addEnemy(fireball7);
+                                                // map.addEnemy(fireball8);
+                                        } else if (lives >= 1) {
                                                 map.addEnemy(arrow1);
                                                 map.addEnemy(arrow2);
-                                                map.addEnemy(arrow3);   
+                                                map.addEnemy(arrow3);
                                                 map.addEnemy(arrow4);
                                                 map.addEnemy(arrow5);
-                                                map.addEnemy(arrow6);                                 
+                                                map.addEnemy(arrow6);
                                         }
                                 }
                         } else {
@@ -372,29 +391,27 @@ public class FinalBoss extends Enemy {
                                                 (bossState != BossState.SHOOT_WAIT
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
-                                        if (lives >= 13){
-                                                //map.addEnemy(rock1);
-                                                //map.addEnemy(rock2);
-                                                //map.addEnemy(rock3);
-                                                //map.addEnemy(rock4);
-                                                //map.addEnemy(rock5);
-                                                //map.addEnemy(rock6);
-                                        }                
-                                        else if(lives >= 10){
+                                        if (lives >= 13) {
+                                                // map.addEnemy(rock1);
+                                                // map.addEnemy(rock2);
+                                                // map.addEnemy(rock3);
+                                                // map.addEnemy(rock4);
+                                                // map.addEnemy(rock5);
+                                                // map.addEnemy(rock6);
+                                        } else if (lives >= 10) {
                                                 map.addEnemy(fireball1);
                                                 map.addEnemy(fireball2);
                                                 map.addEnemy(fireball3);
                                                 map.addEnemy(fireball4);
                                                 map.addEnemy(fireball5);
                                                 map.addEnemy(fireball6);
-                                        }
-                                        else if (lives >= 1){
+                                        } else if (lives >= 1) {
                                                 map.addEnemy(arrow1);
                                                 map.addEnemy(arrow2);
-                                                map.addEnemy(arrow3);  
+                                                map.addEnemy(arrow3);
                                                 map.addEnemy(arrow4);
                                                 map.addEnemy(arrow5);
-                                                map.addEnemy(arrow6);                                            
+                                                map.addEnemy(arrow6);
                                         }
                                 }
                         }
@@ -415,26 +432,25 @@ public class FinalBoss extends Enemy {
 
         @Override
         public void enemyAttacked(Enemy enemy) {
-                if(lives >= 13){ 
+                if (lives >= 13) {
                         // if there are no trees left then he can take damage
-                        if (activeFireball != null && treesAlive == 0){
-                                if (intersects(activeFireball)){
+                        if (activeFireball != null && treesAlive == 0) {
+                                if (intersects(activeFireball)) {
                                         bossState = BossState.HURT;
                                         isInvincible = true;
                                         isInvincibleCounter = 40;
                                         shootWaitTimer = 150;
                                         sendBossLives();
-                                    // broadcast to the fireball that it killed something so it should disappear
-                                    ElementalAbilityListenerManager.fireballKilledEnemy();
-                                    // set trees spawned to 0 so that he respawns trees after getting hit
-                                    treesSpawned = 0;
-                                }             
+                                        // broadcast to the fireball that it killed something so it should disappear
+                                        ElementalAbilityListenerManager.fireballKilledEnemy();
+                                        // set trees spawned to 0 so that he respawns trees after getting hit
+                                        treesSpawned = 0;
+                                }
                         }
-                }
-                else if (lives >= 10){
+                } else if (lives >= 10) {
                         // if there are no fireWisps left then he can take damage
-                        if (activeWave != null && fireWispsAlive == 0){
-                                if (intersects(activeWave)){
+                        if (activeWave != null && fireWispsAlive == 0) {
+                                if (intersects(activeWave)) {
                                         bossState = BossState.HURT;
                                         isInvincible = true;
                                         isInvincibleCounter = 40;
@@ -444,42 +460,43 @@ public class FinalBoss extends Enemy {
                                         ElementalAbilityListenerManager.waveKilledEnemy();
                                         // set firewisp spawned to 0 so that he respawns firewisps after getting hit
                                         fireWispsSpawned = 0;
-                                        } 
                                 }
-                        }
-                //ELectric Ability
-              /*else if (lives >= 7){ 
-                        if (activeElectric != null && SlimeEnemiesAlive == 0){
-                                if (intersects(activeElectric)){ 
-                                        bossState = BossState.HURT;
-                                        isInvincible = true;
-                                        isInvincibleCounter = 40;
-                                        shootWaitTimer = 150;
-                                        sendBossLives();
-                                        // broadcast to the fireball that it killed something so it should disappear
-                                        ElementalAbilityListenerManager.waveKilledEnemy();
-                                        } 
-                                }
-                                
-                        }
-                
-                else if (lives >= 4){
-                        Key GLIDE_KEY = Key.SHIFT;
-                        if (Keyboard.isKeyDown(GLIDE_KEY)){
-                                if(intersects(player)){
-                                        bossState = BossState.HURT;
-                                        isInvincible = true;
-                                        isInvincibleCounter = 40;
-                                        shootWaitTimer = 150;
-                                        sendBossLives();
-                                } 
                         }
                 }
-                */
-                else if (lives < 4 && lives >= 1){
+                // ELectric Ability
+                /*
+                 * else if (lives >= 7){
+                 * if (activeElectric != null && SlimeEnemiesAlive == 0){
+                 * if (intersects(activeElectric)){
+                 * bossState = BossState.HURT;
+                 * isInvincible = true;
+                 * isInvincibleCounter = 40;
+                 * shootWaitTimer = 150;
+                 * sendBossLives();
+                 * // broadcast to the fireball that it killed something so it should disappear
+                 * ElementalAbilityListenerManager.waveKilledEnemy();
+                 * }
+                 * }
+                 * 
+                 * }
+                 * 
+                 * else if (lives >= 4){
+                 * Key GLIDE_KEY = Key.SHIFT;
+                 * if (Keyboard.isKeyDown(GLIDE_KEY)){
+                 * if(intersects(player)){
+                 * bossState = BossState.HURT;
+                 * isInvincible = true;
+                 * isInvincibleCounter = 40;
+                 * shootWaitTimer = 150;
+                 * sendBossLives();
+                 * }
+                 * }
+                 * }
+                 */
+                else if (lives < 4 && lives >= 1) {
                         // if there are no CloudEnemies left then he can take damage
-                        if (activeRockAttack != null && cloudEnemiesAlive == 0){
-                                if (intersects(activeRockAttack)){
+                        if (activeRockAttack != null && cloudEnemiesAlive == 0) {
+                                if (intersects(activeRockAttack)) {
                                         bossState = BossState.HURT;
                                         isInvincible = true;
                                         isInvincibleCounter = 40;
@@ -489,13 +506,14 @@ public class FinalBoss extends Enemy {
                                         ElementalAbilityListenerManager.rockAttackKilledEnemy();
                                         // set firewisp spawned to 0 so that he respawns cloudEnemies after getting hit
                                         cloudEnemiesSpawned = 0;
-                                } 
+                                }
                         }
                 }
-                
+
         }
 
-        // to spawn tree enemies - params are whether it's initial spawn or secondary spawn
+        // to spawn tree enemies - params are whether it's initial spawn or secondary
+        // spawn
         /*
          * Locations to spawn trees:
          * 21,11 to 18, 11
@@ -505,26 +523,28 @@ public class FinalBoss extends Enemy {
          * 22, 4 to 27, 4
          */
         // not verified to work yet
-        public void spawnTrees(boolean initialSpawn){
+        public void spawnTrees(boolean initialSpawn) {
                 // if this is the initial spawn, it spawns 3 immediately
-                if (initialSpawn){
-                        TreeEnemy tree1 = new TreeEnemy(map.getMapTile(18,11).getLocation().addY(12), map.getMapTile(21,11).getLocation().addY(12) , Direction.RIGHT);
+                if (initialSpawn) {
+                        TreeEnemy tree1 = new TreeEnemy(map.getMapTile(18, 11).getLocation().addY(12),
+                                        map.getMapTile(21, 11).getLocation().addY(12), Direction.RIGHT);
                         trees.add(tree1);
                         map.addEnemy(tree1);
                         treesSpawned++;
                         treesAlive++;
-                        TreeEnemy tree2 = new TreeEnemy(map.getMapTile(13,9).getLocation().addY(12), map.getMapTile(17,9).getLocation().addY(12) , Direction.RIGHT);
+                        TreeEnemy tree2 = new TreeEnemy(map.getMapTile(13, 9).getLocation().addY(12),
+                                        map.getMapTile(17, 9).getLocation().addY(12), Direction.RIGHT);
                         trees.add(tree2);
                         map.addEnemy(tree2);
                         treesSpawned++;
                         treesAlive++;
-                        TreeEnemy tree3 = new TreeEnemy(map.getMapTile(22,4).getLocation(), map.getMapTile(27,4).getLocation() , Direction.RIGHT);
+                        TreeEnemy tree3 = new TreeEnemy(map.getMapTile(22, 4).getLocation(),
+                                        map.getMapTile(27, 4).getLocation(), Direction.RIGHT);
                         trees.add(tree3);
                         map.addEnemy(tree3);
                         treesSpawned++;
                         treesAlive++;
-                }
-                else{
+                } else {
                         // spawn 1 tree at a time
                         // for now i'm leaving this out. may make the difficulty too hard
                 }
@@ -532,64 +552,69 @@ public class FinalBoss extends Enemy {
 
         // check to see if trees have been killed
         // this is called every time the boss goes into shoot wait phase
-        public void checkTrees(){
-                for (int counter = 0; counter < trees.size(); counter++){
-                        if (trees.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED){
+        public void checkTrees() {
+                for (int counter = 0; counter < trees.size(); counter++) {
+                        if (trees.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED) {
                                 trees.remove(counter);
                                 treesAlive--;
                         }
                 }
         }
 
-        public void spawnFireWisps(boolean initialSpawn){
+        public void spawnFireWisps(boolean initialSpawn) {
                 // if this is the initial spawn, it spawns 3 immediately
-                if (initialSpawn){
-                        Firewisp firewisp1 = new Firewisp(map.getMapTile(10, 12).getLocation().addY(5), map.getMapTile(17,12).getLocation().addY(5), Direction.RIGHT);
+                if (initialSpawn) {
+                        Firewisp firewisp1 = new Firewisp(map.getMapTile(10, 12).getLocation().addY(5),
+                                        map.getMapTile(17, 12).getLocation().addY(5), Direction.RIGHT);
                         fireWisps.add(firewisp1);
                         map.addEnemy(firewisp1);
                         fireWispsSpawned++;
                         fireWispsAlive++;
 
-                        Firewisp firewisp2 = new Firewisp(map.getMapTile(10, 5).getLocation().addY(5), map.getMapTile(16,5).getLocation().addY(5), Direction.LEFT);
+                        Firewisp firewisp2 = new Firewisp(map.getMapTile(10, 5).getLocation().addY(5),
+                                        map.getMapTile(16, 5).getLocation().addY(5), Direction.LEFT);
                         fireWisps.add(firewisp2);
                         map.addEnemy(firewisp2);
                         fireWispsSpawned++;
                         fireWispsAlive++;
 
-                        Firewisp firewisp3 = new Firewisp(map.getMapTile(22, 3).getLocation().addY(5), map.getMapTile(27,3).getLocation().addY(5), Direction.LEFT);
+                        Firewisp firewisp3 = new Firewisp(map.getMapTile(22, 3).getLocation().addY(5),
+                                        map.getMapTile(27, 3).getLocation().addY(5), Direction.LEFT);
                         fireWisps.add(firewisp3);
                         map.addEnemy(firewisp3);
                         fireWispsSpawned++;
                         fireWispsAlive++;
 
-                        Firewisp firewisp4 = new Firewisp(map.getMapTile(32, 12).getLocation().addY(5), map.getMapTile(38,12).getLocation().addY(5), Direction.LEFT);
+                        Firewisp firewisp4 = new Firewisp(map.getMapTile(32, 12).getLocation().addY(5),
+                                        map.getMapTile(38, 12).getLocation().addY(5), Direction.LEFT);
                         fireWisps.add(firewisp4);
                         map.addEnemy(firewisp4);
                         fireWispsSpawned++;
                         fireWispsAlive++;
 
-                        Firewisp firewisp5 = new Firewisp(map.getMapTile(34, 5).getLocation().addY(5), map.getMapTile(37,5).getLocation().addY(5), Direction.LEFT);
+                        Firewisp firewisp5 = new Firewisp(map.getMapTile(34, 5).getLocation().addY(5),
+                                        map.getMapTile(37, 5).getLocation().addY(5), Direction.LEFT);
                         fireWisps.add(firewisp5);
                         map.addEnemy(firewisp5);
                         fireWispsSpawned++;
                         fireWispsAlive++;
-   
-                }
-                else{
+
+                } else {
                         // spawn 1 firewisp at a time
                 }
         }
-        public void checkFireWisps(){
-                for (int counter = 0; counter < fireWisps.size(); counter++){
-                        if (fireWisps.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED){
+
+        public void checkFireWisps() {
+                for (int counter = 0; counter < fireWisps.size(); counter++) {
+                        if (fireWisps.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED) {
                                 fireWisps.remove(counter);
                                 fireWispsAlive--;
                         }
                 }
         }
 
-
-        // to add things to the list of listeners listening to the amount of lives the boss has
+        // to add things to the list of listeners listening to the amount of lives the
+        // boss has
         public void addToArrayList(BossLivesListener listener) {
                 this.listeners.add(listener);
         }
@@ -601,108 +626,118 @@ public class FinalBoss extends Enemy {
                 }
         }
 
-        public void spawnSlimeEnemies(boolean initialSpawn){
+        public void spawnSlimeEnemies(boolean initialSpawn) {
                 // if this is the initial spawn, it spawns 3 immediately
-                if (initialSpawn){
-                        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(map.getMapTile(11, 6).getLocation(), map.getMapTile(13, 6).getLocation(), Direction.RIGHT);
+                if (initialSpawn) {
+                        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(map.getMapTile(11, 6).getLocation(),
+                                        map.getMapTile(13, 6).getLocation(), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy1);
                         map.addEnemy(SlimeEnemy1);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
-                
-                        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(map.getMapTile(13, 9).getLocation(), map.getMapTile(16, 9).getLocation(), Direction.RIGHT);
+
+                        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(map.getMapTile(13, 9).getLocation(),
+                                        map.getMapTile(16, 9).getLocation(), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy2);
                         map.addEnemy(SlimeEnemy2);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
-                
-                        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(map.getMapTile(18, 11).getLocation(), map.getMapTile(20, 11).getLocation(), Direction.RIGHT);
+
+                        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(map.getMapTile(18, 11).getLocation(),
+                                        map.getMapTile(20, 11).getLocation(), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy3);
                         map.addEnemy(SlimeEnemy3);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
-                
-                        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(map.getMapTile(38, 6).getLocation(), map.getMapTile(36, 6).getLocation(), Direction.LEFT);
+
+                        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(map.getMapTile(38, 6).getLocation(),
+                                        map.getMapTile(36, 6).getLocation(), Direction.LEFT);
                         slimeEnemies.add(SlimeEnemy4);
                         map.addEnemy(SlimeEnemy4);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
-                
-                        SlimeEnemy SlimeEnemy5 = new SlimeEnemy(map.getMapTile(36, 9).getLocation(), map.getMapTile(33, 9).getLocation(), Direction.LEFT);
+
+                        SlimeEnemy SlimeEnemy5 = new SlimeEnemy(map.getMapTile(36, 9).getLocation(),
+                                        map.getMapTile(33, 9).getLocation(), Direction.LEFT);
                         slimeEnemies.add(SlimeEnemy5);
                         map.addEnemy(SlimeEnemy5);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
-                
-                        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(map.getMapTile(31, 11).getLocation(), map.getMapTile(29, 11).getLocation(), Direction.LEFT);
+
+                        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(map.getMapTile(31, 11).getLocation(),
+                                        map.getMapTile(29, 11).getLocation(), Direction.LEFT);
                         slimeEnemies.add(SlimeEnemy6);
                         map.addEnemy(SlimeEnemy6);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
 
-                        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(map.getMapTile(22, 6).getLocation(), map.getMapTile(27, 6).getLocation(), Direction.LEFT, "FLIP");
+                        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(map.getMapTile(22, 6).getLocation(),
+                                        map.getMapTile(27, 6).getLocation(), Direction.LEFT, "FLIP");
                         slimeEnemies.add(SlimeEnemy7);
                         map.addEnemy(SlimeEnemy7);
                         slimeEnemiesSpawned++;
-                        slimeEnemiesAlive++;                      
-                }
-                else{
+                        slimeEnemiesAlive++;
+                } else {
                         // spawn 1 slimeEnemy at a time
                 }
         }
 
-        public void checkSlimeEnemies(){
-                for (int counter = 0; counter < slimeEnemies.size(); counter++){
-                        if (slimeEnemies.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED){
+        public void checkSlimeEnemies() {
+                for (int counter = 0; counter < slimeEnemies.size(); counter++) {
+                        if (slimeEnemies.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED) {
                                 slimeEnemies.remove(counter);
                                 slimeEnemiesAlive--;
                         }
                 }
         }
 
-        public void spawnCloudEnemies(boolean initialSpawn){
+        public void spawnCloudEnemies(boolean initialSpawn) {
                 // if this is the initial spawn, it spawns 3 immediately
-                if (initialSpawn){
-                        CloudEnemy cloud1 = new CloudEnemy(map.getMapTile(10, 11).getLocation().addY(5), map.getMapTile(17,11).getLocation().addY(5), Direction.RIGHT, 1.5f);
+                if (initialSpawn) {
+                        CloudEnemy cloud1 = new CloudEnemy(map.getMapTile(10, 11).getLocation().addY(5),
+                                        map.getMapTile(17, 11).getLocation().addY(5), Direction.RIGHT, 1.5f);
                         cloudEnemies.add(cloud1);
                         map.addEnemy(cloud1);
                         cloudEnemiesSpawned++;
                         cloudEnemiesAlive++;
 
-                        CloudEnemy cloud2 = new CloudEnemy(map.getMapTile(10, 4).getLocation().addY(25), map.getMapTile(16,4).getLocation().addY(25), Direction.RIGHT, 1.5f);
+                        CloudEnemy cloud2 = new CloudEnemy(map.getMapTile(10, 4).getLocation().addY(25),
+                                        map.getMapTile(16, 4).getLocation().addY(25), Direction.RIGHT, 1.5f);
                         cloudEnemies.add(cloud2);
                         map.addEnemy(cloud2);
                         cloudEnemiesSpawned++;
                         cloudEnemiesAlive++;
 
-                        CloudEnemy cloud3 = new CloudEnemy(map.getMapTile(22, 2).getLocation().addY(25), map.getMapTile(27,2).getLocation().addY(25), Direction.RIGHT, 1.5f);
+                        CloudEnemy cloud3 = new CloudEnemy(map.getMapTile(22, 2).getLocation().addY(25),
+                                        map.getMapTile(27, 2).getLocation().addY(25), Direction.RIGHT, 1.5f);
                         cloudEnemies.add(cloud3);
                         map.addEnemy(cloud3);
                         cloudEnemiesSpawned++;
                         cloudEnemiesAlive++;
 
-                        CloudEnemy cloud4 = new CloudEnemy(map.getMapTile(32, 11).getLocation().addY(10), map.getMapTile(38,11).getLocation().addY(10), Direction.RIGHT, 1.5f);
+                        CloudEnemy cloud4 = new CloudEnemy(map.getMapTile(32, 11).getLocation().addY(10),
+                                        map.getMapTile(38, 11).getLocation().addY(10), Direction.RIGHT, 1.5f);
                         cloudEnemies.add(cloud4);
                         map.addEnemy(cloud4);
                         cloudEnemiesSpawned++;
                         cloudEnemiesAlive++;
 
-                        CloudEnemy cloud5 = new CloudEnemy(map.getMapTile(34, 4).getLocation().addY(25), map.getMapTile(37,4).getLocation().addY(25), Direction.RIGHT, 1.5f);
+                        CloudEnemy cloud5 = new CloudEnemy(map.getMapTile(34, 4).getLocation().addY(25),
+                                        map.getMapTile(37, 4).getLocation().addY(25), Direction.RIGHT, 1.5f);
                         cloudEnemies.add(cloud5);
                         map.addEnemy(cloud5);
                         cloudEnemiesSpawned++;
-                        cloudEnemiesAlive++;     
-                }
-                else{
+                        cloudEnemiesAlive++;
+                } else {
                         // spawn 1 CLoudEnemy at a time
                 }
         }
 
         // check to see if CLoudEnemies have been killed
         // this is called every time the boss goes into shoot wait phase
-        public void checkCloudEnemies(){
-                for (int counter = 0; counter < cloudEnemies.size(); counter++){
-                        if (cloudEnemies.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED){
+        public void checkCloudEnemies() {
+                for (int counter = 0; counter < cloudEnemies.size(); counter++) {
+                        if (cloudEnemies.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED) {
                                 cloudEnemies.remove(counter);
                                 cloudEnemiesAlive--;
                         }
@@ -719,7 +754,8 @@ public class FinalBoss extends Enemy {
                         map.addEnhancedMapTile(cloud2);
                         listeners.add(cloud2);
                         // this one works, but for balancing we may need to get rid of it
-                        // LightningCloud cloud3 = new LightningCloud(map.getMapTile(24, 1).getLocation());
+                        // LightningCloud cloud3 = new LightningCloud(map.getMapTile(24,
+                        // 1).getLocation());
                         // map.addEnhancedMapTile(cloud3);
                         // listeners.add(cloud3);
                         LightningCloud cloud4 = new LightningCloud(map.getMapTile(28, 1).getLocation());
@@ -733,32 +769,57 @@ public class FinalBoss extends Enemy {
 
         }
 
+        // function to create new hitbox that will damage the boss
+        public void createElectricHitbox() {
+                electricHitbox = new InvisibleHitbox(map.getMapTile(24, 10).getLocation().addX(25).addY(-20));
+                map.addEnemy(electricHitbox);
+                isElectricHitboxActive = true;
+        }
+
+        public void deleteElectricHitbox() {
+                electricHitbox.remove();
+                electricHitbox = null;
+                isElectricHitboxActive = false;
+        }
+
         public void spawnTornadoes() {
-                
+
                 if (!tornadoesSpawned) {
                         Random random = new Random();
 
-                        Tornado tornado1 = new Tornado(map.getMapTile(18, 11).getLocation().subtractY(20).subtractY(20), map.getMapTile(20, 11).getLocation(), random.nextFloat()*2+3, Direction.RIGHT);
+                        Tornado tornado1 = new Tornado(map.getMapTile(18, 11).getLocation().subtractY(20).subtractY(20),
+                                        map.getMapTile(20, 11).getLocation(), random.nextFloat() * 2 + 3,
+                                        Direction.RIGHT);
                         map.addEnhancedMapTile(tornado1);
                         listeners.add(tornado1);
 
-                        Tornado tornado2 = new Tornado(map.getMapTile(13, 9).getLocation().subtractY(20), map.getMapTile(16,9).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        Tornado tornado2 = new Tornado(map.getMapTile(13, 9).getLocation().subtractY(20),
+                                        map.getMapTile(16, 9).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
+                                        Direction.RIGHT);
                         map.addEnhancedMapTile(tornado2);
                         listeners.add(tornado2);
 
-                        Tornado tornado3= new Tornado(map.getMapTile(17,6).getLocation().subtractY(20), map.getMapTile(19,6).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        Tornado tornado3 = new Tornado(map.getMapTile(17, 6).getLocation().subtractY(20),
+                                        map.getMapTile(19, 6).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
+                                        Direction.RIGHT);
                         map.addEnhancedMapTile(tornado3);
                         listeners.add(tornado3);
 
-                        Tornado tornado4 = new Tornado(map.getMapTile(29,11).getLocation().subtractY(20), map.getMapTile(31,11 ).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        Tornado tornado4 = new Tornado(map.getMapTile(29, 11).getLocation().subtractY(20),
+                                        map.getMapTile(31, 11).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
+                                        Direction.RIGHT);
                         map.addEnhancedMapTile(tornado4);
                         listeners.add(tornado4);
 
-                        Tornado tornado5 = new Tornado(map.getMapTile(30,6).getLocation().subtractY(20), map.getMapTile(32,6).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        Tornado tornado5 = new Tornado(map.getMapTile(30, 6).getLocation().subtractY(20),
+                                        map.getMapTile(32, 6).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
+                                        Direction.RIGHT);
                         map.addEnhancedMapTile(tornado5);
                         listeners.add(tornado5);
 
-                        Tornado tornado6 = new Tornado(map.getMapTile(33,9).getLocation().subtractY(20), map.getMapTile(36,9).getLocation().subtractY(20), random.nextFloat()*2+3, Direction.RIGHT);
+                        Tornado tornado6 = new Tornado(map.getMapTile(33, 9).getLocation().subtractY(20),
+                                        map.getMapTile(36, 9).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
+                                        Direction.RIGHT);
                         map.addEnhancedMapTile(tornado6);
                         listeners.add(tornado6);
 
@@ -768,10 +829,10 @@ public class FinalBoss extends Enemy {
 
         private void spawnEndLevelBox() {
                 EndLevelBox endLevelBox1 = new EndLevelBox(map.getMapTile(24, 9).getLocation());
-                map.addEnhancedMapTile(endLevelBox1);   
-                
+                map.addEnhancedMapTile(endLevelBox1);
+
                 EndLevelBox endLevelBox2 = new EndLevelBox(map.getMapTile(25, 9).getLocation());
-                map.addEnhancedMapTile(endLevelBox2);    
+                map.addEnhancedMapTile(endLevelBox2);
         }
 
         @Override
@@ -1348,42 +1409,42 @@ public class FinalBoss extends Enemy {
                                 put("ELECTRIC_STAND_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(14, 0), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 1), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 2), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 3), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 4), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 5), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 6), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 7), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                 });
@@ -1391,35 +1452,35 @@ public class FinalBoss extends Enemy {
                                 put("ELECTRIC_STAND_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(14, 0), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 1), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 2), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 3), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 4), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 5), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 6), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(14, 7), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build()
                                 });
                                 put("ELECTRIC_DEATH_LEFT", new Frame[] {
@@ -1510,122 +1571,122 @@ public class FinalBoss extends Enemy {
                                 put("ELECTRIC_SHOOT_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(16, 0), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 1), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 2), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 3), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 4), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 5), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 6), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 7), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 8), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 9), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 10), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 11), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 12), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build()
                                 });
                                 put("ELECTRIC_SHOOT_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(16, 0), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 1), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 2), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 3), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 4), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 5), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 6), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 7), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 8), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 9), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 10), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 11), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(16, 12), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(55, 65, 45, 50)
+                                                                .withBounds(55, 80, 45, 35)
                                                                 .build()
                                 });
                                 put("AIR_STAND_LEFT", new Frame[] {
