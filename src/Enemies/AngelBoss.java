@@ -8,6 +8,7 @@ import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -223,6 +224,15 @@ public class AngelBoss extends Enemy {
                 facingDirection = Direction.RIGHT;
                 currentAnimationName = "FLY_RIGHT";
             }
+        }
+    }
+
+    @Override
+    public void enemyAttacked(Enemy enemy){
+        if(lives==0){
+            isOnMap = false;
+            // This makes the enemy dissapear
+            enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
         }
     }
 
