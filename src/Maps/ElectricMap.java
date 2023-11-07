@@ -61,7 +61,7 @@ public class ElectricMap extends Map{
         LightningCloud lightningCloud3 = new LightningCloud(getMapTile(11,13).getLocation());
         enhancedMapTiles.add(lightningCloud3);
 
-        LightningCloud lightningCloud4 = new LightningCloud(getMapTile(24,15).getLocation());
+        LightningCloud lightningCloud4 = new LightningCloud(getMapTile(24,11).getLocation());
         enhancedMapTiles.add(lightningCloud4);
 
         //FastLightningCloud lightningCloud5 = new FastLightningCloud(getMapTile(20,9).getLocation());
@@ -78,6 +78,9 @@ public class ElectricMap extends Map{
 
         FastLightningCloud lightningCloud9 = new FastLightningCloud(getMapTile(20,16).getLocation());
         enhancedMapTiles.add(lightningCloud9);
+
+        FastLightningCloud lightningCloud10 = new FastLightningCloud(getMapTile(28,18).getLocation());
+        enhancedMapTiles.add(lightningCloud10);
 
         // These are in the first area where you have to climb up
         ElectricShooter electricShooter1 = new ElectricShooter(getMapTile(14, 22).getLocation());
