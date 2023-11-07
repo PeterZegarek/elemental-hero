@@ -82,7 +82,7 @@ public class ElectricMap extends Map{
 
         ElectricShooter electricShooter2 = new ElectricShooter(getMapTile(14, 19).getLocation());
         enhancedMapTiles.add(electricShooter2);
-        
+
 
         // These are the ones in the chasm where you fall
         ElectricShooter electricShooter3 = new ElectricShooter(getMapTile(43, 15).getLocation());
