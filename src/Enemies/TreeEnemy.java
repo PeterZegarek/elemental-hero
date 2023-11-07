@@ -175,13 +175,6 @@ public class TreeEnemy extends Enemy {
             }
         }
 
-        // if there is a wave and it gets hit. Irrelevant for now
-         if (activeWave != null){
-            if (intersects(activeWave)){
-                enemyAttacked(this);
-                ElementalAbilityListenerManager.waveKilledEnemy();
-            }
-        }
     }
 
     @Override

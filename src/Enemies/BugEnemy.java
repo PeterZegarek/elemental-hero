@@ -82,13 +82,7 @@ public class BugEnemy extends Enemy {
             } 
         }
 
-        //Lukas - added wave to this
-        if (activeWave != null){
-            if (intersects(activeWave)){
-                enemyAttacked(this);
-                ElementalAbilityListenerManager.waveKilledEnemy();
-            } 
-        }
+
 
     }
 

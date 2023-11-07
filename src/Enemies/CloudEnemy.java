@@ -137,21 +137,6 @@ public class CloudEnemy extends Enemy {
             }
         }
 
-        // if there is a fireball and it got hit
-        if (activeFireball != null){
-            if (intersects(activeFireball)){
-                enemyAttacked(this);
-                // broadcast so the fireball disappears
-                ElementalAbilityListenerManager.fireballKilledEnemy();
-            }
-        }
-
-         if (activeWave != null){
-            if (intersects(activeWave)){
-                enemyAttacked(this);
-                ElementalAbilityListenerManager.waveKilledEnemy();
-            }
-        }
     }
 
     @Override

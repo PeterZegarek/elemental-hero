@@ -92,21 +92,22 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
             touchedPlayer(player);
         }
         // If there is a fireball active on the screen it checks if the enemy is touching it
-        if (activeFireball != null){
-            if (intersects(activeFireball)){
-                enemyAttacked(this);
-            }
-        }
-        if(activeWave!=null){
-            if(intersects(activeWave)){
-                enemyAttacked(this);
-            }
-        }
-        if(activeRockAttack!=null){
-            if(intersects(activeRockAttack)){
-                enemyAttacked(this);
-            }
-        }
+        // This is commented out for the enemies within the final boss to work
+        // if (activeFireball != null){
+        //     if (intersects(activeFireball)){
+        //         enemyAttacked(this);
+        //     }
+        // }
+        // if(activeWave!=null){
+        //     if(intersects(activeWave)){
+        //         enemyAttacked(this);
+        //     }
+        // }
+        // if(activeRockAttack!=null){
+        //     if(intersects(activeRockAttack)){
+        //         enemyAttacked(this);
+        //     }
+        // }
     }
 
 

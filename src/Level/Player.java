@@ -557,13 +557,13 @@ public abstract class Player extends GameObject{
 
     public void waveAttack(float x, float y, Direction direction){
         float spawnX = x;
-        float spawnY = y-20; //can make it y-25 if you want to make it so you have to crouch to kill bug
+        float spawnY = y-40; 
 
         if(direction==Direction.RIGHT){
-            spawnX+=50;
+            spawnX+=70;
         }
         else {
-            spawnX-=30;
+            spawnX-=50;
         }
         if (playerState == PlayerState.CROUCHING){
             spawnY+=5;
