@@ -423,9 +423,9 @@ public class FinalBoss extends Enemy {
         // to spawn tree enemies - params are whether it's initial spawn or secondary spawn
         /*
          * Locations to spawn trees:
-         * 20,11 to 18, 11
+         * 21,11 to 18, 11
          * 29, 11 to 31, 11
-         * 16, 9 to 13, 9
+         * 17, 9 to 13, 9
          * 33, 9 to 36, 9
          * 22, 4 to 27, 4
          */
@@ -433,11 +433,11 @@ public class FinalBoss extends Enemy {
         public void spawnTrees(boolean initialSpawn){
                 // if this is the initial spawn, it spawns 3 immediately
                 if (initialSpawn){
-                        TreeEnemy tree1 = new TreeEnemy(map.getMapTile(20,11).getLocation().addY(12), map.getMapTile(18,11).getLocation().addY(12) , Direction.RIGHT);
+                        TreeEnemy tree1 = new TreeEnemy(map.getMapTile(18,11).getLocation().addY(12), map.getMapTile(21,11).getLocation().addY(12) , Direction.RIGHT);
                         trees.add(tree1);
                         map.addEnemy(tree1);
                         treesSpawned++;
-                        TreeEnemy tree2 = new TreeEnemy(map.getMapTile(16,9).getLocation().addY(12), map.getMapTile(13,9).getLocation().addY(12) , Direction.RIGHT);
+                        TreeEnemy tree2 = new TreeEnemy(map.getMapTile(13,9).getLocation().addY(12), map.getMapTile(17,9).getLocation().addY(12) , Direction.RIGHT);
                         trees.add(tree2);
                         map.addEnemy(tree2);
                         System.out.println(tree2);
