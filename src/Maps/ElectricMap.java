@@ -16,7 +16,7 @@ public class ElectricMap extends Map{
     public ElectricMap(){
 
         super("ElectricMap.txt", new ElectricTileset()); 
-        this.playerStartPosition = getMapTile(0, 22).getLocation();
+        this.playerStartPosition = getMapTile(1, 26).getLocation();
 
     }
 

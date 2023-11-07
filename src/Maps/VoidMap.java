@@ -22,7 +22,7 @@ public class VoidMap extends Map{
     public VoidMap(){
 
         super("VoidMap.txt", new VoidTileset()); 
-        this.playerStartPosition = getMapTile(0, 12).getLocation();
+        this.playerStartPosition = getMapTile(1, 13).getLocation();
     }
     @Override
     public ArrayList<Enemy> loadEnemies() {

@@ -12,8 +12,6 @@ import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntityStatus;
 import Level.Player;
-import Players.RockAttack;
-import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -521,6 +519,16 @@ public class FinalBoss extends Enemy {
                         TreeEnemy tree3 = new TreeEnemy(map.getMapTile(22,4).getLocation(), map.getMapTile(27,4).getLocation() , Direction.RIGHT);
                         trees.add(tree3);
                         map.addEnemy(tree3);
+                        treesSpawned++;
+                        treesAlive++;
+                        TreeEnemy tree4 = new TreeEnemy(map.getMapTile(33,9).getLocation(), map.getMapTile(37,9).getLocation() , Direction.RIGHT);
+                        trees.add(tree4);
+                        map.addEnemy(tree4);
+                        treesSpawned++;
+                        treesAlive++;
+                        TreeEnemy tree5 = new TreeEnemy(map.getMapTile(29,11).getLocation(), map.getMapTile(32,11).getLocation() , Direction.RIGHT);
+                        trees.add(tree5);
+                        map.addEnemy(tree5);
                         treesSpawned++;
                         treesAlive++;
                 }
