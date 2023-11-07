@@ -11,7 +11,7 @@ public class GameWindow {
 	private GamePanel gamePanel;
 
 	public GameWindow() {
-		gameWindow = new JFrame("Game");
+		gameWindow = new JFrame("Elemental Hero");
 		gamePanel = new GamePanel();
 		gamePanel.setFocusable(true);
 		gamePanel.requestFocusInWindow();

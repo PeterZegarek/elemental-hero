@@ -246,22 +246,28 @@ public class FinalBoss extends Enemy {
                         Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
                         // create FireBall enemies
-                        Fireball fireball1 = new Fireball(new Point(20, 11), movementSpeed, 60);
-                        Fireball fireball2 = new Fireball(new Point(16, 9), movementSpeed, 60);
-                        Fireball fireball3 = new Fireball(new Point(19,6), movementSpeed, 60);
-                        Fireball fireball4 = new Fireball(new Point(29,11), movementSpeed, 60);
-                        Fireball fireball5 = new Fireball(new Point(30,6), movementSpeed, 60);
-                        Fireball fireball6 = new Fireball(new Point(33,9), movementSpeed, 60);
+                        Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation(), -movementSpeed, 120);
+                        fireball1.setScale(5);
+                        Fireball fireball2 = new Fireball(map.getMapTile(16, 9).getLocation(), -movementSpeed, 150);
+                        fireball2.setScale(5);
+                        Fireball fireball3 = new Fireball(map.getMapTile(19,6).getLocation(), -movementSpeed, 120);
+                        fireball3.setScale(5);
+                        Fireball fireball4 = new Fireball(map.getMapTile(29,11).getLocation(), movementSpeed, 120);
+                        fireball4.setScale(5);
+                        Fireball fireball5 = new Fireball(map.getMapTile(30,6).getLocation(), movementSpeed, 150);
+                        fireball5.setScale(5);
+                        Fireball fireball6 = new Fireball(map.getMapTile(33,9).getLocation(), movementSpeed, 120);
+                        fireball6.setScale(5);
 
                         Random rand = new Random();
                         float momentumY = 120f;
 
-                        Arrow arrow1 = new Arrow(new Point(20,11), rand.nextFloat(2), momentumY, "RIGHT");
-                        Arrow arrow2 = new Arrow(new Point(16,9), rand.nextFloat(2), momentumY, "RIGHT");
-                        Arrow arrow3 = new Arrow(new Point(19,6), rand.nextFloat(2), momentumY, "RIGHT");
-                        Arrow arrow4 = new Arrow(new Point(29,11), rand.nextFloat(2), momentumY, "LEFT");
-                        Arrow arrow5 = new Arrow(new Point(30,6), rand.nextFloat(2), momentumY, "LEFT");
-                        Arrow arrow6 = new Arrow(new Point(33,9), rand.nextFloat(2), momentumY, "LEFT");
+                        Arrow arrow1 = new Arrow(map.getMapTile(20,11).getLocation(), rand.nextFloat(2), momentumY, "RIGHT");
+                        Arrow arrow2 = new Arrow(map.getMapTile(16,9).getLocation(), rand.nextFloat(2), momentumY, "RIGHT");
+                        Arrow arrow3 = new Arrow(map.getMapTile(19,6).getLocation(), rand.nextFloat(2), momentumY, "RIGHT");
+                        Arrow arrow4 = new Arrow(map.getMapTile(29,11).getLocation(), rand.nextFloat(2), momentumY, "LEFT");
+                        Arrow arrow5 = new Arrow(map.getMapTile(30,6).getLocation(), rand.nextFloat(2), momentumY, "LEFT");
+                        Arrow arrow6 = new Arrow(map.getMapTile(33,9).getLocation(), rand.nextFloat(2), momentumY, "LEFT");
 
                         // add WAVE enemy to the map for it to spawn in the level
                         if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
