@@ -50,7 +50,7 @@ public class FinalBoss extends Enemy {
         protected int isInvincibleCounter;
         protected boolean isInvincible = false;
 
-        protected int lives = 9;
+        protected int lives = 15;
         protected Player player;
 
         // used to determine if clouds/tornadoes have been spawned
