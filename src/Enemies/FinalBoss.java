@@ -11,6 +11,7 @@ import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntityStatus;
 import Level.Player;
+import Players.RockAttack;
 import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -56,6 +57,8 @@ public class FinalBoss extends Enemy {
         // used to determine if clouds have been spawned
         protected boolean cloudsSpawned = false;
         protected boolean tornadoesSpawned = false;
+        protected boolean slimeEnemiesSpawned = false;
+        protected boolean fireEnemiesSpawned = false;
 
         // cooldown for spawning the tree enemies
         protected int treeCooldown = 660;
@@ -201,10 +204,18 @@ public class FinalBoss extends Enemy {
                                         currentAnimationName = "BOSS_HURT_RIGHT";
                                 }
                         } else if (lives == 13) {
+                                spawnFireEnemies();
+                                for (BossLivesListener listener : listeners) {
+                                        listener.getBossLives(lives);
+                                }
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
                                                 ? "EARTH_DEATH_RIGHT"
                                                 : "EARTH_DEATH_LEFT";
                         } else if (lives == 10) {
+                                spawnSlimeEnemies();
+                                for (BossLivesListener listener : listeners) {
+                                        listener.getBossLives(lives);
+                                }
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
                                                 ? "FIRE_DEATH_RIGHT"
                                                 : "FIRE_DEATH_LEFT";
@@ -230,59 +241,46 @@ public class FinalBoss extends Enemy {
                                                 : "AIR_DEATH_LEFT";
                         }
                 }
-                // this is for actually having the WaterWizard shoot the wave
+                // this is for actually having the Boss shoot the attacks
                 else if (bossState == BossState.SHOOT) {
 
                         // this will be for spawning the tree enemies
 
 
-                        // define where WAVE will spawn on map (x location) relative to WaterWizard's
-                        // location
-                        // and define its movement speed
-                        int waveX;
-                        if (currentAnimationName == "EARTH_SHOOT_RIGHT" || currentAnimationName == "FIRE_SHOOT_RIGHT"
-                                        || currentAnimationName == "WATER_SHOOT_RIGHT" ||
-                                        currentAnimationName == "ELECTRIC_SHOOT_RIGHT"
-                                        || currentAnimationName == "AIR_SHOOT_RIGHT") {
-                                waveX = Math.round(getX()) + getWidth() + 35;
-                        } else {
-                                waveX = Math.round(getX() - 95);
-
-                        }
-
-                        // define where wave will spawn on the map (y location) relative to
-                        // WaterWizard's location
-                        int waveY = Math.round(getY() - 16);
-
-                        // create Wave enemies
-                        Wave waveAttackLeft = new Wave(waveX, waveY, Direction.LEFT);
-                        Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
-
-                        // create FireBall enemies
-                        Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation(), -movementSpeed, 120);
+              
+                        // FIRE PHASE
+                        Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation().addY(10), -movementSpeed, 120);
                         fireball1.setScale(5);
-                        Fireball fireball2 = new Fireball(map.getMapTile(16, 9).getLocation(), -movementSpeed, 150);
+                        Fireball fireball2 = new Fireball(map.getMapTile(16, 9).getLocation().addY(10), -movementSpeed, 150);
                         fireball2.setScale(5);
-                        Fireball fireball3 = new Fireball(map.getMapTile(19,6).getLocation(), -movementSpeed, 120);
+                        Fireball fireball3 = new Fireball(map.getMapTile(19,6).getLocation().addY(10), -movementSpeed, 120);
                         fireball3.setScale(5);
-                        Fireball fireball4 = new Fireball(map.getMapTile(29,11).getLocation(), movementSpeed, 120);
+                        Fireball fireball4 = new Fireball(map.getMapTile(29,11).getLocation().addY(10), movementSpeed, 120);
                         fireball4.setScale(5);
-                        Fireball fireball5 = new Fireball(map.getMapTile(30,6).getLocation(), movementSpeed, 150);
+                        Fireball fireball5 = new Fireball(map.getMapTile(30,6).getLocation().addY(10), movementSpeed, 150);
                         fireball5.setScale(5);
-                        Fireball fireball6 = new Fireball(map.getMapTile(33,9).getLocation(), movementSpeed, 120);
+                        Fireball fireball6 = new Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
                         fireball6.setScale(5);
+                        //Fireball fireball7 = new Fireball(map.getMapTile(30,6).getLocation().addY(10), movementSpeed, 150);
+                        //fireball7.setScale(5);
+                        //Fireball fireball8 = new Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
+                        //fireball8.setScale(5);
 
-                        Random rand = new Random();
-                        float momentumY = 120f;
+                        //AIR PHASE
+                        float momentumY = 30f;
+                        Arrow arrow1 = new Arrow(map.getMapTile(10, 1).getLocation(), 2, momentumY, "RIGHT");
+                        Arrow arrow2 = new Arrow(map.getMapTile(12,1).getLocation(), 2, momentumY, "RIGHT");
+                        Arrow arrow3 = new Arrow(map.getMapTile(14, 1).getLocation(), 2, momentumY, "RIGHT");
+                        Arrow arrow4 = new Arrow(map.getMapTile(39,1).getLocation(), -2, momentumY, "LEFT");
+                        Arrow arrow5 = new Arrow(map.getMapTile(37,1).getLocation(), -2, momentumY, "LEFT");
+                        Arrow arrow6 = new Arrow(map.getMapTile(35,1).getLocation(), -2, momentumY, "LEFT");
 
-                        Arrow arrow1 = new Arrow(map.getMapTile(20,11).getLocation(), rand.nextFloat(2), momentumY, "RIGHT");
-                        Arrow arrow2 = new Arrow(map.getMapTile(16,9).getLocation(), rand.nextFloat(2), momentumY, "RIGHT");
-                        Arrow arrow3 = new Arrow(map.getMapTile(19,6).getLocation(), rand.nextFloat(2), momentumY, "RIGHT");
-                        Arrow arrow4 = new Arrow(map.getMapTile(29,11).getLocation(), rand.nextFloat(2), momentumY, "LEFT");
-                        Arrow arrow5 = new Arrow(map.getMapTile(30,6).getLocation(), rand.nextFloat(2), momentumY, "LEFT");
-                        Arrow arrow6 = new Arrow(map.getMapTile(33,9).getLocation(), rand.nextFloat(2), momentumY, "LEFT");
+                       
+                        
 
-                        // add WAVE enemy to the map for it to spawn in the level
+                        
+
+                        // add enemies to the map for it to spawn in the level
                         if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
                                         || previousAnimationName == "WATER_SHOOT_LEFT" ||
                                         previousAnimationName == "ELECTRIC_SHOOT_LEFT"
@@ -292,7 +290,48 @@ public class FinalBoss extends Enemy {
                                                 (bossState != BossState.SHOOT_WAIT
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
-                                        if(lives >= 10){
+                                        if (lives >= 13){
+                                                //map.addEnemy(rock1);
+                                                //map.addEnemy(rock2);
+                                                //map.addEnemy(rock3);
+                                                //map.addEnemy(rock4);
+                                                //map.addEnemy(rock5);
+                                                //map.addEnemy(rock6);
+                                        }                
+                                        else if(lives >= 10){
+                                                map.addEnemy(fireball1);
+                                                map.addEnemy(fireball2);
+                                                map.addEnemy(fireball3);
+                                                map.addEnemy(fireball4);
+                                                map.addEnemy(fireball5);
+                                                map.addEnemy(fireball6);
+                                                //map.addEnemy(fireball7);
+                                                //map.addEnemy(fireball8);
+                                        }
+                                        else if (lives >= 1){
+                                                map.addEnemy(arrow1);
+                                                map.addEnemy(arrow2);
+                                                map.addEnemy(arrow3);   
+                                                map.addEnemy(arrow4);
+                                                map.addEnemy(arrow5);
+                                                map.addEnemy(arrow6);                                 
+                                        }
+                                }
+                        } else {
+                                if ((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT"
+                                                || currentAnimationName != "BOSS_HURT_RIGHT")) ||
+                                                (bossState != BossState.SHOOT_WAIT
+                                                                && (currentAnimationName != "BOSS_HURT_LEFT"
+                                                                                || currentAnimationName != "BOSS_HURT_RIGHT"))) {
+                                        if (lives >= 13){
+                                                //map.addEnemy(rock1);
+                                                //map.addEnemy(rock2);
+                                                //map.addEnemy(rock3);
+                                                //map.addEnemy(rock4);
+                                                //map.addEnemy(rock5);
+                                                //map.addEnemy(rock6);
+                                        }                
+                                        else if(lives >= 10){
                                                 map.addEnemy(fireball1);
                                                 map.addEnemy(fireball2);
                                                 map.addEnemy(fireball3);
@@ -303,33 +342,10 @@ public class FinalBoss extends Enemy {
                                         else if (lives >= 1){
                                                 map.addEnemy(arrow1);
                                                 map.addEnemy(arrow2);
-                                                map.addEnemy(arrow3);
+                                                map.addEnemy(arrow3);  
                                                 map.addEnemy(arrow4);
                                                 map.addEnemy(arrow5);
-                                                map.addEnemy(arrow6);   
-                                        }
-                                }
-                        } else {
-                                if ((bossState != BossState.HURT && (currentAnimationName != "BOSS_HURT_LEFT"
-                                                || currentAnimationName != "BOSS_HURT_RIGHT")) ||
-                                                (bossState != BossState.SHOOT_WAIT
-                                                                && (currentAnimationName != "BOSS_HURT_LEFT"
-                                                                                || currentAnimationName != "BOSS_HURT_RIGHT"))) {
-                                        if(lives >= 13){
-                                                map.addEnemy(fireball1);
-                                                map.addEnemy(fireball2);
-                                                map.addEnemy(fireball3);
-                                                map.addEnemy(fireball4);
-                                                map.addEnemy(fireball5);
-                                                map.addEnemy(fireball6);
-                                        }
-                                        else if (lives > 0){
-                                                map.addEnemy(arrow1);
-                                                map.addEnemy(arrow2);
-                                                map.addEnemy(arrow3);
-                                                map.addEnemy(arrow4);
-                                                map.addEnemy(arrow5);
-                                                map.addEnemy(arrow6);   
+                                                map.addEnemy(arrow6);                                            
                                         }
                                 }
                         }
@@ -479,6 +495,67 @@ public class FinalBoss extends Enemy {
                 for (BossLivesListener listener : listeners) {
                         listener.getBossLives(lives);
                 }
+        }
+
+         private void spawnFireEnemies() {
+                if(!fireEnemiesSpawned){
+                        Firewisp firewisp1 = new Firewisp(map.getMapTile(10, 12).getLocation().addY(5), map.getMapTile(17,12).getLocation().addY(5), Direction.RIGHT);
+                        map.addEnemy(firewisp1);
+                        listeners.add(firewisp1);
+
+                        Firewisp firewisp2 = new Firewisp(map.getMapTile(10, 5).getLocation().addY(5), map.getMapTile(16,5).getLocation().addY(5), Direction.LEFT);
+                        map.addEnemy(firewisp2);
+                        listeners.add(firewisp2);
+
+                        Firewisp firewisp3 = new Firewisp(map.getMapTile(22, 3).getLocation().addY(5), map.getMapTile(27,3).getLocation().addY(5), Direction.LEFT);
+                        map.addEnemy(firewisp3);
+                        listeners.add(firewisp3);
+
+                        Firewisp firewisp4 = new Firewisp(map.getMapTile(32, 12).getLocation().addY(5), map.getMapTile(37,12).getLocation().addY(5), Direction.LEFT);
+                        map.addEnemy(firewisp4);
+                        listeners.add(firewisp4);
+
+                        Firewisp firewisp5 = new Firewisp(map.getMapTile(34, 5).getLocation().addY(5), map.getMapTile(37,5).getLocation().addY(5), Direction.LEFT);
+                        map.addEnemy(firewisp5);
+                        listeners.add(firewisp5);
+
+                        fireEnemiesSpawned = true;
+                }
+        }
+
+        private void spawnSlimeEnemies() {
+                if(!slimeEnemiesSpawned){
+                        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(map.getMapTile(11, 7).getLocation(), map.getMapTile(13, 7).getLocation(), Direction.RIGHT);
+                        map.addEnemy(SlimeEnemy1);
+                        listeners.add(SlimeEnemy1);
+                
+                        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(map.getMapTile(13, 10).getLocation(), map.getMapTile(16, 10).getLocation(), Direction.RIGHT);
+                        map.addEnemy(SlimeEnemy2);
+                        listeners.add(SlimeEnemy2);
+                
+                        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(map.getMapTile(18, 12).getLocation(), map.getMapTile(20, 12).getLocation(), Direction.RIGHT);
+                        map.addEnemy(SlimeEnemy3);
+                        listeners.add(SlimeEnemy3);
+                
+                        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(map.getMapTile(38, 7).getLocation(), map.getMapTile(36, 7).getLocation(), Direction.LEFT);
+                        map.addEnemy(SlimeEnemy4);
+                        listeners.add(SlimeEnemy4);
+                
+                        SlimeEnemy SlimeEnemy5 = new SlimeEnemy(map.getMapTile(36, 10).getLocation(), map.getMapTile(33, 10).getLocation(), Direction.LEFT);
+                        map.addEnemy(SlimeEnemy5);
+                        listeners.add(SlimeEnemy5);
+                
+                        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(map.getMapTile(31, 12).getLocation(), map.getMapTile(29, 12).getLocation(), Direction.LEFT);
+                        map.addEnemy(SlimeEnemy6);
+                        listeners.add(SlimeEnemy6);
+
+                        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(map.getMapTile(22, 5).getLocation(), map.getMapTile(27, 5).getLocation(), Direction.LEFT, "FLIP");
+                        map.addEnemy(SlimeEnemy7);
+                        listeners.add(SlimeEnemy7);
+
+                        slimeEnemiesSpawned = true;                       
+                }
+
         }
 
         // this spawns in all the clouds when the boss enters the electric phase

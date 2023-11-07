@@ -5,6 +5,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.BossLivesListener;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 // This class is for the Angry Slime that throws sticks
 // It walks back and forth between two set points (startLocation and endLocation)
 // Every so often (based on shootTimer) it will throw a stick enemy
-public class SlimeEnemy extends Enemy {
+public class SlimeEnemy extends Enemy implements BossLivesListener {
 
     // start and end location defines the two points that it walks between
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
@@ -230,8 +231,14 @@ public class SlimeEnemy extends Enemy {
                 slimeState = SlimeState.UPSIDEDOWNEXPLODE;
         }
         slimeState = SlimeState.EXPLODE; 
-        }
+    }
 
+    @Override
+    public void getBossLives(int bossLives){
+        if (bossLives < 1){
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
+    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
