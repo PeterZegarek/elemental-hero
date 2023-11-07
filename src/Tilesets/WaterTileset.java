@@ -35,7 +35,7 @@ public class WaterTileset extends Tileset {
                 .build();
 
         MapTileBuilder Wave1Tile = new MapTileBuilder(Wave1Frame)
-                .withTileType(TileType.WATER);
+                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(Wave1Tile);
 
         // Wave2
@@ -44,7 +44,7 @@ public class WaterTileset extends Tileset {
                 .build();
 
         MapTileBuilder Wave2Tile = new MapTileBuilder(Wave2Frame)
-                .withTileType(TileType.WATER);
+                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(Wave2Tile);
  
         // Wave3
@@ -53,7 +53,7 @@ public class WaterTileset extends Tileset {
                 .build();
 
         MapTileBuilder Wave3Tile = new MapTileBuilder(Wave3Frame)
-                .withTileType(TileType.WATER);
+                .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(Wave3Tile);
 
         // Wave 4 (Not going to use)

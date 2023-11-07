@@ -21,7 +21,7 @@ public class AirMap extends Map{
 
     public AirMap(){
         super("AirMap.txt", new AirTileset()); 
-        this.playerStartPosition = getMapTile(1, 43).getLocation();
+        this.playerStartPosition = getMapTile(1, 47).getLocation();
 
     }  
 

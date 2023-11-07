@@ -17,7 +17,7 @@ public class WaterMap extends Map{
     public WaterMap(){
 
         super("WaterMap.txt", new WaterTileset()); // change to WaterTileset
-        this.playerStartPosition = new Point(5, 19);
+        this.playerStartPosition = getMapTile(1,3).getLocation();
 
     }
     @Override

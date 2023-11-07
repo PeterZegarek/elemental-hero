@@ -22,7 +22,7 @@ public class WaterLoseScreen extends Screen {
     @Override
     public void initialize() {
         loseMessage = new SpriteFont("You lose!", 400, 239, "Comic Sans", 30, Color.white);
-        instructions = new SpriteFont("Press Space to try again or Escape to go back to the main menu", 120, 279,"Comic Sans", 20, Color.white);
+        instructions = new SpriteFont("Press Space to try again or Escape to go back to the main menu", 195, 279,"Comic Sans", 20, Color.white);
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
     }
