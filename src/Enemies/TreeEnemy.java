@@ -45,6 +45,7 @@ public class TreeEnemy extends Enemy {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
+        this.isOnMap = true;
         this.initialize();
     }
 
