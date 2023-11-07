@@ -50,7 +50,7 @@ public class FinalBoss extends Enemy {
         protected int isInvincibleCounter;
         protected boolean isInvincible = false;
 
-        protected int lives = 15;
+        protected int lives = 9;
         protected Player player;
 
         // used to determine if clouds/tornadoes have been spawned
@@ -291,10 +291,6 @@ public class FinalBoss extends Enemy {
                 // this is for actually having the Boss shoot the attacks
                 else if (bossState == BossState.SHOOT) {
 
-                        // this will be for spawning the tree enemies
-
-
-              
                         // FIRE PHASE
                         Fireball fireball1 = new Fireball(map.getMapTile(20, 11).getLocation().addY(10), -movementSpeed, 120);
                         fireball1.setScale(5);
@@ -308,10 +304,6 @@ public class FinalBoss extends Enemy {
                         fireball5.setScale(5);
                         Fireball fireball6 = new Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
                         fireball6.setScale(5);
-                        //Fireball fireball7 = new Fireball(map.getMapTile(30,6).getLocation().addY(10), movementSpeed, 150);
-                        //fireball7.setScale(5);
-                        //Fireball fireball8 = new Fireball(map.getMapTile(33,9).getLocation().addY(10), movementSpeed, 120);
-                        //fireball8.setScale(5);
 
                         //AIR PHASE
                         float momentumY = 30f;
@@ -321,11 +313,6 @@ public class FinalBoss extends Enemy {
                         Arrow arrow4 = new Arrow(map.getMapTile(39,1).getLocation(), -2, momentumY, "LEFT");
                         Arrow arrow5 = new Arrow(map.getMapTile(37,1).getLocation(), -2, momentumY, "LEFT");
                         Arrow arrow6 = new Arrow(map.getMapTile(35,1).getLocation(), -2, momentumY, "LEFT");
-
-                       
-                        
-
-                        
 
                         // add enemies to the map for it to spawn in the level
                         if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
@@ -338,12 +325,7 @@ public class FinalBoss extends Enemy {
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
                                         if (lives >= 13){
-                                                //map.addEnemy(rock1);
-                                                //map.addEnemy(rock2);
-                                                //map.addEnemy(rock3);
-                                                //map.addEnemy(rock4);
-                                                //map.addEnemy(rock5);
-                                                //map.addEnemy(rock6);
+
                                         }                
                                         else if(lives >= 10){
                                                 map.addEnemy(fireball1);
@@ -354,6 +336,12 @@ public class FinalBoss extends Enemy {
                                                 map.addEnemy(fireball6);
                                                 //map.addEnemy(fireball7);
                                                 //map.addEnemy(fireball8);
+                                        }
+                                        else if(lives >= 7){
+
+                                        }
+                                        else if(lives >= 4){
+
                                         }
                                         else if (lives >= 1){
                                                 map.addEnemy(arrow1);
@@ -371,12 +359,7 @@ public class FinalBoss extends Enemy {
                                                                 && (currentAnimationName != "BOSS_HURT_LEFT"
                                                                                 || currentAnimationName != "BOSS_HURT_RIGHT"))) {
                                         if (lives >= 13){
-                                                //map.addEnemy(rock1);
-                                                //map.addEnemy(rock2);
-                                                //map.addEnemy(rock3);
-                                                //map.addEnemy(rock4);
-                                                //map.addEnemy(rock5);
-                                                //map.addEnemy(rock6);
+                                                
                                         }                
                                         else if(lives >= 10){
                                                 map.addEnemy(fireball1);
@@ -385,6 +368,12 @@ public class FinalBoss extends Enemy {
                                                 map.addEnemy(fireball4);
                                                 map.addEnemy(fireball5);
                                                 map.addEnemy(fireball6);
+                                        }
+                                        else if(lives >= 7){
+
+                                        }
+                                        else if(lives >= 4){
+
                                         }
                                         else if (lives >= 1){
                                                 map.addEnemy(arrow1);
@@ -446,9 +435,9 @@ public class FinalBoss extends Enemy {
                                 }
                         }
                 //ELectric Ability
-              /*else if (lives >= 7){ 
-                        if (activeElectric != null && SlimeEnemiesAlive == 0){
-                                if (intersects(activeElectric)){ 
+                else if (lives >= 7){ 
+                        if (activeRockAttack != null && slimeEnemiesAlive == 0){
+                                if (intersects(activeRockAttack)){ 
                                         bossState = BossState.HURT;
                                         isInvincible = true;
                                         isInvincibleCounter = 40;
@@ -456,11 +445,13 @@ public class FinalBoss extends Enemy {
                                         sendBossLives();
                                         // broadcast to the fireball that it killed something so it should disappear
                                         ElementalAbilityListenerManager.waveKilledEnemy();
+                                        // set firewisp spawned to 0 so that he respawns firewisps after getting hit
+                                        slimeEnemiesSpawned = 0;
                                         } 
                                 }
                                 
                         }
-                
+                /* 
                 else if (lives >= 4){
                         Key GLIDE_KEY = Key.SHIFT;
                         if (Keyboard.isKeyDown(GLIDE_KEY)){
@@ -474,7 +465,7 @@ public class FinalBoss extends Enemy {
                         }
                 }
                 */
-                else if (lives < 4 && lives >= 1){
+                else if (/*lives < 4 && */lives >= 1){
                         // if there are no CloudEnemies left then he can take damage
                         if (activeRockAttack != null && cloudEnemiesAlive == 0){
                                 if (intersects(activeRockAttack)){
@@ -612,43 +603,43 @@ public class FinalBoss extends Enemy {
         public void spawnSlimeEnemies(boolean initialSpawn){
                 // if this is the initial spawn, it spawns 3 immediately
                 if (initialSpawn){
-                        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(map.getMapTile(11, 6).getLocation(), map.getMapTile(13, 6).getLocation(), Direction.RIGHT);
+                        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(map.getMapTile(11, 6).getLocation().addY(18), map.getMapTile(14, 6).getLocation().addY(18), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy1);
                         map.addEnemy(SlimeEnemy1);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
                 
-                        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(map.getMapTile(13, 9).getLocation(), map.getMapTile(16, 9).getLocation(), Direction.RIGHT);
+                        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(map.getMapTile(13, 9).getLocation().addY(18), map.getMapTile(17, 9).getLocation().addY(18), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy2);
                         map.addEnemy(SlimeEnemy2);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
                 
-                        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(map.getMapTile(18, 11).getLocation(), map.getMapTile(20, 11).getLocation(), Direction.RIGHT);
+                        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(map.getMapTile(18, 11).getLocation().addY(18), map.getMapTile(21, 11).getLocation().addY(18), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy3);
                         map.addEnemy(SlimeEnemy3);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
                 
-                        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(map.getMapTile(38, 6).getLocation(), map.getMapTile(36, 6).getLocation(), Direction.LEFT);
+                        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(map.getMapTile(36, 6).getLocation().addY(18), map.getMapTile(39, 6).getLocation().addY(18), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy4);
                         map.addEnemy(SlimeEnemy4);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
                 
-                        SlimeEnemy SlimeEnemy5 = new SlimeEnemy(map.getMapTile(36, 9).getLocation(), map.getMapTile(33, 9).getLocation(), Direction.LEFT);
+                        SlimeEnemy SlimeEnemy5 = new SlimeEnemy(map.getMapTile(33, 9).getLocation().addY(18), map.getMapTile(37, 9).getLocation().addY(18), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy5);
                         map.addEnemy(SlimeEnemy5);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
                 
-                        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(map.getMapTile(31, 11).getLocation(), map.getMapTile(29, 11).getLocation(), Direction.LEFT);
+                        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(map.getMapTile(29, 11).getLocation().addY(18), map.getMapTile(32, 11).getLocation().addY(18), Direction.RIGHT);
                         slimeEnemies.add(SlimeEnemy6);
                         map.addEnemy(SlimeEnemy6);
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
 
-                        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(map.getMapTile(22, 6).getLocation(), map.getMapTile(27, 6).getLocation(), Direction.LEFT, "FLIP");
+                        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(map.getMapTile(23, 6).getLocation(), map.getMapTile(27, 6).getLocation(), Direction.LEFT, "FLIP");
                         slimeEnemies.add(SlimeEnemy7);
                         map.addEnemy(SlimeEnemy7);
                         slimeEnemiesSpawned++;
