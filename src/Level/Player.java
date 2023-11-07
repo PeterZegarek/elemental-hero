@@ -69,7 +69,12 @@ public abstract class Player extends GameObject{
     protected static boolean fireballOnCooldown = false; // Whether fireball is on cooldown
     protected static boolean waveOnCooldown = false; // Whether wave is on cooldown
     protected static boolean rockOnCooldown = false;
+
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
+    protected static int fireballCooldownCounter;
+    protected static int waveCooldownCounter;
+    protected static int rockCooldownCounter;
+
     protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
@@ -88,14 +93,21 @@ public abstract class Player extends GameObject{
         moveAmountY = 0;
 
         // cooldown counter decreases everytime by 1
-       if (cooldownCounter > 0){
-            cooldownCounter--;
-            if (cooldownCounter == 0){
-                fireballOnCooldown = false;
-                waveOnCooldown = false;  
-                rockOnCooldown = false;                       
-            }
+        if(fireballCooldownCounter>0){
+            fireballCooldownCounter--;
+            if(fireballCooldownCounter==0) fireballOnCooldown = false;
         }
+
+        if(waveCooldownCounter>0){
+            waveCooldownCounter--;
+            if(waveCooldownCounter==0) waveOnCooldown = false;
+        }
+
+        if(rockCooldownCounter>0){
+            rockCooldownCounter--;
+            if(rockCooldownCounter==0) rockOnCooldown = false;
+        }
+
         //cooldown counter for invincibility
         if (isInvincibleCounter > 0){           
             isInvincibleCounter--;
@@ -521,7 +533,7 @@ public abstract class Player extends GameObject{
         map.addEnemy(rock);
         
         
-        cooldownCounter = 200;
+        rockCooldownCounter = 150;
         rockOnCooldown = true;
         
         
@@ -551,7 +563,7 @@ public abstract class Player extends GameObject{
         // Peter
 
         // Set the cooldown here (cooldown is in frames, remember 60 fps so 60 = 1 second)
-        cooldownCounter = 200;
+        fireballCooldownCounter = 150;
         fireballOnCooldown = true;
     }
 
@@ -572,7 +584,7 @@ public abstract class Player extends GameObject{
         Wave wave = new Wave(spawnX, spawnY, direction);
         map.addEnemy(wave);
 
-        cooldownCounter=150;
+        waveCooldownCounter=100;
         waveOnCooldown = true;
     }
 

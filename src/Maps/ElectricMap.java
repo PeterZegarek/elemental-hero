@@ -61,13 +61,13 @@ public class ElectricMap extends Map{
         LightningCloud lightningCloud3 = new LightningCloud(getMapTile(11,13).getLocation());
         enhancedMapTiles.add(lightningCloud3);
 
-        LightningCloud lightningCloud4 = new LightningCloud(getMapTile(24,11).getLocation());
+        LightningCloud lightningCloud4 = new LightningCloud(getMapTile(24,10).getLocation());
         enhancedMapTiles.add(lightningCloud4);
 
         //FastLightningCloud lightningCloud5 = new FastLightningCloud(getMapTile(20,9).getLocation());
         //enhancedMapTiles.add(lightningCloud5);
         
-        LightningCloud lightningCloud6 = new LightningCloud(getMapTile(31,14).getLocation());
+        LightningCloud lightningCloud6 = new LightningCloud(getMapTile(32,14).getLocation());
         enhancedMapTiles.add(lightningCloud6);
 
         //FastLightningCloud lightningCloud7 = new FastLightningCloud(getMapTile(27,9).getLocation());
