@@ -8,6 +8,7 @@ import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -39,6 +40,7 @@ public class TreeEnemy extends Enemy {
     // can be either WALK or SHOOT based on what the enemy is currently set to do
     protected TreeState treeState;
     protected TreeState previoustreeState;
+
 
     public TreeEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("TreeEnemy.png"), 44, 45), "WALK_RIGHT");
@@ -194,6 +196,10 @@ public class TreeEnemy extends Enemy {
                 currentAnimationName = "WALK_RIGHT";
             }
         }
+    }
+
+    public MapEntityStatus getMapEntityStatus(){
+        return this.mapEntityStatus;
     }
 
     @Override

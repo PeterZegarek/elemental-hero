@@ -60,6 +60,9 @@ public class FinalBoss extends Enemy {
         // cooldown for spawning the tree enemies
         protected int treeCooldown = 660;
         protected int treesSpawned;
+        protected int treesAlive;
+
+
         private ArrayList<TreeEnemy> trees = new ArrayList<TreeEnemy>(10);
         private ArrayList<BossLivesListener> listeners;
 
@@ -101,11 +104,6 @@ public class FinalBoss extends Enemy {
                 if (treesSpawned < 3 && lives > 13){
                         spawnTrees(true);
                 }
-                else{
-                        if (treeCooldown == 0){
-                                spawnTrees(false);
-                        }
-                }
                 if (isInvincibleCounter > 0) {
                         isInvincibleCounter--;
                         if (isInvincibleCounter == 0) {
@@ -134,6 +132,8 @@ public class FinalBoss extends Enemy {
                 if (bossState == BossState.SHOOT_WAIT) {
                         if (previousBossState == BossState.STAND) {
                                 if (lives >= 13) {
+                                        // check if trees were killed
+                                        checkTrees();
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
                                                         ? "EARTH_STAND_RIGHT"
                                                         : "EARTH_STAND_LEFT";
@@ -351,7 +351,8 @@ public class FinalBoss extends Enemy {
         @Override
         public void enemyAttacked(Enemy enemy) {
                 if(lives >= 13){ 
-                        if (activeFireball != null){
+                        // if there are no trees left then he can take damage
+                        if (activeFireball != null && treesAlive == 0){
                                 if (intersects(activeFireball)){
                                         bossState = BossState.HURT;
                                         isInvincible = true;
@@ -360,6 +361,8 @@ public class FinalBoss extends Enemy {
                                         sendBossLives();
                                     // broadcast to the fireball that it killed something so it should disappear
                                     ElementalAbilityListenerManager.fireballKilledEnemy();
+                                    // set trees spawned to 0 so that he respawns trees after getting hit
+                                    treesSpawned = 0;
                                 }             
                         }
                 }
@@ -437,18 +440,32 @@ public class FinalBoss extends Enemy {
                         trees.add(tree1);
                         map.addEnemy(tree1);
                         treesSpawned++;
+                        treesAlive++;
                         TreeEnemy tree2 = new TreeEnemy(map.getMapTile(13,9).getLocation().addY(12), map.getMapTile(17,9).getLocation().addY(12) , Direction.RIGHT);
                         trees.add(tree2);
                         map.addEnemy(tree2);
-                        System.out.println(tree2);
                         treesSpawned++;
+                        treesAlive++;
                         TreeEnemy tree3 = new TreeEnemy(map.getMapTile(22,4).getLocation(), map.getMapTile(27,4).getLocation() , Direction.RIGHT);
                         trees.add(tree3);
                         map.addEnemy(tree3);
                         treesSpawned++;
+                        treesAlive++;
                 }
                 else{
                         // spawn 1 tree at a time
+                        // for now i'm leaving this out. may make the difficulty too hard
+                }
+        }
+
+        // check to see if trees have been killed
+        // this is called every time the boss goes into shoot wait phase
+        public void checkTrees(){
+                for (int counter = 0; counter < trees.size(); counter++){
+                        if (trees.get(counter).getMapEntityStatus() == MapEntityStatus.REMOVED){
+                                trees.remove(counter);
+                                treesAlive--;
+                        }
                 }
         }
 
@@ -473,9 +490,10 @@ public class FinalBoss extends Enemy {
                         LightningCloud cloud2 = new LightningCloud(map.getMapTile(20, 1).getLocation());
                         map.addEnhancedMapTile(cloud2);
                         listeners.add(cloud2);
-                        LightningCloud cloud3 = new LightningCloud(map.getMapTile(24, 1).getLocation());
-                        map.addEnhancedMapTile(cloud3);
-                        listeners.add(cloud3);
+                        // this one works, but for balancing we may need to get rid of it
+                        // LightningCloud cloud3 = new LightningCloud(map.getMapTile(24, 1).getLocation());
+                        // map.addEnhancedMapTile(cloud3);
+                        // listeners.add(cloud3);
                         LightningCloud cloud4 = new LightningCloud(map.getMapTile(28, 1).getLocation());
                         map.addEnhancedMapTile(cloud4);
                         listeners.add(cloud4);
