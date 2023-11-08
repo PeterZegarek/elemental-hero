@@ -132,7 +132,9 @@ public class GamePanel extends JPanel {
 			heart1.draw(graphicsHandler);
 		}else if(Player.getLives()==2 && !lostOrCleared){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart3.draw(graphicsHandler);
+			heart2.draw(graphicsHandler);
 		}else if(Player.getLives()==1 && !lostOrCleared){
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.draw(graphicsHandler);

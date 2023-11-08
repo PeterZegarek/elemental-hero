@@ -40,6 +40,7 @@ public abstract class Player extends GameObject{
     protected static LevelState levelState;
     protected GameState gameState;
     protected static int lives = 3;
+    protected static int prevLives = 3; //Used to check whether lives went down by more than 1 in the same frame
 
     //keeps track of glide power and whether it is on or not
     protected static boolean isGlideOn = false;
@@ -154,6 +155,11 @@ public abstract class Player extends GameObject{
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
         }
+
+        if(prevLives-lives>1) { //If the # of lives in previous frame was greater than 
+            lives++; //the current lives by more than 1, then a life is added back
+        }
+        prevLives=lives; //Make prevLives equal to the lives of this frame to update it for the next frame
     }
 
     // add gravity to player, which is a downward force
@@ -625,7 +631,9 @@ public abstract class Player extends GameObject{
                     lives--;                                                  
                 }
                 else{
-                    levelState = LevelState.PLAYER_DEAD;
+                    lives--; //Need to make lives 0 for this to work
+                    if(prevLives-lives<=1) levelState = LevelState.PLAYER_DEAD; //If the difference is less than or equal to 1 player dies
+                    else lives++; //If the difference is more than one, a life is added back
                 }
             }    
         }
