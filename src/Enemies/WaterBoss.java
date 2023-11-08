@@ -201,7 +201,19 @@ public class WaterBoss extends Enemy {
                         shootWaitTimer = 150;
                         super.update(player);
                 }
-
+                // will need to be changed to electric attack
+                if (activeRockAttack != null){
+                        if (intersects(activeRockAttack)){
+                                bossState = BossState.HURT;
+                                isInvincible = true;
+                                isInvincibleCounter = 40;
+                                shootWaitTimer = 150;
+                                enemyAttacked(this);
+                                // broadcast so the fireball disappears
+                                ElementalAbilityListenerManager.rockAttackKilledEnemy();
+                        }
+                }
+                
                 super.update(player);
 
                 previousBossState = bossState;

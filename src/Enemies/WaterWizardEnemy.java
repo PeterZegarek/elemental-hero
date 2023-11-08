@@ -176,17 +176,21 @@ public class WaterWizardEnemy extends Enemy {
             // reset shoot wait timer so the process can happen again (WaterWizard SWIMs around, then waits, then shoots)
             shootWaitTimer = 150;
         }
+        if (activeRockAttack != null){
+            if (intersects(activeRockAttack)){
+                    isInvincible = true;
+                    isInvincibleCounter = 20; 
+                    waterWizardState = WaterWizardState.DEATH; 
+                    enemyAttacked(this);
+                    // broadcast so the fireball disappears
+                    ElementalAbilityListenerManager.rockAttackKilledEnemy();
+                }
+        }
 
         super.update(player);
 
         previousWaterWizardState = waterWizardState;
 
-    }
-
-    protected void WaterWizardDeath() {
-        isInvincible = true;
-        isInvincibleCounter = 20; 
-        waterWizardState = WaterWizardState.DEATH;     
     }
 
     @Override

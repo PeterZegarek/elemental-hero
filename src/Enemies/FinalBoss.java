@@ -462,7 +462,7 @@ public class FinalBoss extends Enemy {
                                         shootWaitTimer = 150;
                                         sendBossLives();
                                         // broadcast to the fireball that it killed something so it should disappear
-                                        ElementalAbilityListenerManager.waveKilledEnemy();
+                                        ElementalAbilityListenerManager.rockAttackKilledEnemy();
                                         // set firewisp spawned to 0 so that he respawns firewisps after getting hit
                                         slimeEnemiesSpawned = 0;
                                         } 
@@ -505,19 +505,6 @@ public class FinalBoss extends Enemy {
                 previousBossState = bossState;
         }
 
-        
-
-        // to spawn tree enemies - params are whether it's initial spawn or secondary
-        // spawn
-        /*
-         * Locations to spawn trees:
-         * 21,11 to 18, 11
-         * 29, 11 to 31, 11
-         * 17, 9 to 13, 9
-         * 33, 9 to 36, 9
-         * 22, 4 to 27, 4
-         */
-        // not verified to work yet
         public void spawnTrees(boolean initialSpawn) {
                 // if this is the initial spawn, it spawns 3 immediately
                 if (initialSpawn) {

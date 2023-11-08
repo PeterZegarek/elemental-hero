@@ -160,13 +160,6 @@ public class DinosaurEnemy extends Enemy {
                 ElementalAbilityListenerManager.fireballKilledEnemy();
             }
         }
-
-         if (activeWave != null){
-            if (intersects(activeWave)){
-                enemyAttacked(this);
-                ElementalAbilityListenerManager.waveKilledEnemy();
-            }
-        }
     }
 
     @Override
