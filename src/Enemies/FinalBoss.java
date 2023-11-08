@@ -139,7 +139,7 @@ public class FinalBoss extends Enemy {
                                 spawnFireWisps(true);
                         }
                 } else if (lives < 10 && lives > 7) {
-                        if (slimeEnemiesSpawned < 8) {
+                        if (slimeEnemiesSpawned < 7) {
                                 spawnSlimeEnemies(true);
                         }
                 } else if (lives < 7 && lives > 4) {
