@@ -40,8 +40,9 @@ public class VoidMap extends Map {
 
     @Override
     public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
         UnknownTraveler UnknownTraveler = new UnknownTraveler(
-                getMapTile(11, 15).getLocation().subtractY(23).subtractX(15), "STANDING_RIGHT");
+                getMapTile(0, 7).getLocation().subtractY(45).subtractX(15), "STANDING_RIGHT");
         npcs.add(UnknownTraveler);
 
         return npcs;
