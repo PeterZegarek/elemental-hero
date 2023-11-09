@@ -35,7 +35,7 @@ public class UnknownTraveler extends NPC {
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL5) // Air Level
             textbox.setText("Beware the tornadoes up above... and watch out for the enemies as well. Press E to throw rocks at them.");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL6) // Void Level
-            textbox.setText("");
+            textbox.setText("This is the ultimate challenge. All your acquired abilities are at your disposal.");
            
         textboxOffsetX = -4;
         textboxOffsetY = -34;

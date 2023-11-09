@@ -62,22 +62,22 @@ public class FinalBoss extends Enemy {
 
         // cooldown for spawning the tree enemies
         protected int treeCooldown = 660;
-        protected int treesSpawned;
+        protected int treesSpawned = 0;
         protected int treesAlive;
 
         // cooldown for spawning the fireWisp enemies
         protected int fireWispCooldown = 660;
-        protected int fireWispsSpawned;
+        protected int fireWispsSpawned = 0;
         protected int fireWispsAlive;
 
         // cooldown for spawning the Slime enemies
         protected int slimeEnemyCooldown = 660;
-        protected int slimeEnemiesSpawned;
+        protected int slimeEnemiesSpawned = 0;
         protected int slimeEnemiesAlive;
 
         // cooldown for spawning the Cloud enemies
         protected int cloudEnemyCooldown = 660;
-        protected int cloudEnemiesSpawned;
+        protected int cloudEnemiesSpawned = 0;
         protected int cloudEnemiesAlive;
 
         // this will help us trigger the spawning and despawning of the new electric
@@ -130,6 +130,7 @@ public class FinalBoss extends Enemy {
                 fireWispCooldown--;
                 slimeEnemyCooldown--;
                 cloudEnemyCooldown--;
+                // this handles in the spawning of enemies / electric hitbox for the phases of the boss
                 if (lives < 16 && lives > 13) {
                         if (treesSpawned < 3) {
                                 spawnTrees(true);
@@ -139,10 +140,11 @@ public class FinalBoss extends Enemy {
                                 spawnFireWisps(true);
                         }
                 } else if (lives < 10 && lives > 7) {
-                        if (slimeEnemiesSpawned < 8) {
+                        if (slimeEnemiesSpawned < 7) {
                                 spawnSlimeEnemies(true);
                         }
                 } else if (lives < 7 && lives > 4) {
+                        // if electric hitbox is not active, activate it
                         if (!isElectricHitboxActive) {
                                 createElectricHitbox();
                         }
