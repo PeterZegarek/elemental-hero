@@ -72,7 +72,7 @@ public class WaterBoss extends Enemy {
 
                 facingDirection = startFacingDirection;
                 if (facingDirection == Direction.RIGHT) {
-                        currentAnimationName = "STAND_RIGHT";
+                        currentAnimationName = "STAND_LEFT";
                 } else if (facingDirection == Direction.LEFT) {
                         currentAnimationName = "STAND_LEFT";
                 }
@@ -115,24 +115,24 @@ public class WaterBoss extends Enemy {
                         if (previousBossState == BossState.STAND) {
                                 if (lives >= 3)  {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "EARTH_STAND_RIGHT"
-                                                        : "EARTH_STAND_LEFT";
+                                                        ? "STAND_LEFT"
+                                                        : "STAND_LEFT";
                                 } else if (lives >= 2) {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "FIRE_STAND_RIGHT"
-                                                        : "FIRE_STAND_LEFT";
+                                                        ? "STAND_LEFT"
+                                                        : "STAND_LEFT";
                                 } else if (lives >= 1) {
                                         this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "WATER_STAND_RIGHT"
-                                                        : "WATER_STAND_LEFT";
+                                                        ? "STAND_LEFT"
+                                                        : "STAND_LEFT";
                                 }
                                 
                         
-                                shootTimer = 150;
+                                shootTimer = 100;
                                 // This line of code takes the current direction the WaterWizard is facing and
                                 // makes it shoot in that direction
                                 // If facingdirection is right, it shoots right, else it shoots left
-                                // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" :
+                                // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_LEFT" :
                                 // "SHOOT_LEFT";
                                 if (this.getX() > player.getX()) {
                                         if (lives >= 1)  {
@@ -140,10 +140,10 @@ public class WaterBoss extends Enemy {
                                         } 
                                 } else {
                                         if (lives >= 1)  {
-                                                currentAnimationName = "STAND_RIGHT";
+                                                currentAnimationName = "STAND_LEFT";
                                         } 
                                 }
-                        } else if (shootTimer == 0 && (currentAnimationName != "HURT_RIGHT" || currentAnimationName != "HURT_LEFT") && currentAnimationName != "HIDDEN") {
+                        } else if (shootTimer == 0 && (currentAnimationName != "HURT_LEFT" || currentAnimationName != "HURT_LEFT") && currentAnimationName != "HIDDEN") {
                                 bossState = BossState.SHOOT;
                         } else {
                                 shootTimer--;
@@ -155,12 +155,12 @@ public class WaterBoss extends Enemy {
                                         currentAnimationName = "HURT_LEFT";
                                 }
                                 else{
-                                       currentAnimationName = "HURT_RIGHT"; 
+                                       currentAnimationName = "HURT_LEFT"; 
                                 }                                
                         }
                         else {
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
-                                                        ? "DEATH_RIGHT"
+                                                        ? "DEATH_LEFT"
                                                         : "DEATH_LEFT";   
                         }
                 }
@@ -236,41 +236,44 @@ public class WaterBoss extends Enemy {
                                                 new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(20, 100, 200, 10)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                 });
-
                                 put("STAND_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(0, 3), 1)
+                                                                .withScale(scale)
+                                                                .withBounds(15, 55, 100, 35)
                                                                 .build(),
                                 });
 
@@ -278,53 +281,53 @@ public class WaterBoss extends Enemy {
                                                 new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(100, 35, 100, 150)
+                                                                .withBounds(100, 35, 100, 100)
                                                                 .build(),
                                 });
 
                                 put("HURT_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
                                                                 .withScale(scale)
-                                                                .withBounds(15, 35, 100, 150)
+                                                                .withBounds(15, 35, 100, 100)
                                                                 .build(),
                                 });
                                 put("DEATH_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .build(),
                                 });
                                 put("DEATH_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(20, 100, 200, 100)
+                                                                .withBounds(85, 40, 75, 100)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                 });

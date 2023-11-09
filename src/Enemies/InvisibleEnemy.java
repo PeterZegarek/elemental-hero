@@ -13,7 +13,7 @@ import java.util.HashMap;
 // This class is for the invisible enemy that one shots the player
 public class InvisibleEnemy extends Enemy {
 
-
+    private static boolean playerTouchedInvisible = false;
 
     public InvisibleEnemy(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("InvisibleEnemy.png"), 16, 16), "DEFAULT");
@@ -25,6 +25,7 @@ public class InvisibleEnemy extends Enemy {
     @Override
     public void initialize() {
         super.initialize();
+        playerTouchedInvisible = false;
     }
 
     @Override
@@ -32,6 +33,7 @@ public class InvisibleEnemy extends Enemy {
 
         // if it touches the player it will kill the player
         if (intersects(player) ){
+            playerTouchedInvisible = true;
             touchedPlayer(player);
         }
         super.update(player);
@@ -43,6 +45,10 @@ public class InvisibleEnemy extends Enemy {
     @Override
     public void touchedPlayer(Player player){
         player.killPlayer();
+    }
+
+    public static boolean getPlayerTouchedInvisible(){
+        return playerTouchedInvisible;
     }
 
 

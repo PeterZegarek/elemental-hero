@@ -9,6 +9,7 @@ import Utils.Colors;
 
 import javax.swing.*;
 
+import Enemies.InvisibleEnemy;
 import Enemies.Lava;
 import Game.GameState;
 import Game.ScreenCoordinator;
@@ -138,6 +139,13 @@ public class GamePanel extends JPanel {
 		}else if(Player.getLives()==1 && !lostOrCleared){
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.draw(graphicsHandler);
+		}
+
+		if(InvisibleEnemy.getPlayerTouchedInvisible()){
+			if(Player.getLives()>2) heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			if(Player.getLives()>1) heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			draw();
 		}
 		
 		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3 && !lostOrCleared){

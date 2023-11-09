@@ -70,79 +70,79 @@ public class KrakenEnemy extends Enemy {
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(scale)
-                            .withBounds(100, 100, 10, 10)
+                            .withBounds(120, 170, 20, 20)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(120, 135, 20, 60)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 2),14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(120, 115, 20, 90)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(110, 90, 45, 110)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 4), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(95, 75, 65, 135)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 5), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(55, 45, 130, 135)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 6), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(15, 25, 180, 150)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 7), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(), 
                     new FrameBuilder(spriteSheet.getSprite(0, 8), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 9), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 10), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),  
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),          
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(), 
                     new FrameBuilder(spriteSheet.getSprite(1, 4), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),  
                     new FrameBuilder(spriteSheet.getSprite(1, 5), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 6), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build(),  
                     new FrameBuilder(spriteSheet.getSprite(1, 7), 14)
                             .withScale(scale)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(5, 25, 235, 175)
                             .build()                   
                 });
             }
