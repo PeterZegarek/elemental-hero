@@ -62,6 +62,10 @@ public class GamePanel extends JPanel {
 	int rockHUDx = 226;
 	int rockHUDy = 70;
 
+	private Key abilityMarkerKey = Key.R;
+	private Sprite abilityMarker;
+	public static int currentAbility = 0;
+
 	private static boolean lostOrCleared = false;
 
 
@@ -94,6 +98,8 @@ public class GamePanel extends JPanel {
 		lightningHUD = new Sprite(ImageLoader.load("LightningHUD.png").getSubimage(0, 0,37, 37), lightningHUDx, lightningHUDy);
 		glideHUD = new Sprite(ImageLoader.load("GlideHUD.png").getSubimage(0, 0, 37, 37), glideHUDx, glideHUDy);
 		rockHUD = new Sprite(ImageLoader.load("RockHUD.png").getSubimage(0, 0, 37, 37), rockHUDx, rockHUDy);
+
+		abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), fireballHUDx, fireballHUDy);
 
 		// this game loop code will run in a separate thread from the rest of the program
 		// will continually update the game's logic and repaint the game's graphics
@@ -142,10 +148,16 @@ public class GamePanel extends JPanel {
 		}
 
 		if(InvisibleEnemy.getPlayerTouchedInvisible()){
-			if(Player.getLives()>2) heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
-			if(Player.getLives()>1) heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+			if(Player.getLives()>2){
+				heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+				heart3.draw(graphicsHandler);
+			}
+			if(Player.getLives()>1){
+				heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
+				heart2.draw(graphicsHandler);
+			}
 			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
-			draw();
+			heart1.draw(graphicsHandler);
 		}
 		
 		if(Player.getLevelState()==LevelState.PLAYER_DEAD && Player.getLives()!=3 && !lostOrCleared){
@@ -183,6 +195,7 @@ public class GamePanel extends JPanel {
 			rockHUD = new Sprite(ImageLoader.load("RockHUD.png").getSubimage(0, 0,38, 37), rockHUDx, rockHUDy);
 		}
 
+		updateAbilityMarker();
 
 		if (!isGamePaused) {
 			screenManager.update();
@@ -211,6 +224,33 @@ public class GamePanel extends JPanel {
 		}
 
 		fpsDisplayLabel.setText("FPS: " + currentFPS);
+	}
+
+	private void updateAbilityMarker(){
+		int maxAbility = 0;
+		if(ScreenCoordinator.getGameState()==GameState.LEVEL1) maxAbility = 0;
+		else if(ScreenCoordinator.getGameState()==GameState.LEVEL2) maxAbility = 1;
+		else if(ScreenCoordinator.getGameState()==GameState.LEVEL3) maxAbility = 2;
+		else if(ScreenCoordinator.getGameState()==GameState.LEVEL4) maxAbility = 3;
+		else if(ScreenCoordinator.getGameState()==GameState.LEVEL5 || ScreenCoordinator.getGameState()==GameState.LEVEL6) maxAbility = 4;
+
+		if(Keyboard.isKeyDown(abilityMarkerKey) && !keyLocker.isKeyLocked(abilityMarkerKey)){
+			if(currentAbility<maxAbility) currentAbility++;
+			else currentAbility = 0;
+			keyLocker.lockKey(abilityMarkerKey);
+		}
+
+		if(Keyboard.isKeyUp(abilityMarkerKey)){
+			keyLocker.unlockKey(abilityMarkerKey);
+		}
+
+		if(currentAbility==0) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), fireballHUDx, fireballHUDy);
+		else if(currentAbility==1) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), waveHUDx, waveHUDy);
+		else if(currentAbility==2) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), lightningHUDx, lightningHUDy);
+		else if(currentAbility==3) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), glideHUDx, glideHUDy);
+		else if(currentAbility==4) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), rockHUDx, rockHUDy);
+
+		abilityMarker.draw(graphicsHandler);
 	}
 
 	public void draw() {
@@ -271,6 +311,14 @@ public class GamePanel extends JPanel {
 		   rockHUD.draw(graphicsHandler);
 		}
 
+		if((ScreenCoordinator.getGameState() == GameState.LEVEL1 || 
+			ScreenCoordinator.getGameState() == GameState.LEVEL2 ||
+			ScreenCoordinator.getGameState() == GameState.LEVEL3 || 
+			ScreenCoordinator.getGameState() == GameState.LEVEL4 ||
+			ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
+			ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
+			abilityMarker.draw(graphicsHandler);
+		}
 	}
 
 	public static void setLostOrCleared(boolean lostOrCleared){

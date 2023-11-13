@@ -58,12 +58,12 @@ public abstract class Player extends GameObject{
     protected Key LEVEL_KEY = Key.L;
     // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
-    // adding wave key W
-    protected Key WAVE_KEY = Key.W;
+    // adding wave key F
+    protected Key WAVE_KEY = Key.F;
     //adding glide key SHIFT
     protected Key GLIDE_KEY = Key.SHIFT;
-    //adding earth ability key E
-    protected Key EARTH_ATTACK_KEY = Key.E;
+    //adding earth ability key F
+    protected Key EARTH_ATTACK_KEY = Key.F;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
