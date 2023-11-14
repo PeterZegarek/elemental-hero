@@ -325,6 +325,10 @@ public class GamePanel extends JPanel {
 		GamePanel.lostOrCleared = lostOrCleared;
 	}
 
+	public static int getCurrentAbility(){
+		return currentAbility;
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

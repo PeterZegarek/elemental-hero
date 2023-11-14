@@ -1,5 +1,6 @@
 package Level;
 
+import Engine.GamePanel;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -480,15 +481,15 @@ public abstract class Player extends GameObject{
          
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
-        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL1) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
+        if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (GamePanel.getCurrentAbility()==0)){
             fireballSpit(getX(), getY(), getFacingDirection());
         }
         
-        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL2) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
+        if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && (GamePanel.getCurrentAbility()==1)){
             waveAttack(getX(), getY(), getFacingDirection());
         }
 
-        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (rockOnCooldown == false) && (isInvincible == false) && ((ScreenCoordinator.getGameState() == GameState.LEVEL5) || (ScreenCoordinator.getGameState() == GameState.LEVEL6))){
+        if ((Keyboard.isKeyDown(EARTH_ATTACK_KEY)) && (rockOnCooldown == false) && (isInvincible == false) && (GamePanel.getCurrentAbility()==4)){
             RockAttack(getX(), getY(), getFacingDirection());
             }
             
@@ -497,7 +498,7 @@ public abstract class Player extends GameObject{
         isGlideOn=false;
         setTerminalVelocityY(6f);
         // either air or void level
-        if((Keyboard.isKeyDown(GLIDE_KEY)) && (ScreenCoordinator.getGameState() == GameState.LEVEL4 || ScreenCoordinator.getGameState() == GameState.LEVEL6)){
+        if((Keyboard.isKeyDown(GLIDE_KEY)) && (GamePanel.getCurrentAbility()==3)){
             if(airGroundState == AirGroundState.AIR){
                 isGlideOn=true;
                 setTerminalVelocityY(1f);
