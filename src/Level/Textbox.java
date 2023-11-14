@@ -13,11 +13,11 @@ public class Textbox {
     protected Color borderColor = Color.black;
     protected int borderThickness = 1;
     protected int vPadding = 10; // spacing above and below text
-    protected int hPadding = 10; // spacing to right and left of text
+    protected int hPadding = 30; // spacing to right and left of text
     protected int gap = 0; // horizontal space between lines of text -- only matters with multiline text
 
     public Textbox(String text) {
-        Font font = new Font("Arial", Font.PLAIN, 12);
+        Font font = new Font("Arial", Font.PLAIN, 15);
         Point textLocation = new Point(x + hPadding + borderThickness, y + vPadding + borderThickness);
         spriteFont = new SpriteFont(text, textLocation.x, textLocation.y,  font, Color.black);
     }
