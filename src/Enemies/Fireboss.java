@@ -30,7 +30,7 @@ public class Fireboss extends Enemy {
         protected Point startLocation;
         protected Point endLocation;
 
-        protected float movementSpeed = 1f;
+        //protected float movementSpeed = 1f;
         private Direction startFacingDirection;
         protected Direction facingDirection;
         protected AirGroundState airGroundState;
@@ -53,8 +53,7 @@ public class Fireboss extends Enemy {
         protected Player player;
 
         public Fireboss(Point startLocation, Point endLocation, Direction facingDirection) {
-                super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FireBoss.png"), 41, 49),
-                                "STAND_RIGHT");
+                super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FireBossUpdated.png"), 81, 81),"STAND_LEFT");
                 this.startLocation = startLocation;
                 this.endLocation = endLocation;
                 this.startFacingDirection = facingDirection;
@@ -72,9 +71,9 @@ public class Fireboss extends Enemy {
 
                 facingDirection = startFacingDirection;
                 if (facingDirection == Direction.RIGHT) {
-                        currentAnimationName = "STAND_RIGHT";
+                        currentAnimationName = "STAND_LEFT";
                 } else if (facingDirection == Direction.LEFT) {
-                        currentAnimationName = "STAND_RIGHT";
+                        currentAnimationName = "STAND_LEFT";
                 }
                 airGroundState = AirGroundState.GROUND;
 
@@ -187,14 +186,14 @@ public class Fireboss extends Enemy {
                         //Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
 
                         //create FireBall enemies
-                        //KrakenEnemy Kraken = new KrakenEnemy(new Point(waveX - 305, waveY - 100),  150);
+                        /*KrakenEnemy Kraken = new KrakenEnemy(new Point(waveX - 305, waveY - 100),  150);
 
                         // add WAVE enemy to the map for it to spawn in the level
-                        //map.addEnemy(Kraken);
+                        map.addEnemy(Kraken);
                         // change Boss back to its Stand state after shooting, reset shootTimer to wait
                         // a certain number of frames before shooting again
                         bossState = BossState.STAND;
-                                
+                        */        
 
                         // reset shoot wait timer so the process can happen again (STAND around, then
                         // waits, then shoots)
@@ -232,189 +231,137 @@ public class Fireboss extends Enemy {
                 float scale = 1.2f;
                 return new HashMap<String, Frame[]>() {
                         {
-                                put("STAND_RIGHT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                                                                .withScale(scale)
-                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(21, 24, 9, 12)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                                                                .withScale(scale)
-                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(19, 20, 12, 16)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
-                                                                .withScale(scale)
-                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(17, 17, 15, 23)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
-                                                                .withScale(scale)
-                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(23, 6, 33, 40)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(0, 4), 14)
-                                                                .withScale(scale)
-                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(10, 6, 36, 48)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(0, 5), 14)
-                                                                .withScale(scale)
-                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(10, 4, 34, 46)
-                                                                .build(),
-                                                
-                                });
-                                put("STAND_LEFT", new Frame[] {
-                                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
-                                    .withScale(scale)
-                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                    .withBounds(21, 24, 9, 12)
-                                    .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
-                                    .withScale(scale)
-                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                    .withBounds(19, 20, 12, 16)
-                                    .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 2), 14)
-                                    .withScale(scale)
-                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                    .withBounds(17, 17, 15, 23)
-                                    .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
-                                    .withScale(scale)
-                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                    .withBounds(23, 6, 33, 40)
-                                    .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 4), 14)
-                                    .withScale(scale)
-                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                    .withBounds(10, 6, 36, 48)
-                                    .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 5), 14)
-                                    .withScale(scale)
-                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                    .withBounds(10, 4, 34, 46)
-                                    .build(),
-                                });
+                            put("STAND_RIGHT", new Frame[] {
+                                new FrameBuilder(spriteSheet.getSprite(3, 0), 14)
+                                                 .withScale(3)
+                                                  //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(34, 36, 9, 13)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 1), 14)
+                                                 .withScale(3)
+                                                  //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(32, 35, 12, 16)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 2), 14)
+                                                 .withScale(3)
+                                                  //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(35, 36, 15, 24)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 3), 14)
+                                                 .withScale(3)
+                                                  //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(36, 29, 32, 41)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 4), 14)
+                                                 .withScale(3)
+                                                  //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(31, 32, 34, 48)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 5), 14)
+                                                 .withScale(3)
+                                                  //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(31, 21, 35, 46)
+                                                  .build(),
+                                 
+                  });
+                  put("STAND_LEFT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(3, 0), 14)
+                                               .withScale(3)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(34, 36, 9, 13)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 1), 14)
+                                                 .withScale(3)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(32, 35, 12, 16)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 2), 14)
+                                                 .withScale(3)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(35, 36, 15, 24)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 3), 14)
+                                                 .withScale(3)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(36, 29, 32, 41)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 4), 14)
+                                                 .withScale(3)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(31, 32, 34, 48)
+                                                  .build(),
+                                  new FrameBuilder(spriteSheet.getSprite(3, 5), 14)
+                                                 .withScale(3)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(31, 21, 35, 46)
+                                                  .build(),
+                  });
 
-                                put("HURT_RIGHT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(1, 4), 15)
-                                                                .withScale(scale)
-                                                                .withBounds(6, 4, 38, 50)
-                                                                .build(),
-                                });
 
-                                put("HURT_LEFT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(1, 4), 15)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(6, 4,  38, 50)
+                  put("HURT_RIGHT", new Frame[] {
+                                new FrameBuilder(spriteSheet.getSprite(0, 4), 15)
+                                                 .withScale(3)
+                                                  .withBounds(26, 31, 32, 42)
+                                                  .build(),
+                  });
+
+
+                  put("HURT_LEFT", new Frame[] {
+                                new FrameBuilder(spriteSheet.getSprite(0, 4), 15)
+                                                 .withScale(scale)
+                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                  .withBounds(26, 31,  32, 42)
+                                                  .build(),
+
+                                });
+                                put("DEATH_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0), 20)
+                                                                .withScale(3)
+                                                                .withBounds(30, 21, 36, 50)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(2, 1), 20)
+                                                                .withScale(3)
+                                                                .withBounds(31, 28, 33, 42)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(2, 2), 20)
+                                                                .withScale(3)
+                                                                .withBounds(31, 35, 17, 26)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
+                                                                .withScale(3)
+                                                                .withBounds(30, 33, 13, 17)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(2,4),20)
+                                                                .withScale(3)
+                                                                .withBounds(36, 34, 10, 14)
                                                                 .build(),
                                 });
                                 put("DEATH_LEFT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(3, 0), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 0), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 2), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 2), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 4), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 4), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 6), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 6), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 8), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 8), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 10), 20)
-                                                                .withScale(scale)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                });
-                                put("DEATH_RIGHT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(3, 0), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 0), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 2), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 2), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 4), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 4), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 6), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 6), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 8), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 8), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(3, 10), 20)
-                                                                .withScale(scale)
-                                                                .withBounds(85, 40, 40, 47)
-                                                                .build(),
-
+                                    new FrameBuilder(spriteSheet.getSprite(2, 0), 20)
+                                    .withScale(3)
+                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                    .withBounds(30, 21, 36, 50)
+                                    .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 1), 20)
+                                    .withScale(3)
+                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                    .withBounds(31, 28, 33, 42)
+                                    .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 20)
+                                    .withScale(3)
+                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                    .withBounds(31, 35, 17, 26)
+                                    .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
+                                    .withScale(3)
+                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                    .withBounds(30, 33, 13, 17)
+                                    .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2,4),20)
+                                    .withScale(3)
+                                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                    .withBounds(36, 34, 10, 14)
+                                    .build(),
                                 });
                                 put("HIDDEN", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
@@ -423,7 +370,6 @@ public class Fireboss extends Enemy {
                                                                 .build()
 
                                 });
-                                
                         }
                 };
         }

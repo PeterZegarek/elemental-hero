@@ -3,8 +3,9 @@ package Maps;
 
 import java.util.ArrayList;
 
-
+import Enemies.FinalBoss;
 import Enemies.FireDinosaurEnemy;
+import Enemies.Fireboss;
 import Enemies.Firewisp;
 import Enemies.InvisibleEnemy;
 import Engine.ImageLoader;
@@ -164,6 +165,9 @@ enemies.add(lava25);
 Lava lava26 = new Lava(getMapTile(38,23).getLocation());
 enemies.add(lava26);
 
+Fireboss fireboss = new Fireboss(getMapTile(42, 13).getLocation().subtractX(70).subtractY(145), getMapTile(42, 13).getLocation().subtractX(70).subtractY(145), Direction.LEFT);
+       enemies.add(fireboss);
+
 
 // for (int x = 10; x <= 31; x++) {
 // InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 25).getLocation());
@@ -245,7 +249,7 @@ npcs.add(UnknownTraveler);
 
 
 return npcs;
-}
+        }
 }
 
 
