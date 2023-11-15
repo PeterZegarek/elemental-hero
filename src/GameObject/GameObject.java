@@ -14,6 +14,7 @@ import Enemies.FinalBoss;
 import Enemies.InvisibleEnemy;
 import Enemies.InvisibleHitbox;
 import Enemies.Lava;
+import Enemies.SkeletonBoss;
 import Enemies.TreeEnemy;
 
 
@@ -341,7 +342,7 @@ public class GameObject extends AnimatedSprite {
             // if (this instanceof Wave) {
             //    drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
             // }
-            // if (this instanceof FinalBoss) {
+            // if (this instanceof SkeletonBoss) {
             //    drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
             // }
             

@@ -3,6 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Enemies.KrakenEnemy;
+import Enemies.SkeletonBoss;
 import Enemies.TreeEnemy;
 import Enemies.WaterBoss;
 import Engine.ImageLoader;
@@ -21,6 +22,8 @@ public class EarthMap extends Map {
 
     public EarthMap() {
         super("EarthMap.txt", new EarthTileset());
+        // typical is 4, 18
+        // to test the skeleton boss, do 47, 25
         this.playerStartPosition = getMapTile(4, 18).getLocation();
     }
 
@@ -60,6 +63,9 @@ public class EarthMap extends Map {
 
         TreeEnemy treeEnemy3 = new TreeEnemy(getMapTile(30, 5).getLocation().addY(-12), getMapTile(34, 5).getLocation().addY(-12), Direction.LEFT);
         enemies.add(treeEnemy3);
+
+        SkeletonBoss skeletonBoss = new SkeletonBoss(getMapTile(58,24).getLocation(), Direction.LEFT);
+        enemies.add(skeletonBoss);
 
 
         return enemies;
