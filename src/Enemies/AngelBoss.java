@@ -41,7 +41,7 @@ public class AngelBoss extends Enemy {
 
     protected int lives;
 
-    protected AngelState angelState;
+    protected static AngelState angelState;
     protected AngelState previousAngelState;
 
     public AngelBoss(Point startLocation, Point endLocation, Direction facingDirection) {
@@ -308,5 +308,9 @@ public class AngelBoss extends Enemy {
 
     public enum AngelState {
         FLY, SHOOT_WAIT, SHOOT, HURT, DEAD
+    }
+
+    public static AngelState getAngelState(){
+        return AngelBoss.angelState;
     }
 }
