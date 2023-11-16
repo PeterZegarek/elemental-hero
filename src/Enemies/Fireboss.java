@@ -364,9 +364,9 @@ public class Fireboss extends Enemy {
                                     .build(),
                                 });
                                 put("HIDDEN", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
-                                                                .withScale(1)
-                                                                .withBounds(0, 0, 0, 0)
+                                                new FrameBuilder(spriteSheet.getSprite(3, 5), 20)
+                                                                .withScale(3)
+                                                                .withBounds(30, 30, 33, 46)
                                                                 .build()
 
                                 });
