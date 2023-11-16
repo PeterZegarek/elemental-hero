@@ -14,7 +14,7 @@ public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
-    protected SpriteFont playGame;
+    protected SpriteFont playGame, instructions;
     protected SpriteFont credits;
     protected Map background;
     protected int keyPressTimer;
@@ -27,10 +27,13 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("PLAY GAME", 225, 195, "Comic Sans", 26, new Color(49, 207, 240));
+        playGame = new SpriteFont("PLAY GAME", 225, 180, "Comic Sans", 21, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 225, 275, "Comic Sans", 26, new Color(49, 207, 240));
+        instructions = new SpriteFont("INSTRUCTIONS", 225, 230, "Comic Sans", 21, new Color(49, 207, 240));
+        instructions.setOutlineColor(Color.black);
+        instructions.setOutlineThickness(3);
+        credits = new SpriteFont("CREDITS", 225, 280, "Comic Sans", 21, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
         background = new TitleScreenMap();
@@ -59,24 +62,35 @@ public class MenuScreen extends Screen {
         }
 
         // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > 1) {
+        if (currentMenuItemHovered > 2) {
             currentMenuItemHovered = 0;
-        } else if (currentMenuItemHovered < 0) {
+        } else if (currentMenuItemHovered == 1){
             currentMenuItemHovered = 1;
+        } else if (currentMenuItemHovered < 0) {
+            currentMenuItemHovered = 2;
         }
 
         // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
         if (currentMenuItemHovered == 0) {
             playGame.setColor(new Color(255, 215, 0));
             credits.setColor(new Color(49, 207, 240));
+            instructions.setColor(new Color(49, 207, 240));
             pointerLocationX = 197;
-            pointerLocationY = 203;
+            pointerLocationY = 185;
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(49, 207, 240));
-            credits.setColor(new Color(255, 215, 0));
+            credits.setColor(new Color(49, 207, 240));
+            instructions.setColor(new Color(255, 215, 0));
             pointerLocationX = 197;
-            pointerLocationY = 283;
+            pointerLocationY = 235;
+        } else if (currentMenuItemHovered == 2) {
+            playGame.setColor(new Color(49, 207, 240));
+            credits.setColor(new Color(255, 215, 0));
+            instructions.setColor(new Color(49, 207, 240));
+            pointerLocationX = 197;
+            pointerLocationY = 285;
         }
+
 
         // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
         if (Keyboard.isKeyUp(Key.SPACE)) {
@@ -88,6 +102,8 @@ public class MenuScreen extends Screen {
                 GamePanel.setLostOrCleared(false);
                 screenCoordinator.setGameState(GameState.LEVEL1);
             } else if (menuItemSelected == 1) {
+                screenCoordinator.setGameState(GameState.INSTRUCTIONS);
+            } else if (menuItemSelected == 2) {
                 screenCoordinator.setGameState(GameState.CREDITS);
             }
         }
@@ -97,6 +113,7 @@ public class MenuScreen extends Screen {
         background.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
+        instructions.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
 }

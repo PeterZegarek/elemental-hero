@@ -3,6 +3,7 @@ package MapEditor;
 import Level.Map;
 import Maps.EarthMap;
 import Maps.FireMap;
+import Maps.InstructionsScreenMap;
 import Maps.WaterMap;
 import Maps.ElectricMap;
 import Maps.AirMap;
@@ -21,6 +22,7 @@ public class EditorMaps {
             add("ElectricMap");
             add("AirMap");
             add("VoidMap");
+            add("InstructionsScreenMap");
         }};
     }
 
@@ -40,6 +42,8 @@ public class EditorMaps {
                 return new AirMap();
             case "VoidMap":
                 return new VoidMap();
+            case "InstructionsScreenMap":
+                return new InstructionsScreenMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

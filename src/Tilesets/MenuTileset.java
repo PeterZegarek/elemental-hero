@@ -703,6 +703,26 @@ public class MenuTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
 
         mapTiles.add(StormCloud8Tile);
+
+        // Border1
+        Frame BorderFrame = new FrameBuilder(getSubImage(13, 2))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder BorderTile = new MapTileBuilder(BorderFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(BorderTile);
+
+        // Border2
+        Frame Border2Frame = new FrameBuilder(getSubImage(13, 3))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder Border2Tile = new MapTileBuilder(Border2Frame)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(Border2Tile);
     
         return mapTiles;
     }
