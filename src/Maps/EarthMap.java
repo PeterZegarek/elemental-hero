@@ -52,9 +52,6 @@ public class EarthMap extends Map {
         DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(32, 17).getLocation().addY(2), getMapTile(40, 13).getLocation().addY(2), Direction.LEFT);
         enemies.add(dinosaurEnemy3);
 
-        DinosaurEnemy dinosaurEnemy4 = new DinosaurEnemy(getMapTile(48, 13).getLocation().addY(2), getMapTile(55, 13).getLocation().addY(2), Direction.LEFT);
-        enemies.add(dinosaurEnemy4);
-
         TreeEnemy treeEnemy1 = new TreeEnemy(getMapTile(11, 3).getLocation().addY(-12), getMapTile(15, 3).getLocation().addY(-12), Direction.LEFT);
         enemies.add(treeEnemy1);
 

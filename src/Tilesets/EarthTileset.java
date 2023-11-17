@@ -262,6 +262,16 @@ public class EarthTileset extends Tileset {
 
         mapTiles.add(leftStairsTopTile);
 
+        // sky NOT PASSSABLE
+        Frame skyFrame2 = new FrameBuilder(getSubImage(0, 1))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder skyTile2 = new MapTileBuilder(skyFrame2)
+                .withTileType(TileType.NOT_PASSABLE);
+
+        mapTiles.add(skyTile2);
+
         return mapTiles;
     }
 }
