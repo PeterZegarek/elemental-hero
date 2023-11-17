@@ -25,17 +25,17 @@ public class UnknownTraveler extends NPC {
         isInteractable = true;
         talkedToTime = 200;
         if (ScreenCoordinator.getGameState() == GameState.LEVEL1) // Earth Level
-            textbox.setText("Press the 'F' key to use Fireball. Oh, and beware... something 'BIG' lives in the cave!");
+            textbox.setText("BEWARE! Something evil is lurking in the cave!");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL2) // Fire Level
-            textbox.setText("Press the 'W' key to use WaterBlast...Oh, and Watch out for Lava!");
+            textbox.setText("Watch out for lava!");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL3) // Water Level           
-            textbox.setText("");
+            textbox.setText("Something 'BIG' lies deep within these waters...");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL4) // Electric Level
-            textbox.setText("Watch out for lightning... the SHIFT key will help you glide in the air. Also, you can jump on clouds.");
+            textbox.setText("Watch out for lightning! Might want to jump on the clouds...");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL5) // Air Level
-            textbox.setText("Beware the tornadoes up above... and watch out for the enemies as well. Press E to throw rocks at them.");
+            textbox.setText("It's windy up there! You might get 'popped' out of existence...");
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL6) // Void Level
-            textbox.setText("This is the ultimate challenge. All your acquired abilities are at your disposal. Use them wisely.");
+            textbox.setText("This is the ultimate challenge! All your acquired abilities are at your disposal. Use them wisely...");
            
         textboxOffsetX = -4;
         textboxOffsetY = -34;

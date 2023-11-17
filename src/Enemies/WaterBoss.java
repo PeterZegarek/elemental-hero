@@ -3,6 +3,7 @@ package Enemies;
 import Builders.FrameBuilder;
 import Enemies.SlimeEnemy.SlimeState;
 import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -161,7 +162,8 @@ public class WaterBoss extends Enemy {
                         else {
                                 this.currentAnimationName = facingDirection == Direction.RIGHT
                                                         ? "DEATH_LEFT"
-                                                        : "DEATH_LEFT";   
+                                                        : "DEATH_LEFT"; 
+                                spawnEndLevelBox();  
                         }
                 }
                 // this is for actually having the WaterWizard shoot the wave
@@ -225,6 +227,21 @@ public class WaterBoss extends Enemy {
                 isInvincible = true;
                 isInvincibleCounter = 40;
                 shootWaitTimer = 150;
+        }
+
+        private void spawnEndLevelBox() {
+                EndLevelBox endLevelBox1 = new EndLevelBox(map.getMapTile(61, 24).getLocation());
+                map.addEnhancedMapTile(endLevelBox1);
+
+                EndLevelBox endLevelBox2 = new EndLevelBox(map.getMapTile(62, 24).getLocation());
+                map.addEnhancedMapTile(endLevelBox2);
+
+                EndLevelBox endLevelBox3 = new EndLevelBox(map.getMapTile(61, 25).getLocation());
+                map.addEnhancedMapTile(endLevelBox3);
+
+                EndLevelBox endLevelBox4 = new EndLevelBox(map.getMapTile(62, 25).getLocation());
+                map.addEnhancedMapTile(endLevelBox4);
+
         }
 
         @Override

@@ -42,7 +42,7 @@ public class VoidMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
         UnknownTraveler UnknownTraveler = new UnknownTraveler(
-                getMapTile(0, 7).getLocation().subtractY(45).subtractX(15), "STANDING_RIGHT");
+                getMapTile(4, 13).getLocation().subtractY(45).subtractX(15), "STANDING_LEFT");
         npcs.add(UnknownTraveler);
 
         return npcs;

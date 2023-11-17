@@ -32,17 +32,17 @@ public class InstructionsScreen extends Screen {
         //Left Panel - Instructions Page
         instructionsLabel1 = new SpriteFont("Instructions", 255, 175, "Times New Roman", 35, Color.white);
         createdByLabel1 = new SpriteFont("- Explore each level", 190, 250, "Times New Roman", 20, Color.white);
-        createdByLabel2 = new SpriteFont("- Locate the 'Unknown Treveler' NPC", 190, 300, "Times New Roman", 20, Color.white);
+        createdByLabel2 = new SpriteFont("- Locate the 'Unknown Traveler' NPC", 190, 300, "Times New Roman", 20, Color.white);
         createdByLabel3 = new SpriteFont("- Take down enemies along your path", 190, 350, "Times New Roman", 20, Color.white);
         createdByLabel4 = new SpriteFont("- Defeat end-level boss to progress", 190, 400, "Times New Roman", 20, Color.white);
 
         //Right Panel - Keybinds
         //Movement Binds
         instructionsLabel2 = new SpriteFont("Movement:", 555, 175, "Times New Roman", 20, Color.white);
-        createdByLabel5 = new SpriteFont("Jump           ->   W Key or Up Arrow    ", 555, 205, "Times New Roman", 14, Color.white);
-        createdByLabel6 = new SpriteFont("Crouch        ->    S Key or Down Arrow ", 555, 225, "Times New Roman", 14, Color.white);
-        createdByLabel7 = new SpriteFont("Walk Left     ->   A Key or Left Arrow  ", 555, 245, "Times New Roman", 14, Color.white);
-        createdByLabel8 = new SpriteFont("Walk Right   ->    D Key or Right Arrow ", 555, 265, "Times New Roman", 14, Color.white);
+        createdByLabel5 = new SpriteFont("Jump           ->   Up Arrow", 555, 205, "Times New Roman", 14, Color.white);
+        createdByLabel6 = new SpriteFont("Crouch        ->    Down Arrow", 555, 225, "Times New Roman", 14, Color.white);
+        createdByLabel7 = new SpriteFont("Walk Left     ->   Left Arrow  ", 555, 245, "Times New Roman", 14, Color.white);
+        createdByLabel8 = new SpriteFont("Walk Right   ->    Right Arrow ", 555, 265, "Times New Roman", 14, Color.white);
         //Attack Binds
         instructionsLabel3 = new SpriteFont("Attacking:", 555, 300, "Times New Roman", 20, Color.white);
         createdByLabel9 = new SpriteFont("Use Ability        ->   F Key", 555, 330, "Times New Roman", 14, Color.white);

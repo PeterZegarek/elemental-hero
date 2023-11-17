@@ -24,22 +24,22 @@ public class WaterMap extends Map{
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(getMapTile(3, 6).getLocation(), getMapTile(9, 6).getLocation(), Direction.LEFT);
+        SlimeEnemy SlimeEnemy1 = new SlimeEnemy(getMapTile(4, 6).getLocation(), getMapTile(9, 6).getLocation(), Direction.LEFT);
         enemies.add(SlimeEnemy1);
 
-        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(getMapTile(2, 33).getLocation(), getMapTile(9, 33).getLocation(), Direction.LEFT);
+        SlimeEnemy SlimeEnemy2 = new SlimeEnemy(getMapTile(3, 38).getLocation(), getMapTile(23, 38).getLocation(), Direction.LEFT);
         enemies.add(SlimeEnemy2);
 
-        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(getMapTile(15, 33).getLocation(), getMapTile(29, 33).getLocation(), Direction.LEFT);
+        SlimeEnemy SlimeEnemy3 = new SlimeEnemy(getMapTile(5, 36).getLocation(), getMapTile(19, 36).getLocation(), Direction.LEFT, "FLIP");
         enemies.add(SlimeEnemy3);
 
-        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(getMapTile(29, 30).getLocation(), getMapTile(40, 30).getLocation(), Direction.LEFT, "FLIP");
+        SlimeEnemy SlimeEnemy4 = new SlimeEnemy(getMapTile(40, 18).getLocation(), getMapTile(47, 18).getLocation(), Direction.LEFT);
         enemies.add(SlimeEnemy4);
 
         SlimeEnemy SlimeEnemy5 = new SlimeEnemy(getMapTile(32, 11).getLocation(), getMapTile(39, 11).getLocation(), Direction.LEFT, "FLIP");
         enemies.add(SlimeEnemy5);
 
-        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(getMapTile(29, 32).getLocation(), getMapTile(40, 32).getLocation(), Direction.RIGHT);
+        SlimeEnemy SlimeEnemy6 = new SlimeEnemy(getMapTile(44, 16).getLocation(), getMapTile(50, 16).getLocation(), Direction.LEFT, "FLIP");
         enemies.add(SlimeEnemy6);
 
         SlimeEnemy SlimeEnemy7 = new SlimeEnemy(getMapTile(41, 33).getLocation(), getMapTile(49, 33).getLocation(), Direction.RIGHT);
@@ -48,51 +48,32 @@ public class WaterMap extends Map{
         SlimeEnemy SlimeEnemy8 = new SlimeEnemy(getMapTile(51, 33).getLocation(), getMapTile(63, 33).getLocation(), Direction.RIGHT);
         enemies.add(SlimeEnemy8);
 
-        SlimeEnemy SlimeEnemy9 = new SlimeEnemy(getMapTile(55, 6).getLocation(), getMapTile(60, 6).getLocation(), Direction.RIGHT);
-        enemies.add(SlimeEnemy9);
-
-        SlimeEnemy SlimeEnemy10 = new SlimeEnemy(getMapTile(60, 10).getLocation(), getMapTile(64, 10).getLocation(), Direction.LEFT, "FLIP");
+        SlimeEnemy SlimeEnemy10 = new SlimeEnemy(getMapTile(44, 29).getLocation(), getMapTile(51, 29).getLocation(), Direction.LEFT, "FLIP");
         enemies.add(SlimeEnemy10);
 
-        SlimeEnemy SlimeEnemy11 = new SlimeEnemy(getMapTile(60, 14).getLocation(), getMapTile(64, 14).getLocation(), Direction.RIGHT);
-        enemies.add(SlimeEnemy11);
-
-        WaterWizardEnemy wizard1 = new WaterWizardEnemy(getMapTile(14, 19).getLocation(), getMapTile(25, 19).getLocation(), Direction.LEFT);
-        enemies.add(wizard1);
-
-        WaterWizardEnemy wizard2 = new WaterWizardEnemy(getMapTile(3, 27).getLocation(), getMapTile(9, 27).getLocation(), Direction.LEFT);
+        WaterWizardEnemy wizard2 = new WaterWizardEnemy(getMapTile(4, 30).getLocation(), getMapTile(13, 30).getLocation(), Direction.LEFT);
         enemies.add(wizard2);
 
-        WaterWizardEnemy wizard3 = new WaterWizardEnemy(getMapTile(6, 24).getLocation(), getMapTile(12, 24).getLocation(), Direction.LEFT);
+        WaterWizardEnemy wizard3 = new WaterWizardEnemy(getMapTile(6, 24).getLocation(), getMapTile(14, 24).getLocation(), Direction.LEFT);
         enemies.add(wizard3);
 
-        WaterWizardEnemy wizard4 = new WaterWizardEnemy(getMapTile(17, 28).getLocation(), getMapTile(25, 28).getLocation(), Direction.RIGHT);
-        enemies.add(wizard4);
-
-        WaterWizardEnemy wizard5 = new WaterWizardEnemy(getMapTile(24, 13).getLocation(), getMapTile(29, 13).getLocation(), Direction.LEFT);
+        WaterWizardEnemy wizard5 = new WaterWizardEnemy(getMapTile(22, 15).getLocation(), getMapTile(29, 15).getLocation(), Direction.LEFT);
         enemies.add(wizard5);
 
-        WaterWizardEnemy wizard6 = new WaterWizardEnemy(getMapTile(21, 3).getLocation(), getMapTile(29, 3).getLocation(), Direction.LEFT);
+        WaterWizardEnemy wizard6 = new WaterWizardEnemy(getMapTile(26, 26).getLocation(), getMapTile(29, 26).getLocation(), Direction.LEFT);
         enemies.add(wizard6);
 
-        WaterWizardEnemy wizard7 = new WaterWizardEnemy(getMapTile(3, 16).getLocation(), getMapTile(10, 16).getLocation(), Direction.LEFT);
+        WaterWizardEnemy wizard7 = new WaterWizardEnemy(getMapTile(3, 16).getLocation(), getMapTile(7, 16).getLocation(), Direction.LEFT);
         enemies.add(wizard7);
 
-        WaterWizardEnemy wizard8 = new WaterWizardEnemy(getMapTile(15, 23).getLocation(), getMapTile(26, 23).getLocation(), Direction.RIGHT);
-        enemies.add(wizard8);
-
-        WaterWizardEnemy wizard9 = new WaterWizardEnemy(getMapTile(40, 24).getLocation(), getMapTile(52, 24).getLocation(), Direction.RIGHT);
+        WaterWizardEnemy wizard9 = new WaterWizardEnemy(getMapTile(41, 23).getLocation(), getMapTile(47, 23).getLocation(), Direction.RIGHT);
         enemies.add(wizard9);
 
-        WaterWizardEnemy wizard10 = new WaterWizardEnemy(getMapTile(43, 18).getLocation(), getMapTile(51, 18).getLocation(), Direction.RIGHT);
+        WaterWizardEnemy wizard10 = new WaterWizardEnemy(getMapTile(42, 16).getLocation(), getMapTile(48, 16).getLocation(), Direction.RIGHT);
         enemies.add(wizard10);
-
-        WaterWizardEnemy wizard11 = new WaterWizardEnemy(getMapTile(44, 7).getLocation(), getMapTile(52, 7).getLocation(), Direction.RIGHT);
-        enemies.add(wizard11);
 
         WaterBoss waterBoss = new WaterBoss(getMapTile(60, 29).getLocation().subtractX(70).subtractY(145), getMapTile(60, 29).getLocation().subtractX(70).subtractY(145), Direction.LEFT);
         enemies.add(waterBoss);
-
 
         return enemies;
 
