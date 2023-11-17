@@ -16,6 +16,10 @@ import Players.RockAttack;
 
 import java.util.ArrayList;
 
+import Enemies.AngelBoss;
+import Enemies.CloudEnemy;
+import Enemies.AngelBoss.AngelState;
+
 public abstract class Player extends GameObject{
     // values that affect player movement
     // these should be set in a subclass
@@ -626,7 +630,8 @@ public abstract class Player extends GameObject{
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
             // if map entity is an enemy, Check lives, Hurt player if lives > 1, Kill player if collision with 1 life
-            if (mapEntity instanceof Enemy){
+            //Need 2nd part of if statement so player doesn't get hurt by dead angel when it's falling
+            if (mapEntity instanceof Enemy &&(ScreenCoordinator.getGameState()!=GameState.LEVEL5 || AngelBoss.getAngelState()!=AngelState.DEAD || mapEntity instanceof CloudEnemy)){
                 if(lives != 1){                    
                     playerState = PlayerState.HURT; 
                     lives--;                                                  
@@ -777,5 +782,9 @@ public abstract class Player extends GameObject{
 
     public static int getLives(){
         return Player.lives;
+    }
+
+    public static void setLives(int lives){
+        Player.lives = lives;
     }
 }

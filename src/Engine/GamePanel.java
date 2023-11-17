@@ -130,19 +130,20 @@ public class GamePanel extends JPanel {
 	public void update() {
 		updatePauseState();
 		updateShowFPSState();
-		if(Player.getLives()==3 && !lostOrCleared){
+		//Added last part to stop hearts temporarily drawing when touching invisible enemy
+		if(Player.getLives()==3 && !lostOrCleared && !InvisibleEnemy.getPlayerTouchedInvisible()){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart1.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart3.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
 			heart1.draw(graphicsHandler);
-		}else if(Player.getLives()==2 && !lostOrCleared){
+		}else if(Player.getLives()==2 && !lostOrCleared && !InvisibleEnemy.getPlayerTouchedInvisible()){
 			heart3.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(0, 0, 48, 48));
 			heart3.draw(graphicsHandler);
 			heart2.draw(graphicsHandler);
-		}else if(Player.getLives()==1 && !lostOrCleared){
+		}else if(Player.getLives()==1 && !lostOrCleared && !InvisibleEnemy.getPlayerTouchedInvisible()){
 			heart2.setImage(ImageLoader.load("Hearts.png").getSubimage(49, 0, 48, 48));
 			heart2.draw(graphicsHandler);
 		}
@@ -249,8 +250,9 @@ public class GamePanel extends JPanel {
 		else if(currentAbility==2) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), lightningHUDx, lightningHUDy);
 		else if(currentAbility==3) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), glideHUDx, glideHUDy);
 		else if(currentAbility==4) abilityMarker = new Sprite(ImageLoader.load("AbilityMarker.png"), rockHUDx, rockHUDy);
-
-		abilityMarker.draw(graphicsHandler);
+		
+		//Stops marker flashing up before game starts
+		if(ScreenCoordinator.getGameState()!=GameState.MENU) abilityMarker.draw(graphicsHandler);
 	}
 
 	public void draw() {
@@ -316,7 +318,7 @@ public class GamePanel extends JPanel {
 			ScreenCoordinator.getGameState() == GameState.LEVEL3 || 
 			ScreenCoordinator.getGameState() == GameState.LEVEL4 ||
 			ScreenCoordinator.getGameState() == GameState.LEVEL5 || 
-			ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared){
+			ScreenCoordinator.getGameState() == GameState.LEVEL6) && !lostOrCleared && ScreenCoordinator.getGameState()!=GameState.MENU){
 			abilityMarker.draw(graphicsHandler);
 		}
 	}

@@ -436,6 +436,8 @@ public class FinalBoss extends Enemy {
                                         ElementalAbilityListenerManager.fireballKilledEnemy();
                                         // set trees spawned to 0 so that he respawns trees after getting hit
                                         treesSpawned = 0;
+                                        //Add life when completing a phase
+                                        if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
                                 }
                         }
                 } else if (lives >= 10) {
@@ -451,9 +453,10 @@ public class FinalBoss extends Enemy {
                                         ElementalAbilityListenerManager.waveKilledEnemy();
                                         // set firewisp spawned to 0 so that he respawns firewisps after getting hit
                                         fireWispsSpawned = 0;
-                                        } 
-                                }
+                                        if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
+                                } 
                         }
+                }
                 //ELectric Ability
                 else if (lives >= 7){ 
                         if (activeRockAttack != null && slimeEnemiesAlive == 0){
@@ -467,10 +470,11 @@ public class FinalBoss extends Enemy {
                                         ElementalAbilityListenerManager.rockAttackKilledEnemy();
                                         // set firewisp spawned to 0 so that he respawns firewisps after getting hit
                                         slimeEnemiesSpawned = 0;
-                                        } 
-                                }
-                                
+                                        if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
+                                } 
                         }
+                                
+                }
                 /* 
                 else if (lives >= 4){
                         Key GLIDE_KEY = Key.SHIFT;
@@ -481,6 +485,7 @@ public class FinalBoss extends Enemy {
                                         isInvincibleCounter = 40;
                                         shootWaitTimer = 150;
                                         sendBossLives();
+                                        if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
                                 } 
                         }
                 }
@@ -498,6 +503,7 @@ public class FinalBoss extends Enemy {
                                         ElementalAbilityListenerManager.rockAttackKilledEnemy();
                                         // set firewisp spawned to 0 so that he respawns cloudEnemies after getting hit
                                         cloudEnemiesSpawned = 0;
+                                        if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
                                 }
                         }
                 }
