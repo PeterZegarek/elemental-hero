@@ -24,7 +24,7 @@ public class EarthMap extends Map {
         super("EarthMap.txt", new EarthTileset());
         // typical is 4, 18
         // to test the skeleton boss, do 47, 25
-        this.playerStartPosition = getMapTile(47, 25).getLocation();
+        this.playerStartPosition = getMapTile(4, 18).getLocation();
     }
 
     @Override
