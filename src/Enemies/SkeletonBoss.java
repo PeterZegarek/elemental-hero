@@ -46,6 +46,7 @@ public class SkeletonBoss extends Enemy {
                 super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("SkeletonEnemy.png"), 63, 63),"STAND_LEFT");
                 this.startLocation = startLocation;
                 this.startFacingDirection = facingDirection;
+                isUpdateOffScreen = true;
                 this.initialize();
         }
 
@@ -173,7 +174,7 @@ public class SkeletonBoss extends Enemy {
                                         currentAnimationName = "HURT_RIGHT";
                                 }
                                 hurtTimer = 60;
-                        } else if (lives == 0) {
+                        } else if (lives <= 1) {
                                 isOnMap = false;
                                 // This makes the enemy disappear
                                 enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
