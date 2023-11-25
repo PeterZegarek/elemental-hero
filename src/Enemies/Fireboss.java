@@ -1,5 +1,7 @@
 package Enemies;
 
+
+import Enemies.Fireball;
 import Builders.FrameBuilder;
 import Enemies.SlimeEnemy.SlimeState;
 import Engine.ImageLoader;

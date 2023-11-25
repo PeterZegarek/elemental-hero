@@ -37,4 +37,8 @@ public class Point {
     public String toString() {
         return String.format("(%s, %s)", x, y);
     }
+
+    public static float distance(Point location, Point location2) {
+        return 0;
+    }
 }
