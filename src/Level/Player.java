@@ -68,8 +68,8 @@ public abstract class Player extends GameObject{
     protected Key FIREBALL_KEY = Key.F;
     // adding wave key F
     protected Key WAVE_KEY = Key.F;
-    //adding glide key SHIFT
-    protected Key GLIDE_KEY = Key.SHIFT;
+    //adding glide key F
+    protected Key GLIDE_KEY = Key.F;
     //adding earth ability key F
     protected Key EARTH_ATTACK_KEY = Key.F;
     //adding eelectric ability key F
