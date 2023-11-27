@@ -17,7 +17,7 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the Angry WaterWizard that throws WAVEs
+// This class is for the WaterWizard that Shoots WAVEs
 // It SWIMs back and forth between two set points (startLocation and endLocation)
 // Every so often (based on shootTimer) it will throw a WAVE enemy
 public class WaterWizardEnemy extends Enemy {
@@ -32,10 +32,10 @@ public class WaterWizardEnemy extends Enemy {
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
 
-    // timer is used to determine how long WaterWizard freezes in place before shooting branch
+    // timer is used to determine how long WaterWizard freezes in place before shooting wave
     protected int shootWaitTimer;
 
-    // timer is used to determine when a branch is to be shot out
+    // timer is used to determine when a wave is to be shot out
     protected int shootTimer;
 
     // can be either SWIM or SHOOT based on what the enemy is currently set to do
@@ -105,7 +105,7 @@ public class WaterWizardEnemy extends Enemy {
             }
 
             // if WaterWizard reaches the start or end location, it turns around
-            // dinosaur may end up going a bit past the start or end location depending on movement speed
+            // WaterWizard may end up going a bit past the start or end location depending on movement speed
             // this calculates the difference and pushes the enemy back a bit so it ends up right on the start or end location
             if (getX1() + getWidth() >= endBound) {
                 float difference = endBound - (getX2());
@@ -176,15 +176,10 @@ public class WaterWizardEnemy extends Enemy {
             // reset shoot wait timer so the process can happen again (WaterWizard SWIMs around, then waits, then shoots)
             shootWaitTimer = 150;
         }
-        if (activeRockAttack != null){
-            if (intersects(activeRockAttack)){
-                    isInvincible = true;
-                    isInvincibleCounter = 20; 
-                    waterWizardState = WaterWizardState.DEATH; 
-                    enemyAttacked(this);
-                    // broadcast so the fireball disappears
-                    ElementalAbilityListenerManager.rockAttackKilledEnemy();
-                }
+        if (Player.getIsElectricOn() == true){
+            if (intersects(player)){
+                enemyAttacked(this);
+            }
         }
 
         super.update(player);
@@ -195,7 +190,7 @@ public class WaterWizardEnemy extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if dinosaur enemy collides with something on the x axis, it turns around and SWIMs the other way
+        // if WaterWizard enemy collides with something on the x axis, it turns around and SWIMs the other way
         if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -206,11 +201,14 @@ public class WaterWizardEnemy extends Enemy {
             }
         }
     }
-    //Shouldn't need this.. unless the wave hits the enemy, which it shouldn't
-    //@Override
-    //public void enemyAttacked(Enemy enemy){
-    //    this.WaterWizardDeath();
-    //}
+
+    @Override
+        public void enemyAttacked(Enemy enemy) {
+                waterWizardState = WaterWizardState.DEATH;
+                isInvincible = true;
+                isInvincibleCounter = 40;
+                shootWaitTimer = 150;
+        }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

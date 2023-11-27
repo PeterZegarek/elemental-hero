@@ -415,6 +415,26 @@ public class Hero extends Player {
                             .withBounds(6,5,15,18)
                             .build(),
             });
+            put("ELECTRIC_ATTACK_NORMAL", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(5, 0), 14)
+                            .withScale(3)
+                            .withBounds(8,6,8,14)
+                            .build(),  
+                    new FrameBuilder(spriteSheet.getSprite(5, 2), 30)
+                            .withScale(3)
+                            .withBounds(8,6,8,14)
+                            .build(),          
+            });
+            put("ELECTRIC_ATTACK_WATER", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(5, 0), 14)
+                            .withScale(3)
+                            .withBounds(6,5,15,18)
+                            .build(),  
+                    new FrameBuilder(spriteSheet.getSprite(5, 2), 30)
+                            .withScale(3)
+                            .withBounds(6,5,15,18)
+                            .build(),          
+            });
         }};
     }
 }

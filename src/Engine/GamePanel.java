@@ -190,6 +190,12 @@ public class GamePanel extends JPanel {
 			glideHUD = new Sprite(ImageLoader.load("GlideHUD.png").getSubimage(0, 0, 38, 37), glideHUDx, glideHUDy);
 		}
 
+		if(Player.getIsElectricOn()){
+			lightningHUD = new Sprite(ImageLoader.load("LightningHUD.png").getSubimage(37, 0, 38, 37), lightningHUDx, lightningHUDy);
+		}else {
+			lightningHUD = new Sprite(ImageLoader.load("LightningHUD.png").getSubimage(0, 0, 38, 37), lightningHUDx, lightningHUDy);
+		}
+
 		if(Player.getRockOnCooldown()){
 			rockHUD = new Sprite(ImageLoader.load("RockHUD.png").getSubimage(37, 0,38, 37), rockHUDx, rockHUDy);
 		}else{

@@ -105,11 +105,9 @@ public class SlimeEnemy extends Enemy implements BossLivesListener {
         } 
 
         // will need to be changed to electric attack
-        if (activeRockAttack != null){
-                if (intersects(activeRockAttack)){
+        if (Player.getIsElectricOn() == true){
+                if (intersects(player)){
                     enemyAttacked(this);
-                    // broadcast so the fireball disappears
-                    ElementalAbilityListenerManager.rockAttackKilledEnemy();
                 }
             }
  

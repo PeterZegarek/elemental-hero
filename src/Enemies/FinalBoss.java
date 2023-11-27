@@ -457,40 +457,23 @@ public class FinalBoss extends Enemy {
                                 } 
                         }
                 }
-                //ELectric Ability
+                //Electric Ability
                 else if (lives >= 7){ 
-                        if (activeRockAttack != null && slimeEnemiesAlive == 0){
-                                if (intersects(activeRockAttack)){ 
+                        if (Player.getIsElectricOn() == true && slimeEnemiesAlive == 0){
+                                if (intersects(player)){ 
                                         bossState = BossState.HURT;
                                         isInvincible = true;
                                         isInvincibleCounter = 40;
                                         shootWaitTimer = 150;
-                                        sendBossLives();
-                                        // broadcast to the fireball that it killed something so it should disappear
-                                        ElementalAbilityListenerManager.rockAttackKilledEnemy();
-                                        // set firewisp spawned to 0 so that he respawns firewisps after getting hit
+                                        sendBossLives();                                       
                                         slimeEnemiesSpawned = 0;
                                         if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
                                 } 
                         }
                                 
                 }
-                /* 
-                else if (lives >= 4){
-                        Key GLIDE_KEY = Key.SHIFT;
-                        if (Keyboard.isKeyDown(GLIDE_KEY)){
-                                if(intersects(player)){
-                                        bossState = BossState.HURT;
-                                        isInvincible = true;
-                                        isInvincibleCounter = 40;
-                                        shootWaitTimer = 150;
-                                        sendBossLives();
-                                        if((Player.getLives()!=3 || Player.getLives()!=0) && lives%3==1) Player.setLives(Player.getLives()+1);
-                                } 
-                        }
-                }
-                */
-                else if (/*lives < 4 && */lives >= 1){
+                //Rock Ability          
+                else if (lives < 4 && lives >= 1){
                         // if there are no CloudEnemies left then he can take damage
                         if (activeRockAttack != null && cloudEnemiesAlive == 0) {
                                 if (intersects(activeRockAttack)) {

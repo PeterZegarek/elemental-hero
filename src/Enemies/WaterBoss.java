@@ -1,7 +1,6 @@
 package Enemies;
 
 import Builders.FrameBuilder;
-import Enemies.SlimeEnemy.SlimeState;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import GameObject.Frame;
@@ -9,11 +8,8 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
-import Level.LevelState;
 import Level.MapEntityStatus;
 import Level.Player;
-import Level.PlayerState;
-import Players.Wave;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -92,7 +88,7 @@ public class WaterBoss extends Enemy {
                                 isInvincible = false;
                                 lives--;
                                 if(lives > 0){
-                                        bossState = BossState.SHOOT_WAIT;
+                                        bossState = BossState.STAND;
                                 } 
                                 else{
                                         this.mapEntityStatus = MapEntityStatus.REMOVED; 
@@ -101,7 +97,7 @@ public class WaterBoss extends Enemy {
                         super.update(player);
                 }
 
-                // if shoot timer is up and WaterWizard is not currently shooting, set its state
+                // if shoot timer is up and WaterBoss is not currently shooting, set its state
                 // to SHOOT
                 if (shootWaitTimer == 0 && bossState != BossState.SHOOT_WAIT) {
                         bossState = BossState.SHOOT_WAIT;
@@ -109,9 +105,7 @@ public class WaterBoss extends Enemy {
                         shootWaitTimer--;
                 }
 
-                // if BossWizard is waiting to shoot, it does its animations then throws the
-                // WAVE
-                // after this waiting period is over, the WAVE is thrown
+                // if Boss is waiting to shoot, it does its animations then throws the
                 if (bossState == BossState.SHOOT_WAIT) {
                         if (previousBossState == BossState.STAND) {
                                 if (lives >= 3)  {
@@ -130,7 +124,7 @@ public class WaterBoss extends Enemy {
                                 
                         
                                 shootTimer = 100;
-                                // This line of code takes the current direction the WaterWizard is facing and
+                                // This line of code takes the current direction the WaterBoss is facing and
                                 // makes it shoot in that direction
                                 // If facingdirection is right, it shoots right, else it shoots left
                                 // currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_LEFT" :
@@ -166,10 +160,10 @@ public class WaterBoss extends Enemy {
                                 spawnEndLevelBox();  
                         }
                 }
-                // this is for actually having the WaterWizard shoot the wave
+                // this is for actually having the WaterBoss shoot the wave
                 else if (bossState == BossState.SHOOT) {
                         this.currentAnimationName = "HIDDEN";
-                        // define where WAVE will spawn on map (x location) relative to WaterWizard's
+                        // define where WAVE will spawn on map (x location) relative to WaterBoss's
                         // location
                         // and define its movement speed
                         int waveX;
@@ -180,18 +174,12 @@ public class WaterBoss extends Enemy {
 
                         }
 
-                        // define where wave will spawn on the map (y location) relative to
-                        // WaterWizard's location
                         int waveY = Math.round(getY() - 16);
 
-                        // create Wave enemies
-                        //Wave waveAttackLeft = new Wave(waveX, waveY, Direction.LEFT);
-                        //Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
-
-                        //create FireBall enemies
+                        //create Kraken enemy
                         KrakenEnemy Kraken = new KrakenEnemy(new Point(waveX - 305, waveY - 100),  150);
 
-                        // add WAVE enemy to the map for it to spawn in the level
+                        // add Kraken enemy to the map for it to spawn in the level
                         map.addEnemy(Kraken);
                         // change Boss back to its Stand state after shooting, reset shootTimer to wait
                         // a certain number of frames before shooting again
@@ -203,18 +191,11 @@ public class WaterBoss extends Enemy {
                         shootWaitTimer = 150;
                         super.update(player);
                 }
-                // will need to be changed to electric attack
-                if (activeRockAttack != null){
-                        if (intersects(activeRockAttack)){
-                                bossState = BossState.HURT;
-                                isInvincible = true;
-                                isInvincibleCounter = 40;
-                                shootWaitTimer = 150;
-                                enemyAttacked(this);
-                                // broadcast so the fireball disappears
-                                ElementalAbilityListenerManager.rockAttackKilledEnemy();
+                if (Player.getIsElectricOn() == true){
+                        if (intersects(player)){
+                            enemyAttacked(this);
                         }
-                }
+                    }
                 
                 super.update(player);
 
@@ -288,7 +269,7 @@ public class WaterBoss extends Enemy {
                                                                 .withScale(scale)
                                                                 .withBounds(85, 40, 75, 100)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(0, 3), 1)
+                                                new FrameBuilder(spriteSheet.getSprite(0, 3), 14)
                                                                 .withScale(scale)
                                                                 .withBounds(15, 55, 100, 35)
                                                                 .build(),
@@ -305,7 +286,7 @@ public class WaterBoss extends Enemy {
                                 put("HURT_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
                                                                 .withScale(scale)
-                                                                .withBounds(15, 35, 100, 100)
+                                                                .withBounds(0, 0, 0, 0)
                                                                 .build(),
                                 });
                                 put("DEATH_LEFT", new Frame[] {

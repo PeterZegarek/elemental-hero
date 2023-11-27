@@ -50,6 +50,9 @@ public abstract class Player extends GameObject{
     //keeps track of glide power and whether it is on or not
     protected static boolean isGlideOn = false;
 
+    //keeps track of electric power and whether it is on or not
+    protected static boolean isElectricOn = false;
+
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
@@ -69,17 +72,23 @@ public abstract class Player extends GameObject{
     protected Key GLIDE_KEY = Key.SHIFT;
     //adding earth ability key F
     protected Key EARTH_ATTACK_KEY = Key.F;
+    //adding eelectric ability key F
+    protected Key ELECTRIC_ATTACK_KEY = Key.F;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
     protected static boolean fireballOnCooldown = false; // Whether fireball is on cooldown
     protected static boolean waveOnCooldown = false; // Whether wave is on cooldown
     protected static boolean rockOnCooldown = false;
+    protected static boolean electricOnCooldown = false;
+    protected static boolean keyOnCooldown = false;
 
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
     protected static int fireballCooldownCounter;
     protected static int waveCooldownCounter;
     protected static int rockCooldownCounter;
+    protected static int electricCooldownCounter;
+    protected static int keyLockCooldown;
 
     protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
@@ -112,6 +121,21 @@ public abstract class Player extends GameObject{
         if(rockCooldownCounter>0){
             rockCooldownCounter--;
             if(rockCooldownCounter==0) rockOnCooldown = false;
+        }
+
+        if(electricCooldownCounter > 0){
+            electricCooldownCounter--;
+            if(electricCooldownCounter==0) {
+                isElectricOn = false;
+            }
+        }
+
+        if(keyLockCooldown > 0){
+            keyLockCooldown--;
+            if(keyLockCooldown==0) {
+                keyOnCooldown = false;
+                keyLocker.unlockKey(ELECTRIC_ATTACK_KEY);
+            }
         }
 
         //cooldown counter for invincibility
@@ -371,8 +395,11 @@ public abstract class Player extends GameObject{
             // sets animation to a STAND animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
             //Makes Hurt Animation stay while standing
-            if (isInvincible == true){
+            if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
+                }
+            else if (isElectricOn == true && isInvincible == true ){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             }
         
@@ -383,9 +410,12 @@ public abstract class Player extends GameObject{
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
             //Makes Hurt Animation stay while walking
-            if (isInvincible == true){
+            if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_WALK_RIGHT" : "HURT_WALK_LEFT";    
                 }  
+            else if (isElectricOn == true && isInvincible == true ){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
+                }
             // handles putting goggles on when standing in water
             // checks if the center of the player is currently touching a water tile
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
@@ -398,9 +428,12 @@ public abstract class Player extends GameObject{
         else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
-            if (isInvincible == true){
+            if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 } 
+            else if (isElectricOn == true && isInvincible == true ){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
+                }
             // handles putting goggles on when standing in water
             // checks if the center of the player is currently touching a water tile
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
@@ -415,14 +448,20 @@ public abstract class Player extends GameObject{
             if (lastAmountMovedY <= 0 && gameState != GameState.LEVEL3) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
                 //Makes Hurt Animation stay while jumping
-                if (isInvincible == true){
+                if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
+                }
+                else if (isElectricOn == true && isInvincible == true ){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while falling
-                if (isInvincible == true){
+                if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
+                }
+                else if (isElectricOn == true && isInvincible == true ){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             }
         }
@@ -434,23 +473,35 @@ public abstract class Player extends GameObject{
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER&& Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
                     
-                    if (isInvincible == true){
+                    if (isInvincible == true && isElectricOn == false){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
-                   }
+                    }
+                    else if (isElectricOn == true && isInvincible == true){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
+                    }
                 }       
                 else{
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
 
-                    if (isInvincible == true){
+                    if (isInvincible == true && isElectricOn == false){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
-                   }
+                    }
+                    else if (isElectricOn == true && isInvincible == true){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
+                    }
                 }     
             }           
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while falling
-                if (isInvincible == true){
+                if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
+                }
+                else if (isElectricOn == true && isInvincible == true && gameState == GameState.LEVEL3){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
+                }
+                else if (isElectricOn == true && isInvincible == true ){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
                 // handles putting goggles on when standing in water
                 // checks if the center of the player is currently touching a water tile
@@ -460,9 +511,12 @@ public abstract class Player extends GameObject{
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
 
-                    if (isInvincible == true){
+                if (isInvincible == true && isElectricOn == false){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_RIGHT" : "HURT_SWIM_LEFT";    
                     }
+                else if (isElectricOn == true && isInvincible == true){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
+                    }        
                 }            
             }
         }           
@@ -478,16 +532,19 @@ public abstract class Player extends GameObject{
                 }
 
                 //Makes Hurt Animation stay while swimming
-                if (isInvincible == true){
+                if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";
                 }
-        }
+                else if (isElectricOn == true && isInvincible == true){
+                    this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
+                }
+            }
          
         // if the fireball key is being pressed spit one out as long as the cooldown is good.
         // If we plan to make the ability unlockable, all we need is another condition in this statement
         if ((Keyboard.isKeyDown(FIREBALL_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && (GamePanel.getCurrentAbility()==0)){
             fireballSpit(getX(), getY(), getFacingDirection());
-        }
+            }
         
         if((Keyboard.isKeyDown(WAVE_KEY)) && (waveOnCooldown==false) && (isInvincible == false) && (GamePanel.getCurrentAbility()==1)){
             waveAttack(getX(), getY(), getFacingDirection());
@@ -509,7 +566,20 @@ public abstract class Player extends GameObject{
             }
         }
 
+        if(Keyboard.isKeyDown(ELECTRIC_ATTACK_KEY) && isInvincible == false && !keyLocker.isKeyLocked(ELECTRIC_ATTACK_KEY) && (GamePanel.getCurrentAbility()==2)){
+            
+            isInvincibleCounter = 75;
+            isInvincible = true;
+
+            electricCooldownCounter = 75;
+            isElectricOn = true;
         
+            keyLockCooldown = 75;
+            keyOnCooldown = true;           
+        }
+        
+
+
         if((Keyboard.isKeyDown(LEVEL_KEY))){
             //This just completes the level, taken from method updateLevelCompleted()
             for (PlayerListener listener : listeners) {
@@ -546,10 +616,8 @@ public abstract class Player extends GameObject{
         
         rockCooldownCounter = 150;
         rockOnCooldown = true;
-        
-        
+         
         }
-        
 
     // x and y are the player's positions, directions is the direction they are facing
     public void fireballSpit(float x, float y, Direction direction){
@@ -766,6 +834,10 @@ public abstract class Player extends GameObject{
 
     public static boolean getIsGlideOn(){
         return Player.isGlideOn;
+    }
+
+    public static boolean getIsElectricOn(){
+        return Player.isElectricOn;
     }
 
     public static void setCooldownCounter(int cooldownCounter){
