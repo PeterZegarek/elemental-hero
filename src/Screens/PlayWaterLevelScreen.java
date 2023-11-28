@@ -11,6 +11,8 @@ import Level.PlayerListener;
 import Maps.WaterMap; 
 import Players.Hero;
 import Utils.Point;
+import Engine.Sound;
+
 
 // This class is for when the platformer game is actually being played
 public class PlayWaterLevelScreen extends Screen implements PlayerListener {
@@ -23,6 +25,7 @@ public class PlayWaterLevelScreen extends Screen implements PlayerListener {
     protected WaterLoseScreen WaterLoseScreen;
     protected boolean levelCompletedStateChangeStart;
 
+
     public PlayWaterLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
@@ -30,6 +33,8 @@ public class PlayWaterLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // define/setup map
         map = new WaterMap();
+        
+        Sound.play(3);
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);

@@ -24,7 +24,7 @@ public class ScreenCoordinator extends Screen {
 	protected GameState previousGameState;
 
  	//Create an instance of the sound class
-	private Sound backgroundMusic = new Sound();
+	//private Sound backgroundMusic = new Sound();
 
 	public static GameState getGameState() {
 		return gameState;

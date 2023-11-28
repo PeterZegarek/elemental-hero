@@ -11,6 +11,7 @@ import Level.PlayerListener;
 import Maps.FireMap; 
 import Players.Hero;
 import Utils.Point;
+import Engine.Sound;
 
 // This class is for when the platformer game is actually being played
 public class PlayFireLevelScreen extends Screen implements PlayerListener {
@@ -30,6 +31,8 @@ public class PlayFireLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // define/setup map
         map = new FireMap();
+
+        Sound.play(2);
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
