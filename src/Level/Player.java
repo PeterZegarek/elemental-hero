@@ -107,6 +107,9 @@ public abstract class Player extends GameObject{
 
     public void update() {
         
+        if (lives > 3){
+            lives = 3;
+        }
         moveAmountX = 0;
         moveAmountY = 0;
 
@@ -203,7 +206,7 @@ public abstract class Player extends GameObject{
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
         switch (playerState) {
-            case HURT:                
+            case HURT:               
                 playerHurt();              
                 break;
             case STANDING:

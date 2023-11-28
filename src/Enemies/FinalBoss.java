@@ -140,7 +140,7 @@ public class FinalBoss extends Enemy {
                                 spawnFireWisps(true);
                         }
                 } else if (lives < 10 && lives > 7) {
-                        if (slimeEnemiesSpawned < 7) {
+                        if (slimeEnemiesSpawned < 6) {
                                 spawnSlimeEnemies(true);
                         }
                 } else if (lives < 7 && lives > 4) {
@@ -152,7 +152,7 @@ public class FinalBoss extends Enemy {
                         if (isElectricHitboxActive) {
                                 deleteElectricHitbox();
                         }
-                        if (cloudEnemiesSpawned < 3) {
+                        if (cloudEnemiesSpawned < 2) {
                                 spawnCloudEnemies(true);
                         }
                 }
@@ -321,15 +321,15 @@ public class FinalBoss extends Enemy {
                         Fireball fireball2 = new Fireball(map.getMapTile(16, 9).getLocation().addY(10), -movementSpeed,
                                         150);
                         fireball2.setScale(5);
-                        Fireball fireball3 = new Fireball(map.getMapTile(19, 6).getLocation().addY(10), -movementSpeed,
-                                        120);
-                        fireball3.setScale(5);
+                        // Fireball fireball3 = new Fireball(map.getMapTile(19, 6).getLocation().addY(10), -movementSpeed,
+                        //                 120);
+                        // fireball3.setScale(5);
                         Fireball fireball4 = new Fireball(map.getMapTile(29, 11).getLocation().addY(10), movementSpeed,
                                         120);
                         fireball4.setScale(5);
-                        Fireball fireball5 = new Fireball(map.getMapTile(30, 6).getLocation().addY(10), movementSpeed,
-                                        150);
-                        fireball5.setScale(5);
+                        // Fireball fireball5 = new Fireball(map.getMapTile(30, 6).getLocation().addY(10), movementSpeed,
+                        //                 150);
+                        // fireball5.setScale(5);
                         Fireball fireball6 = new Fireball(map.getMapTile(33, 9).getLocation().addY(10), movementSpeed,
                                         120);
                         fireball6.setScale(5);
@@ -338,10 +338,10 @@ public class FinalBoss extends Enemy {
                         float momentumY = 30f;
                         Arrow arrow1 = new Arrow(map.getMapTile(10, 1).getLocation(), 2, momentumY, "RIGHT");
                         Arrow arrow2 = new Arrow(map.getMapTile(12, 1).getLocation(), 2, momentumY, "RIGHT");
-                        Arrow arrow3 = new Arrow(map.getMapTile(14, 1).getLocation(), 2, momentumY, "RIGHT");
+                        // Arrow arrow3 = new Arrow(map.getMapTile(14, 1).getLocation(), 2, momentumY, "RIGHT");
                         Arrow arrow4 = new Arrow(map.getMapTile(39,1).getLocation(), -2, momentumY, "LEFT");
                         Arrow arrow5 = new Arrow(map.getMapTile(37,1).getLocation(), -2, momentumY, "LEFT");
-                        Arrow arrow6 = new Arrow(map.getMapTile(35,1).getLocation(), -2, momentumY, "LEFT");
+                        // Arrow arrow6 = new Arrow(map.getMapTile(35,1).getLocation(), -2, momentumY, "LEFT");
 
                         // add enemies to the map for it to spawn in the level
                         if (previousAnimationName == "EARTH_SHOOT_LEFT" || previousAnimationName == "FIRE_SHOOT_LEFT"
@@ -359,9 +359,9 @@ public class FinalBoss extends Enemy {
                                         else if(lives >= 10){
                                                 map.addEnemy(fireball1);
                                                 map.addEnemy(fireball2);
-                                                map.addEnemy(fireball3);
+                                                // map.addEnemy(fireball3);
                                                 map.addEnemy(fireball4);
-                                                map.addEnemy(fireball5);
+                                                // map.addEnemy(fireball5);
                                                 map.addEnemy(fireball6);
                                                 //map.addEnemy(fireball7);
                                                 //map.addEnemy(fireball8);
@@ -375,10 +375,10 @@ public class FinalBoss extends Enemy {
                                         else if (lives >= 1){
                                                 map.addEnemy(arrow1);
                                                 map.addEnemy(arrow2);
-                                                map.addEnemy(arrow3);
+                                                // map.addEnemy(arrow3);
                                                 map.addEnemy(arrow4);
                                                 map.addEnemy(arrow5);
-                                                map.addEnemy(arrow6);
+                                                // map.addEnemy(arrow6);
                                         }
                                 }
                         } else {
@@ -393,9 +393,9 @@ public class FinalBoss extends Enemy {
                                         else if(lives >= 10){
                                                 map.addEnemy(fireball1);
                                                 map.addEnemy(fireball2);
-                                                map.addEnemy(fireball3);
+                                                // map.addEnemy(fireball3);
                                                 map.addEnemy(fireball4);
-                                                map.addEnemy(fireball5);
+                                                // map.addEnemy(fireball5);
                                                 map.addEnemy(fireball6);
                                         }
                                         else if(lives >= 7){
@@ -407,10 +407,10 @@ public class FinalBoss extends Enemy {
                                         else if (lives >= 1){
                                                 map.addEnemy(arrow1);
                                                 map.addEnemy(arrow2);
-                                                map.addEnemy(arrow3);
+                                                // map.addEnemy(arrow3);
                                                 map.addEnemy(arrow4);
                                                 map.addEnemy(arrow5);
-                                                map.addEnemy(arrow6);
+                                                // map.addEnemy(arrow6);
                                         }
                                 }
                         }
@@ -649,11 +649,6 @@ public class FinalBoss extends Enemy {
                         slimeEnemiesSpawned++;
                         slimeEnemiesAlive++;
 
-                        SlimeEnemy SlimeEnemy7 = new SlimeEnemy(map.getMapTile(23, 6).getLocation(), map.getMapTile(27, 6).getLocation(), Direction.LEFT, "FLIP");
-                        slimeEnemies.add(SlimeEnemy7);
-                        map.addEnemy(SlimeEnemy7);
-                        slimeEnemiesSpawned++;
-                        slimeEnemiesAlive++;
                 } else {
                         // spawn 1 slimeEnemy at a time
                 }
@@ -685,12 +680,6 @@ public class FinalBoss extends Enemy {
                         cloudEnemiesSpawned++;
                         cloudEnemiesAlive++;
 
-                        CloudEnemy cloud3 = new CloudEnemy(map.getMapTile(22, 2).getLocation().addY(25),
-                                        map.getMapTile(27, 2).getLocation().addY(25), Direction.RIGHT, 1.5f);
-                        cloudEnemies.add(cloud3);
-                        map.addEnemy(cloud3);
-                        cloudEnemiesSpawned++;
-                        cloudEnemiesAlive++;
 
                         CloudEnemy cloud4 = new CloudEnemy(map.getMapTile(32, 11).getLocation().addY(10),
                                         map.getMapTile(38, 11).getLocation().addY(10), Direction.RIGHT, 1.5f);
@@ -770,12 +759,6 @@ public class FinalBoss extends Enemy {
                         map.addEnhancedMapTile(tornado1);
                         listeners.add(tornado1);
 
-                        Tornado tornado2 = new Tornado(map.getMapTile(13, 9).getLocation().subtractY(20),
-                                        map.getMapTile(16, 9).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
-                                        Direction.RIGHT);
-                        map.addEnhancedMapTile(tornado2);
-                        listeners.add(tornado2);
-
                         Tornado tornado3 = new Tornado(map.getMapTile(17, 6).getLocation().subtractY(20),
                                         map.getMapTile(19, 6).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
                                         Direction.RIGHT);
@@ -794,11 +777,6 @@ public class FinalBoss extends Enemy {
                         map.addEnhancedMapTile(tornado5);
                         listeners.add(tornado5);
 
-                        Tornado tornado6 = new Tornado(map.getMapTile(33, 9).getLocation().subtractY(20),
-                                        map.getMapTile(36, 9).getLocation().subtractY(20), random.nextFloat() * 2 + 3,
-                                        Direction.RIGHT);
-                        map.addEnhancedMapTile(tornado6);
-                        listeners.add(tornado6);
 
                         tornadoesSpawned = true;
                 }
@@ -808,8 +786,6 @@ public class FinalBoss extends Enemy {
                 EndLevelBox endLevelBox1 = new EndLevelBox(map.getMapTile(24, 9).getLocation());
                 map.addEnhancedMapTile(endLevelBox1);
 
-                EndLevelBox endLevelBox2 = new EndLevelBox(map.getMapTile(25, 9).getLocation());
-                map.addEnhancedMapTile(endLevelBox2);
         }
 
         @Override
