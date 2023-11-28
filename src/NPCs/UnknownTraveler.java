@@ -37,7 +37,7 @@ public class UnknownTraveler extends NPC {
             textbox.setFontSize(20);
         }
         else if (ScreenCoordinator.getGameState() == GameState.LEVEL4) { // Electric Level
-            textbox.setText("Watch out for lightning! Might want to jump on the clouds...                                                              ");
+            textbox.setText("                        Watch out for lightning! \nMight want to jump on the clouds... and maybe the dragon's head...                                                                       ");
             textbox.setFontSize(20);
             textbox.setX(60);
         }
