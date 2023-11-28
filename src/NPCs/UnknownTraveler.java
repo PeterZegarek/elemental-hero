@@ -58,6 +58,10 @@ public class UnknownTraveler extends NPC {
             textboxOffsetX = -150;
             textboxOffsetY = -60;
         }
+        if((ScreenCoordinator.getGameState() == (GameState.LEVEL5))) {
+            textboxOffsetX = -150;
+            textboxOffsetY = -50;
+        }
     }
 
     public void update(Player player) {
