@@ -125,8 +125,6 @@ public class AirMap extends Map{
             );
         enhancedMapTiles.add(movingCloud);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(1, 14).getLocation());
-        enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
     }
