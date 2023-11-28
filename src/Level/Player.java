@@ -82,6 +82,8 @@ public abstract class Player extends GameObject{
     protected static boolean rockOnCooldown = false;
     protected static boolean electricOnCooldown = false;
     protected static boolean keyOnCooldown = false;
+    protected static boolean electricTimerOn = false;
+    
 
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
     protected static int fireballCooldownCounter;
@@ -89,6 +91,7 @@ public abstract class Player extends GameObject{
     protected static int rockCooldownCounter;
     protected static int electricCooldownCounter;
     protected static int keyLockCooldown;
+    protected static int electricTimer;
 
     protected int isInvincibleCounter; // Invincible for a couple seconds after being hit
 
@@ -123,18 +126,19 @@ public abstract class Player extends GameObject{
             if(rockCooldownCounter==0) rockOnCooldown = false;
         }
 
-        if(electricCooldownCounter > 0){
-            electricCooldownCounter--;
-            if(electricCooldownCounter==0) {
+        if(electricTimer > 0){
+            electricTimer--;
+            if(electricTimer == 0){
+                electricTimerOn = false;
                 isElectricOn = false;
             }
         }
 
-        if(keyLockCooldown > 0){
-            keyLockCooldown--;
-            if(keyLockCooldown==0) {
-                keyOnCooldown = false;
-                keyLocker.unlockKey(ELECTRIC_ATTACK_KEY);
+        if(electricCooldownCounter > 0){
+            electricCooldownCounter--;
+            if(electricCooldownCounter==0) {
+                electricTimer = 75;
+                electricTimerOn = true;      
             }
         }
 
@@ -142,7 +146,7 @@ public abstract class Player extends GameObject{
         if (isInvincibleCounter > 0){           
             isInvincibleCounter--;
             if (isInvincibleCounter == 0){                                             
-                isInvincible = false;             
+                isInvincible = false;                             
             }
         }
         // if player is currently playing through level (has not won or lost)
@@ -398,7 +402,7 @@ public abstract class Player extends GameObject{
             if (isInvincible == true && isElectricOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 }
-            else if (isElectricOn == true && isInvincible == true ){
+            else if (isElectricOn == true && isInvincible == true){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             }
@@ -566,16 +570,13 @@ public abstract class Player extends GameObject{
             }
         }
 
-        if(Keyboard.isKeyDown(ELECTRIC_ATTACK_KEY) && isInvincible == false && !keyLocker.isKeyLocked(ELECTRIC_ATTACK_KEY) && (GamePanel.getCurrentAbility()==2)){
-            
+        if(Keyboard.isKeyDown(ELECTRIC_ATTACK_KEY) && isElectricOn == false && isInvincible == false && !keyLocker.isKeyLocked(ELECTRIC_ATTACK_KEY) && GamePanel.getCurrentAbility()==2){
+
             isInvincibleCounter = 75;
             isInvincible = true;
 
             electricCooldownCounter = 75;
-            isElectricOn = true;
-        
-            keyLockCooldown = 75;
-            keyOnCooldown = true;           
+            isElectricOn = true;     
         }
         
 
