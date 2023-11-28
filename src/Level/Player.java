@@ -133,15 +133,13 @@ public abstract class Player extends GameObject{
             electricTimer--;
             if(electricTimer == 0){
                 electricTimerOn = false;
-                isElectricOn = false;
             }
         }
 
         if(electricCooldownCounter > 0){
             electricCooldownCounter--;
             if(electricCooldownCounter==0) {
-                electricTimer = 75;
-                electricTimerOn = true;      
+                isElectricOn = false;     
             }
         }
 
@@ -402,10 +400,10 @@ public abstract class Player extends GameObject{
             // sets animation to a STAND animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
             //Makes Hurt Animation stay while standing
-            if (isInvincible == true && isElectricOn == false){
+            if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 }
-            else if (isElectricOn == true && isInvincible == true){
+            else if (electricTimerOn == true && isInvincible == true){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             }
@@ -417,10 +415,10 @@ public abstract class Player extends GameObject{
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
             //Makes Hurt Animation stay while walking
-            if (isInvincible == true && isElectricOn == false){
+            if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_WALK_RIGHT" : "HURT_WALK_LEFT";    
                 }  
-            else if (isElectricOn == true && isInvincible == true ){
+            else if (electricTimerOn == true && isInvincible == true ){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             // handles putting goggles on when standing in water
@@ -435,10 +433,10 @@ public abstract class Player extends GameObject{
         else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
-            if (isInvincible == true && isElectricOn == false){
+            if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_STAND_RIGHT" : "HURT_STAND_LEFT";    
                 } 
-            else if (isElectricOn == true && isInvincible == true ){
+            else if (electricTimerOn == true && isInvincible == true ){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             // handles putting goggles on when standing in water
@@ -455,19 +453,19 @@ public abstract class Player extends GameObject{
             if (lastAmountMovedY <= 0 && gameState != GameState.LEVEL3) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
                 //Makes Hurt Animation stay while jumping
-                if (isInvincible == true && isElectricOn == false){
+                if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_JUMP_RIGHT" : "HURT_JUMP_LEFT";    
                 }
-                else if (isElectricOn == true && isInvincible == true ){
+                else if (electricTimerOn == true && isInvincible == true ){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while falling
-                if (isInvincible == true && isElectricOn == false){
+                if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
                 }
-                else if (isElectricOn == true && isInvincible == true ){
+                else if (electricTimerOn == true && isInvincible == true ){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
             }
@@ -480,20 +478,20 @@ public abstract class Player extends GameObject{
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER&& Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
                     
-                    if (isInvincible == true && isElectricOn == false){
+                    if (isInvincible == true && electricTimerOn == false){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
                     }
-                    else if (isElectricOn == true && isInvincible == true){
+                    else if (electricTimerOn == true && isInvincible == true){
                     this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
                     }
                 }       
                 else{
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND" : "SWIM_STAND";
 
-                    if (isInvincible == true && isElectricOn == false){
+                    if (isInvincible == true && electricTimerOn == false){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";    
                     }
-                    else if (isElectricOn == true && isInvincible == true){
+                    else if (electricTimerOn == true && isInvincible == true){
                     this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
                     }
                 }     
@@ -501,13 +499,13 @@ public abstract class Player extends GameObject{
             else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
                 //Makes Hurt Animation stay while falling
-                if (isInvincible == true && isElectricOn == false){
+                if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_FALL_RIGHT" : "HURT_FALL_LEFT";                         
                 }
-                else if (isElectricOn == true && isInvincible == true && gameState == GameState.LEVEL3){
+                else if (electricTimerOn == true && isInvincible == true && gameState == GameState.LEVEL3){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
-                else if (isElectricOn == true && isInvincible == true ){
+                else if (electricTimerOn == true && isInvincible == true ){
                     this.currentAnimationName = "ELECTRIC_ATTACK_NORMAL";
                 }
                 // handles putting goggles on when standing in water
@@ -518,10 +516,10 @@ public abstract class Player extends GameObject{
                 if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_RIGHT" : "SWIM_LEFT";
 
-                if (isInvincible == true && isElectricOn == false){
+                if (isInvincible == true && electricTimerOn == false){
                         this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_RIGHT" : "HURT_SWIM_LEFT";    
                     }
-                else if (isElectricOn == true && isInvincible == true){
+                else if (electricTimerOn == true && isInvincible == true){
                     this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
                     }        
                 }            
@@ -539,10 +537,10 @@ public abstract class Player extends GameObject{
                 }
 
                 //Makes Hurt Animation stay while swimming
-                if (isInvincible == true && isElectricOn == false){
+                if (isInvincible == true && electricTimerOn == false){
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "HURT_SWIM_STAND" : "HURT_SWIM_STAND";
                 }
-                else if (isElectricOn == true && isInvincible == true){
+                else if (electricTimerOn == true && isInvincible == true){
                     this.currentAnimationName = "ELECTRIC_ATTACK_WATER";
                 }
             }
@@ -578,7 +576,10 @@ public abstract class Player extends GameObject{
             isInvincibleCounter = 75;
             isInvincible = true;
 
-            electricCooldownCounter = 75;
+            electricTimer = 75;
+            electricTimerOn = true;
+
+            electricCooldownCounter = 150;
             isElectricOn = true;     
         }
         
