@@ -211,15 +211,7 @@ public class WaterBoss extends Enemy {
         }
 
         private void spawnEndLevelBox() {
-                EndLevelBox endLevelBox1 = new EndLevelBox(map.getMapTile(61, 24).getLocation());
-                map.addEnhancedMapTile(endLevelBox1);
-
-                EndLevelBox endLevelBox2 = new EndLevelBox(map.getMapTile(62, 24).getLocation());
-                map.addEnhancedMapTile(endLevelBox2);
-
-                EndLevelBox endLevelBox3 = new EndLevelBox(map.getMapTile(61, 25).getLocation());
-                map.addEnhancedMapTile(endLevelBox3);
-
+                
                 EndLevelBox endLevelBox4 = new EndLevelBox(map.getMapTile(62, 25).getLocation());
                 map.addEnhancedMapTile(endLevelBox4);
 

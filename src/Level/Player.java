@@ -725,36 +725,14 @@ public abstract class Player extends GameObject{
     }
 
     // if player has beaten level, this will be the update cycle
-    public void updateLevelCompleted() {
-        // if player is not on ground, player should fall until it touches the ground
-        if (airGroundState != AirGroundState.GROUND && map.getCamera().containsDraw(this)) {
-            currentAnimationName = "FALL_RIGHT";
-            applyGravity();
-            increaseMomentum();
-            super.update();
-            moveYHandleCollision(moveAmountY);
-        }
-        // move player to the right until it walks off screen
-        else if (map.getCamera().containsDraw(this)){
-            if(ScreenCoordinator.getGameState()== GameState.LEVEL2 || ScreenCoordinator.getGameState() == GameState.LEVEL5){
-                currentAnimationName = "WALK_LEFT";
-                super.update();
-                moveXHandleCollision(-walkSpeed);
-            }
-            else{
-                currentAnimationName = "WALK_RIGHT";
-                super.update();
-                moveXHandleCollision(walkSpeed);
-            }
-        } 
-        else {
+    public void updateLevelCompleted() {      
             // tell all player listeners that the player has finished the level
             for (PlayerListener listener : listeners) {
                 listener.onLevelCompleted();
             }
             lives = 3;
         }
-    }
+    
 
     // if player has died, this will be the update cycle
     public void updatePlayerDead() {

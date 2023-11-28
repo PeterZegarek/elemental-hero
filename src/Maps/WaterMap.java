@@ -88,13 +88,4 @@ public class WaterMap extends Map{
 
         return npcs;
     }
-     @Override
-    public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
-        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(69, 5).getLocation());
-        enhancedMapTiles.add(endLevelBox);
-
-        return enhancedMapTiles;
-    }
 }
