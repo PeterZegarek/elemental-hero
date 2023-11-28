@@ -147,7 +147,7 @@ public class Fireboss extends Enemy {
                                                        ? "STAND_LEFT"
                                                        : "STAND_LEFT";
                                }
-                              
+                
                       
                                shootTimer = 100;
                                // This line of code takes the current direction the WaterWizard is facing and
@@ -228,7 +228,7 @@ public class Fireboss extends Enemy {
                        shootWaitTimer = 150;
                        super.update(player);
                }
-               // will need to be changed to electric attack
+               // Wave attack kills fire boss
                if (activeWave != null){
                        if (intersects(activeWave)){
                                bossState = BossState.HURT;
@@ -238,6 +238,10 @@ public class Fireboss extends Enemy {
                                enemyAttacked(this);
                                // broadcast so the fireball disappears
                                ElementalAbilityListenerManager.waveKilledEnemy();
+                               if (lives <= 0)
+                               {
+                                this.mapEntityStatus = MapEntityStatus.REMOVED;
+                               }
                        }
                }
               
@@ -343,7 +347,7 @@ public class Fireboss extends Enemy {
 
                  put("HURT_LEFT", new Frame[] {
                                new FrameBuilder(spriteSheet.getSprite(0, 4), 15)
-                                                .withScale(scale)
+                                                .withScale(3)
                                                  .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                  .withBounds(26, 31,  32, 42)
                                                  .build(),
