@@ -2,6 +2,7 @@ package Enemies;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -233,6 +234,8 @@ public class AngelBoss extends Enemy {
             isOnMap = false;
             // This makes the enemy dissapear
             enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
+            EndLevelBox endLevelBox = new EndLevelBox(map.getMapTile(1, 14).getLocation());
+            map.addEnhancedMapTile(endLevelBox);
         }
     }
 
