@@ -3,6 +3,7 @@ package Level;
 import java.util.ArrayList;
 import java.util.List;
 
+import Enemies.WaveEnemy;
 import Players.PlayerFireball;
 import Players.RockAttack;
 import Players.Wave;
@@ -76,6 +77,27 @@ public class ElementalAbilityListenerManager {
     public static void waveKilledEnemy(){
         for (ElementalAbilityListener listener : elementalListeners){
             listener.waveKilledEnemy();
+        }
+    }
+
+    // broadcasts the wave spawning to all listeners
+    public static void waveEnemySpawned(WaveEnemy waveEnemy) {
+        for (ElementalAbilityListener listener : enemyListeners) {
+            listener.waveEnemySpawned(waveEnemy);
+        }
+    }
+
+    // broadcasts the wave despawning to all listeners
+    public static void waveEnemyDespawned() {
+        for (ElementalAbilityListener listener : enemyListeners) {
+            listener.waveEnemyDespawned();
+        }
+    }
+
+    // broadcasts the fact that the wave killed an enemy to the wave so that it disappears 
+    public static void waveEnemyKilledEnemy(){
+        for (ElementalAbilityListener listener : elementalListeners){
+            listener.waveEnemyKilledEnemy();
         }
     }
 

@@ -158,9 +158,9 @@ public class WaterWizardEnemy extends Enemy {
             int waveY = Math.round(getY()) - 16;
 
             // create Wave enemy
-            Wave waveAttackLeft = new Wave(waveX, waveY, Direction.LEFT);
+            WaveEnemy waveAttackLeft = new WaveEnemy(waveX, waveY, Direction.LEFT);
 
-            Wave waveAttackRight = new Wave(waveX, waveY, Direction.RIGHT);
+            WaveEnemy waveAttackRight = new WaveEnemy(waveX, waveY, Direction.RIGHT);
 
             // add WAVE enemy to the map for it to spawn in the level
             if(previousAnimationName == "SHOOT_LEFT"){

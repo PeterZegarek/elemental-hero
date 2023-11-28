@@ -1,4 +1,4 @@
-package Players;
+package Enemies;
 
 import java.util.HashMap;
 
@@ -16,13 +16,13 @@ import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Direction;
 
-public class Wave extends Enemy {
+public class WaveEnemy extends Enemy {
     private final float movementSpeed = 0;
     private int existenceFrames = 32;
     private Direction startDirection;
     private Direction facingDirection;
 
-    public Wave(float xPos, float yPos, Direction direction) {
+    public WaveEnemy(float xPos, float yPos, Direction direction) {
         super(xPos, yPos, new SpriteSheet(ImageLoader.load("Wave.png"), 32, 67), "RIGHT");
         //direction the wave is facing
         this.startDirection = direction;
@@ -33,7 +33,7 @@ public class Wave extends Enemy {
     @Override
     public void initialize() {
         // This lets other classes know that a wave has been spawned
-        ElementalAbilityListenerManager.waveSpawned(this);
+        ElementalAbilityListenerManager.waveEnemySpawned(this);
         // This is so that it can react when killing something (by disappearing)
         ElementalAbilityListenerManager.addElementListener(this);
         super.initialize();
@@ -50,7 +50,7 @@ public class Wave extends Enemy {
         // if timer is up, set map entity status to REMOVED
         // the camera class will see this next frame and remove it permanently from the map
         if (existenceFrames == 0) {
-            ElementalAbilityListenerManager.waveDespawned();
+            ElementalAbilityListenerManager.waveEnemyDespawned();
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
             // move wave forward
@@ -72,7 +72,10 @@ public class Wave extends Enemy {
 
     // Touched player should not do anything
     @Override
-    public void touchedPlayer(Player player){}
+    public void touchedPlayer(Player player){
+        if(ScreenCoordinator.getGameState() == GameState.LEVEL3)
+            super.touchedPlayer(player);
+    }
 
 
     // As it stands, enemyAttacked is not necessary as the enemies themselves will die if they get hit
@@ -81,7 +84,7 @@ public class Wave extends Enemy {
 
     // If the wave has killed an enemy, it will disappear
     @Override
-    public void waveKilledEnemy(){
+    public void waveEnemyKilledEnemy(){
         //ElementalAbilityListenerManager.waveDespawned();
         //this.mapEntityStatus = MapEntityStatus.REMOVED;
     }

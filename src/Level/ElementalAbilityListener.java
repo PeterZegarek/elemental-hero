@@ -1,5 +1,6 @@
 package Level;
 
+import Enemies.WaveEnemy;
 import Players.PlayerFireball;
 import Players.RockAttack;
 import Players.Wave;
@@ -19,4 +20,8 @@ public interface ElementalAbilityListener {
     void waveSpawned(Wave wave);
     void waveDespawned();
     void waveKilledEnemy();
+
+    void waveEnemySpawned(WaveEnemy WaveEnemy);
+    void waveEnemyDespawned();
+    void waveEnemyKilledEnemy();
 }

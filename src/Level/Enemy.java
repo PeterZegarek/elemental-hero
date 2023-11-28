@@ -8,6 +8,8 @@ import Players.Wave;
 
 import java.util.HashMap;
 
+import Enemies.WaveEnemy;
+
 
 // This class is a base class for all enemies in the game -- all enemies should extend from it
 public class Enemy extends MapEntity implements ElementalAbilityListener {
@@ -15,6 +17,7 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
     //Variable to figure out if there currently is a fireball on the map or not
     protected PlayerFireball activeFireball = null;
     protected Wave activeWave = null;
+    protected WaveEnemy activeWaveEnemy = null;
     protected RockAttack activeRockAttack = null;
 
     protected boolean isOnMap = true;
@@ -58,6 +61,19 @@ public class Enemy extends MapEntity implements ElementalAbilityListener {
 
     @Override
     public void waveKilledEnemy(){}
+
+    @Override
+    public void waveEnemySpawned(WaveEnemy waveEnemy){
+        activeWaveEnemy = waveEnemy;
+    }
+    
+    @Override
+    public void waveEnemyDespawned(){
+        activeWaveEnemy = null;
+    }
+
+    @Override
+    public void waveEnemyKilledEnemy(){}
 
     // Enemy constructors
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
