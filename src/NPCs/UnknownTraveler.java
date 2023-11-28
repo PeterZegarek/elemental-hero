@@ -24,26 +24,39 @@ public class UnknownTraveler extends NPC {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("UnknownTraveler.png"), 37, 47), animation);
         isInteractable = true;
         talkedToTime = 200;
-        if (ScreenCoordinator.getGameState() == GameState.LEVEL1) // Earth Level
-            textbox.setText("BEWARE! Something evil is lurking in the cave!");
-        else if (ScreenCoordinator.getGameState() == GameState.LEVEL2) // Fire Level
-            textbox.setText("Watch out for lava!");
-        else if (ScreenCoordinator.getGameState() == GameState.LEVEL3) // Water Level           
-            textbox.setText("Something 'BIG' lies deep within these waters...");
-        else if (ScreenCoordinator.getGameState() == GameState.LEVEL4) // Electric Level
-            textbox.setText("Watch out for lightning! Might want to jump on the clouds...");
-        else if (ScreenCoordinator.getGameState() == GameState.LEVEL5) // Air Level
-            textbox.setText("It's windy up there! You might get 'popped' out of existence...");
-        else if (ScreenCoordinator.getGameState() == GameState.LEVEL6) // Void Level
-            textbox.setText("This is the ultimate challenge! All your acquired abilities are at your disposal. Use them wisely...");
-           
-        textboxOffsetX = -4;
+        if (ScreenCoordinator.getGameState() == GameState.LEVEL1) { // Earth Level
+            textbox.setText("BEWARE! Something evil is lurking in the cave!                                                   ");
+            textbox.setFontSize(20);
+        }
+        else if (ScreenCoordinator.getGameState() == GameState.LEVEL2) {// Fire Level
+            textbox.setText("Watch out for lava!                      ");
+            textbox.setFontSize(20);
+        }
+        else if (ScreenCoordinator.getGameState() == GameState.LEVEL3) { // Water Level           
+            textbox.setText("Something 'BIG' lies deep within these waters...                                                   ");
+            textbox.setFontSize(20);
+        }
+        else if (ScreenCoordinator.getGameState() == GameState.LEVEL4) { // Electric Level
+            textbox.setText("Watch out for lightning! Might want to jump on the clouds...                                                              ");
+            textbox.setFontSize(20);
+            textbox.setX(60);
+        }
+        else if (ScreenCoordinator.getGameState() == GameState.LEVEL5) { // Air Level
+            textbox.setText("It's windy up there! You might get 'popped' out of existence...                                                                      ");
+            textbox.setFontSize(20);
+        }
+        else if (ScreenCoordinator.getGameState() == GameState.LEVEL6) {// Void Level
+            textbox.setText("                       This is the ultimate challenge! \nAll your acquired abilities are at your disposal. Use them wisely...                                                                    ");
+            textbox.setFontSize(20);
+        }
+        textboxOffsetX = 50;
         textboxOffsetY = -34;
         if ((ScreenCoordinator.getGameState() == (GameState.LEVEL4)) || (ScreenCoordinator.getGameState() == GameState.LEVEL1)){
-            textboxOffsetX = -200;
+            textboxOffsetX = -250;
         }
         if ((ScreenCoordinator.getGameState() == (GameState.LEVEL6))){
-            textboxOffsetX = 30;
+            textboxOffsetX = -150;
+            textboxOffsetY = -60;
         }
     }
 
