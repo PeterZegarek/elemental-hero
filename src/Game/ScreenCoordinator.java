@@ -13,10 +13,8 @@ import Screens.PlayElectricLevelScreen;
 import Screens.PlayAirLevelScreen;
 import Screens.PlayVoidLevelScreen;
 
-/*
- * Based on the current game state, this class determines which Screen should be shown
- * There can only be one "currentScreen", although screens can have "nested" screens
- */
+
+
 public class ScreenCoordinator extends Screen {
 	// currently shown Screen
 	protected Screen currentScreen = new DefaultScreen();
@@ -25,6 +23,9 @@ public class ScreenCoordinator extends Screen {
 	protected static GameState gameState;
 	protected GameState previousGameState;
 
+/* 	//Create an instance of the sound class
+	private Sound backgroundMusic = new Sound();
+*/
 	public static GameState getGameState() {
 		return gameState;
 	}
