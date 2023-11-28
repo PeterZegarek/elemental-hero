@@ -6,6 +6,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import Engine.Sound;
 
 import java.awt.*;
 
@@ -41,6 +42,8 @@ public class MenuScreen extends Screen {
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
+
+        Sound.play(0);
     }
 
     public void update() {

@@ -21,6 +21,7 @@ public class Sound
   private static Clip clip4;
   private static Clip clip5;
   private static Clip clip6;
+  private static Clip clip7;
 
   public Sound(int level){
   }
@@ -48,6 +49,9 @@ public class Sound
     }if (clip6 != null) {
       clip6.stop();
       clip6.flush();
+    }if (clip7 != null) {
+      clip7.stop();
+      clip7.flush();
     }
     //level 2
     if (level == 2){
@@ -142,7 +146,23 @@ public class Sound
     {
       e.printStackTrace();
     }
-
   }
+  
+  //Main screen
+  else if (level == 0)
+  {
+try
+  {
+    //Change the name of the sound file into whatever you want it to be.
+  AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/Menu  Star Fox 64 (1997).wav").getAbsoluteFile());
+  clip7 = AudioSystem.getClip();
+  clip7.open(audioIn);
+  clip7.loop(Clip.LOOP_CONTINUOUSLY);
   }
+catch(UnsupportedAudioFileException | IOException | LineUnavailableException e)
+{
+  e.printStackTrace();
+}
+  }
+}
 }
