@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import Enemies.SlimeEnemy;
 import Enemies.WaterBoss;
 import Enemies.WaterWizardEnemy;
-import EnhancedMapTiles.EndLevelBox;
 import Level.*;
 import NPCs.UnknownTraveler;
 import Tilesets.WaterTileset; // change to WaterTileset
 import Utils.Direction;
-import Utils.Point;
 
 public class WaterMap extends Map{
 
     public WaterMap(){
 
         super("WaterMap.txt", new WaterTileset()); // change to WaterTileset
+        // default is 1,3 
+        // next to boss is 57, 30
         this.playerStartPosition = getMapTile(1,3).getLocation();
 
     }
