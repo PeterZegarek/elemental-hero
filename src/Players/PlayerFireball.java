@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
+import Game.GameState;
+import Game.ScreenCoordinator;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.ElementalAbilityListenerManager;
@@ -72,7 +74,10 @@ public class PlayerFireball extends Enemy {
 
     // Touched player should not do anything
     @Override
-    public void touchedPlayer(Player player){}
+    public void touchedPlayer(Player player){
+        if(ScreenCoordinator.getGameState() == GameState.LEVEL2)
+            super.touchedPlayer(player);
+    }
 
 
     // As it stands, enemyAttacked is not necessary as the enemies themselves will die if they get hit
