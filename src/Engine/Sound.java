@@ -84,7 +84,7 @@ public class Sound
     try
       {
         //Change the name of the sound file into whatever you want it to be.
-      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/").getAbsoluteFile());
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/Old RuneScape Soundtrack- Harmony.wav").getAbsoluteFile());
       clip1 = AudioSystem.getClip();
       clip1.open(audioIn);
       clip1.loop(Clip.LOOP_CONTINUOUSLY);
