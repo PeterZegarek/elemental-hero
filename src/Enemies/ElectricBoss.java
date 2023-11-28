@@ -3,6 +3,7 @@ package Enemies;
 import Builders.FrameBuilder;
 import Enemies.SkeletonBoss.SkeletonState;
 import Engine.ImageLoader;
+import EnhancedMapTiles.EndLevelBox;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -139,6 +140,9 @@ public class ElectricBoss extends Enemy {
             // This makes the enemy disappear
             enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
             electricHitbox.setMapEntityStatus(MapEntityStatus.REMOVED);
+            
+            EndLevelBox endLevelBox = new EndLevelBox(map.getMapTile(68, 24).getLocation());
+            map.addEnhancedMapTile(endLevelBox);
 
         }
     }

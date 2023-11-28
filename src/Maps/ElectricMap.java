@@ -128,9 +128,6 @@ public class ElectricMap extends Map{
         ElectricShooter electricShooter6 = new ElectricShooter(getMapTile(43, 24).getLocation());
         enhancedMapTiles.add(electricShooter6);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(68, 24).getLocation());
-        enhancedMapTiles.add(endLevelBox);
-
 
         return enhancedMapTiles;
 
