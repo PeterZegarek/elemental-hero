@@ -119,7 +119,6 @@ public class ElectricBoss extends Enemy {
     public void createElectricHitbox() {
         electricHitbox = new InvisibleHitbox(startLocation, 1f, startLocation, endLocation);
         map.addEnemy(electricHitbox);
-        System.out.println(electricHitbox);
         isElectricHitboxActive = true;
     }
 
