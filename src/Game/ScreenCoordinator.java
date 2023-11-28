@@ -12,7 +12,7 @@ import Screens.PlayWaterLevelScreen;
 import Screens.PlayElectricLevelScreen;
 import Screens.PlayAirLevelScreen;
 import Screens.PlayVoidLevelScreen;
-
+import Engine.Sound;
 
 
 public class ScreenCoordinator extends Screen {
@@ -23,9 +23,9 @@ public class ScreenCoordinator extends Screen {
 	protected static GameState gameState;
 	protected GameState previousGameState;
 
-/* 	//Create an instance of the sound class
+ 	//Create an instance of the sound class
 	private Sound backgroundMusic = new Sound();
-*/
+
 	public static GameState getGameState() {
 		return gameState;
 	}

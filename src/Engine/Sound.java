@@ -1,4 +1,3 @@
-/*
 package Engine;
 
 
@@ -11,6 +10,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.URL;
+import java.io.File;
 
 
 
@@ -27,7 +27,7 @@ public class Sound
   try
   {
       URL url = this.getClass().getClassLoader().getResource("Resources/Echoes-Of-Doom-_Loop_.wav");
-      AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/Echoes-Of-Doom-_Loop_.wav").getAbsoluteFile());
       clip = AudioSystem.getClip();
       clip.open(audioIn);
       clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -49,4 +49,3 @@ public class Sound
       }
   }
 }
-*/
