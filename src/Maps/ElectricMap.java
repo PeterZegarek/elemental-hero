@@ -2,6 +2,7 @@ package Maps;
 
 import java.util.ArrayList;
 
+import Enemies.ElectricBoss;
 import Enemies.InvisibleEnemy;
 import EnhancedMapTiles.ElectricShooter;
 import EnhancedMapTiles.EndLevelBox;
@@ -10,12 +11,15 @@ import EnhancedMapTiles.LightningCloud;
 import Level.*;
 import NPCs.UnknownTraveler;
 import Tilesets.ElectricTileset;
+import Utils.Direction;
 
 public class ElectricMap extends Map{
 
     public ElectricMap(){
 
         super("ElectricMap.txt", new ElectricTileset()); 
+        // original is 1, 26
+        // to spawn near boss do 49, 27
         this.playerStartPosition = getMapTile(1, 26).getLocation();
 
     }
@@ -40,6 +44,9 @@ public class ElectricMap extends Map{
             InvisibleEnemy invisEnemy = new InvisibleEnemy(getMapTile(x, 28).getLocation());
             enemies.add(invisEnemy);
         }
+
+        ElectricBoss electricBoss = new ElectricBoss(getMapTile(54,18).getLocation(), getMapTile(64,18).getLocation(), Direction.RIGHT);
+        enemies.add(electricBoss);
 
 
         return enemies;
@@ -82,14 +89,22 @@ public class ElectricMap extends Map{
         FastLightningCloud lightningCloud10 = new FastLightningCloud(getMapTile(28,18).getLocation());
         enhancedMapTiles.add(lightningCloud10);
 
+        // these are in the boss arena
+
         FastLightningCloud lightningCloud11 = new FastLightningCloud(getMapTile(52,22).getLocation());
         enhancedMapTiles.add(lightningCloud11);
 
-        FastLightningCloud lightningCloud12 = new FastLightningCloud(getMapTile(59,19).getLocation());
+        FastLightningCloud lightningCloud12 = new FastLightningCloud(getMapTile(59,23).getLocation().addY(40));
         enhancedMapTiles.add(lightningCloud12);
 
         FastLightningCloud lightningCloud13 = new FastLightningCloud(getMapTile(66,21).getLocation());
         enhancedMapTiles.add(lightningCloud13);
+
+        LightningCloud lightningCloud14 = new LightningCloud(getMapTile(56,12).getLocation());
+        enhancedMapTiles.add(lightningCloud14);
+
+        LightningCloud lightningCloud15 = new LightningCloud(getMapTile(62,12).getLocation());
+        enhancedMapTiles.add(lightningCloud15);
 
 
         // These are in the first area where you have to climb up
