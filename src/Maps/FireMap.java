@@ -49,16 +49,16 @@ enemies.add(firewisp1);
 Firewisp firewisp2 = new Firewisp(getMapTile(24, 23).getLocation().addY(5), getMapTile(33,23).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp2);
 
-Firewisp firewisp3 = new Firewisp(getMapTile(54, 6).getLocation().addY(5), getMapTile(59,6).getLocation().addY(5), Direction.LEFT);
+Firewisp firewisp3 = new Firewisp(getMapTile(54, 6).getLocation().addY(5), getMapTile(61,6).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp3);
 
-Firewisp firewisp4 = new Firewisp(getMapTile(10, 6).getLocation().addY(5), getMapTile(19,6).getLocation().addY(5), Direction.LEFT);
+Firewisp firewisp4 = new Firewisp(getMapTile(28, 4).getLocation().addY(5), getMapTile(40,4).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp4);
 
-Firewisp firewisp5 = new Firewisp(getMapTile(20, 6).getLocation().addY(5), getMapTile(27,6).getLocation().addY(5), Direction.LEFT);
+Firewisp firewisp5 = new Firewisp(getMapTile(36, 7).getLocation().addY(5), getMapTile(48,7).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp5);
 
-Firewisp firewisp6 = new Firewisp(getMapTile(28, 6).getLocation().addY(5), getMapTile(33,6).getLocation().addY(5), Direction.LEFT);
+Firewisp firewisp6 = new Firewisp(getMapTile(44, 4).getLocation().addY(5), getMapTile(52,4).getLocation().addY(5), Direction.LEFT);
 enemies.add(firewisp6);
 
 //All of the lava enemy tiles
@@ -165,7 +165,7 @@ enemies.add(lava25);
 Lava lava26 = new Lava(getMapTile(38,23).getLocation());
 enemies.add(lava26);
 
-Fireboss fireboss = new Fireboss(getMapTile(42, 13).getLocation().subtractX(70).subtractY(145), getMapTile(42, 13).getLocation().subtractX(70).subtractY(145), Direction.LEFT);
+Fireboss fireboss = new Fireboss(getMapTile(17, 13).getLocation().subtractX(70).subtractY(145), getMapTile(17, 13).getLocation().subtractX(70).subtractY(145), Direction.LEFT);
        enemies.add(fireboss);
 
 
