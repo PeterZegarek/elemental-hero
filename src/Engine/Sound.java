@@ -104,7 +104,7 @@ public class Sound
     try
       {
         //Change the name of the sound file into whatever you want it to be.
-      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/").getAbsoluteFile());
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/15-Honeycomb-Highway.wav").getAbsoluteFile());
       clip4 = AudioSystem.getClip();
       clip4.open(audioIn);
       clip4.loop(Clip.LOOP_CONTINUOUSLY);
@@ -137,7 +137,7 @@ public class Sound
     try
       {
         //Change the name of the sound file into whatever you want it to be.
-      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Final Battle with Bowser  Super Mario Galaxy (2007).wav").getAbsoluteFile());
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/Final Battle with Bowser  Super Mario Galaxy (2007).wav").getAbsoluteFile());
       clip6 = AudioSystem.getClip();
       clip6.open(audioIn);
       clip6.loop(Clip.LOOP_CONTINUOUSLY);

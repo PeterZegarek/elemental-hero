@@ -336,23 +336,23 @@ public class WaterWizardEnemy extends Enemy {
             put("DEATH", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
                             .withScale(scale)
-                            .withBounds(20, 100, 200, 100)
+                            .withBounds(0,0,0,0)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
                             .withScale(scale)
-                            .withBounds(20, 100, 200, 100)
+                            .withBounds(0,0,0,0)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
                             .withScale(scale)
-                            .withBounds(20, 100, 200, 100)
+                            .withBounds(0,0,0,0)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
                             .withScale(scale)
-                            .withBounds(20, 100, 200, 100)
+                            .withBounds(0,0,0,0)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 4), 20)
                             .withScale(scale)
-                            .withBounds(20, 100, 200, 100)
+                            .withBounds(0,0,0,0)
                             .build(),
             });
         }};

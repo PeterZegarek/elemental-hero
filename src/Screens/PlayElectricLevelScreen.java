@@ -3,6 +3,7 @@ package Screens;
 import Engine.GamePanel;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.Sound;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -30,6 +31,9 @@ public class PlayElectricLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // define/setup map
         map = new ElectricMap();
+
+        // play sound
+        Sound.play(4);
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
