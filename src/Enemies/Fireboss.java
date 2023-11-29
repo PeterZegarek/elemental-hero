@@ -10,7 +10,6 @@ import Level.ElementalAbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntityStatus;
 import Level.Player;
-import Players.PlayerFireball;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -172,9 +171,9 @@ public class Fireboss extends Enemy {
                         }
                         int fireballY = Math.round(getY()) + 4;
 
-                        PlayerFireball fireball1 = new PlayerFireball(fireballX - 115, fireballY + 150, movementSpeed, 150);
-                        PlayerFireball fireball2 = new PlayerFireball(fireballX - 115, fireballY + 100, movementSpeed, 150);
-                        PlayerFireball fireball3 = new PlayerFireball(fireballX - 115, fireballY + 50, movementSpeed, 150);
+                        LargerFireball fireball1 = new LargerFireball(new Point(fireballX - 115, fireballY + 150), movementSpeed, 150);
+                        LargerFireball fireball2 = new LargerFireball(new Point(fireballX - 115, fireballY + 100), movementSpeed, 150);
+                        LargerFireball fireball3 = new LargerFireball(new Point(fireballX - 115, fireballY + 50), movementSpeed, 150);
                         // add fireball enemy to the map for it to spawn in the level
                         map.addEnemy(fireball1);
                         map.addEnemy(fireball2);

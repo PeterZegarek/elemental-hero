@@ -75,8 +75,8 @@ public class PlayerFireball extends Enemy {
     // Touched player should not do anything
     @Override
     public void touchedPlayer(Player player){
-        if(ScreenCoordinator.getGameState() == GameState.LEVEL2)
-            super.touchedPlayer(player);
+        // if(ScreenCoordinator.getGameState() == GameState.LEVEL2)
+        //     super.touchedPlayer(player);
     }
 
 
