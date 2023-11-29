@@ -11,6 +11,7 @@ import Level.PlayerListener;
 import Maps.VoidMap; 
 import Players.Hero;
 import Utils.Point;
+import Engine.Sound;
 
 // This class is for when the platformer game is actually being played
 public class PlayVoidLevelScreen extends Screen implements PlayerListener {
@@ -30,6 +31,8 @@ public class PlayVoidLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // define/setup map
         map = new VoidMap();
+
+        Sound.play(6);
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);

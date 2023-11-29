@@ -25,7 +25,7 @@ public FireMap(){
 
 
 super("FireMap.txt", new FireTileset()); // change to FireTileset
-this.playerStartPosition = getMapTile(42, 13).getLocation();
+this.playerStartPosition = getMapTile(1, 20).getLocation();
 }
 @Override
 public ArrayList<Enemy> loadEnemies() {

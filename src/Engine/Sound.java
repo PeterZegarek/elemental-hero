@@ -137,7 +137,7 @@ public class Sound
     try
       {
         //Change the name of the sound file into whatever you want it to be.
-      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/").getAbsoluteFile());
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Final Battle with Bowser  Super Mario Galaxy (2007).wav").getAbsoluteFile());
       clip6 = AudioSystem.getClip();
       clip6.open(audioIn);
       clip6.loop(Clip.LOOP_CONTINUOUSLY);
