@@ -3,6 +3,7 @@ package Screens;
 import Engine.GamePanel;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.Sound;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -30,6 +31,8 @@ public class PlayAirLevelScreen extends Screen implements PlayerListener {
     public void initialize() {
         // define/setup map
         map = new AirMap();
+
+        Sound.play(5);
 
         // setup player
         this.player = new Hero(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);

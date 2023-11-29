@@ -121,7 +121,7 @@ public class Sound
     try
       {
         //Change the name of the sound file into whatever you want it to be.
-      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/").getAbsoluteFile());
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File("Resources/59. Stadium - Air Glider.wav").getAbsoluteFile());
       clip5 = AudioSystem.getClip();
       clip5.open(audioIn);
       clip5.loop(Clip.LOOP_CONTINUOUSLY);
