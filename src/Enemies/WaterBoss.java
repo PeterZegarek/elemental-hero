@@ -278,37 +278,41 @@ public class WaterBoss extends Enemy {
                                 put("HURT_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(2, 0), 15)
                                                                 .withScale(scale)
-                                                                .withBounds(0, 0, 0, 0)
+                                                                .withBounds(400, 0, 0, 0)
                                                                 .build(),
                                 });
                                 put("DEATH_LEFT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 25)
                                                                 .withScale(scale)
+                                                                .withBounds(400, 0, 0, 0)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 25)
                                                                 .withScale(scale)
+                                                                .withBounds(400, 0, 0, 0)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 25)
                                                                 .withScale(scale)
+                                                                .withBounds(400, 0, 0, 0)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 25)
                                                                 .withScale(scale)
+                                                                .withBounds(400, 0, 0, 0)
                                                                 .build(),
                                 });
                                 put("DEATH_RIGHT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
-                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
                                                                 .withScale(scale)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
@@ -316,7 +320,7 @@ public class WaterBoss extends Enemy {
                                 put("HIDDEN", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(2, 3), 20)
                                                                 .withScale(1)
-                                                                .withBounds(0, 0, 0, 0)
+                                                                .withBounds(400, 0, 0, 0)
                                                                 .build()
 
                                 });
