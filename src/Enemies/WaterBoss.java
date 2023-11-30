@@ -284,40 +284,32 @@ public class WaterBoss extends Enemy {
                                 put("DEATH_LEFT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .build(),
                                 });
                                 put("DEATH_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(1, 0), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 1), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 2), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                                 new FrameBuilder(spriteSheet.getSprite(1, 3), 20)
                                                                 .withScale(scale)
-                                                                .withBounds(0,0,0,0)
                                                                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                                                                 .build(),
                                 });
