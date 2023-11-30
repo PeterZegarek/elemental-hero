@@ -62,8 +62,6 @@ public abstract class Player extends GameObject{
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
-    //adding key to skip level
-    protected Key LEVEL_KEY = Key.L;
     // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
     // adding wave key F
@@ -580,13 +578,7 @@ public abstract class Player extends GameObject{
         
 
 
-        // if((Keyboard.isKeyDown(LEVEL_KEY))){
-        //     //This just completes the level, taken from method updateLevelCompleted()
-        //     for (PlayerListener listener : listeners) {
-        //         listener.onLevelCompleted();
-        //     }
-        //     lives = 3;
-        // }
+        
     }
 
 
