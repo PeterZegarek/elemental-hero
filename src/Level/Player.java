@@ -580,13 +580,13 @@ public abstract class Player extends GameObject{
         
 
 
-        if((Keyboard.isKeyDown(LEVEL_KEY))){
-            //This just completes the level, taken from method updateLevelCompleted()
-            for (PlayerListener listener : listeners) {
-                listener.onLevelCompleted();
-            }
-            lives = 3;
-        }
+        // if((Keyboard.isKeyDown(LEVEL_KEY))){
+        //     //This just completes the level, taken from method updateLevelCompleted()
+        //     for (PlayerListener listener : listeners) {
+        //         listener.onLevelCompleted();
+        //     }
+        //     lives = 3;
+        // }
     }
 
 
