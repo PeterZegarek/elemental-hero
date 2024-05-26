@@ -4,6 +4,7 @@ import Engine.GamePanel;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Sound;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.GameObject;
@@ -62,6 +63,10 @@ public abstract class Player extends GameObject{
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    /* LEVEL SKIP
+        //adding key to skip level
+        protected Key LEVEL_KEY = Key.L;
+    */
     // adding the fireball key F
     protected Key FIREBALL_KEY = Key.F;
     // adding wave key F
@@ -574,10 +579,17 @@ public abstract class Player extends GameObject{
 
             isElectricOnCounter = 150;
             isElectricOn = true;     
+            Sound.startSFX(3);
         }
-        
-
-
+        /* LEVEL SKIP
+            if((Keyboard.isKeyDown(LEVEL_KEY))){
+                //This just completes the level, taken from method updateLevelCompleted()
+                for (PlayerListener listener : listeners) {
+                    listener.onLevelCompleted();
+                }
+                lives = 3;
+            }
+         */
         
     }
 
@@ -590,6 +602,9 @@ public abstract class Player extends GameObject{
         float spawnX =x;
         float spawnY = y-15;
         int existenceFrames = 50;
+        // sound effect
+        Sound.startSFX(5);
+        // end sound effect
         if (direction == Direction.RIGHT){
         spawnX+= 30;
         movementSpeed = 4;
@@ -617,6 +632,9 @@ public abstract class Player extends GameObject{
         float spawnX =x;
         float spawnY = y;
         int existenceFrames = 50;
+        // sound effect
+        Sound.startSFX(1);
+        // end sound effect
         if (direction == Direction.RIGHT){
             spawnX+= 30;
             movementSpeed = 4;
@@ -642,6 +660,9 @@ public abstract class Player extends GameObject{
         float spawnX = x;
         float spawnY = y-40; 
 
+        // sound effect
+        Sound.startSFX(2);
+        // end sound effect
         if(direction==Direction.RIGHT){
             spawnX+=70;
         }
@@ -692,7 +713,8 @@ public abstract class Player extends GameObject{
             // if map entity is an enemy, Check lives, Hurt player if lives > 1, Kill player if collision with 1 life
             //Need 2nd part of if statement so player doesn't get hurt by dead angel when it's falling
             if (mapEntity instanceof Enemy &&(ScreenCoordinator.getGameState()!=GameState.LEVEL5 || AngelBoss.getAngelState()!=AngelState.DEAD || mapEntity instanceof CloudEnemy)){
-                if(lives != 1){                    
+                if(lives != 1){              
+                    Sound.startSFX(0);      
                     playerState = PlayerState.HURT; 
                     lives--;                                                  
                 }
