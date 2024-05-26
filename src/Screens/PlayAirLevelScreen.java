@@ -108,6 +108,7 @@ public class PlayAirLevelScreen extends Screen implements PlayerListener {
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+            Sound.play(-1);
         }
     }
 

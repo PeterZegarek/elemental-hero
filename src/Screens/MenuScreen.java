@@ -6,7 +6,6 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-import Engine.Sound;
 
 import java.awt.*;
 
@@ -15,6 +14,7 @@ public class MenuScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
     protected int menuItemSelected = -1;
+    protected SpriteFont elemental, hero;
     protected SpriteFont playGame, instructions;
     protected SpriteFont credits;
     protected Map background;
@@ -28,15 +28,24 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("PLAY GAME", 225, 180, "Comic Sans", 21, new Color(49, 207, 240));
+        // Logo
+        elemental = new SpriteFont("ELEMENTAL", 48, 10, "Algerian", 72, Color.black);
+        elemental.setOutlineColor(Color.yellow);
+        hero = new SpriteFont("HERO", 262, 100, "Algerian", 72, Color.yellow);
+        hero.setOutlineColor(Color.black);
+
+        // The buttons
+        playGame = new SpriteFont("Play Game", 222, 180, "Comic Sans MS", 20, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        instructions = new SpriteFont("INSTRUCTIONS", 225, 230, "Comic Sans", 21, new Color(49, 207, 240));
+        instructions = new SpriteFont("Instructions", 222, 230, "Comic Sans MS", 20, new Color(49, 207, 240));
         instructions.setOutlineColor(Color.black);
         instructions.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 225, 280, "Comic Sans", 21, new Color(49, 207, 240));
+        credits = new SpriteFont("Credits", 222, 280, "Comic Sans MS", 20, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
+
+        // The background
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         keyPressTimer = 0;
@@ -114,6 +123,8 @@ public class MenuScreen extends Screen {
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
+        elemental.draw(graphicsHandler);
+        hero.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         instructions.draw(graphicsHandler);
